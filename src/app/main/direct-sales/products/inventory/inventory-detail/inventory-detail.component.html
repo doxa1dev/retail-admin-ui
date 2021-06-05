@@ -1,0 +1,27 @@
+<div class="container-inventory-detail">
+  <div class="title-product">
+      <div class="link-icons">
+        <div class="back">
+          <mat-icon (click)="back()">chevron_left</mat-icon>
+          <a href="javascript:void(0);">Product stock history</a>
+          <!-- <div class="product-name">{{productName}}</div> -->
+        </div>
+        <div class="name">{{ProductName}}</div>
+      </div>
+  </div>
+  <div class="inventory-detail-table">
+    <div class="minStock">
+      <div class="quantity">Min. Stock: {{minStock}}</div>
+      <button mat-raised-button (click)="updateMinStock()">Edit Min. Stock</button>
+    </div>
+
+      <ag-grid-angular style="width: 100%; height: 420px" class="ag-theme-balham inventory-all" [rowData]="products"
+          [columnDefs]="columnDefs"  [gridOptions]="gridOptions" floatingFilter=true rowSelection="multiple"
+          (rowDoubleClicked)='onViewProduct($event)' [singleClickEdit]=true [paginationAutoPageSize]=true
+          [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)" (gridSizeChanged)="onGridSizeChanged($event)"
+          [overlayLoadingTemplate]="loadingTemplate"
+          [overlayNoRowsTemplate]="loadingTemplate"
+          [modules]="modules">
+      </ag-grid-angular>
+  </div>
+</div>

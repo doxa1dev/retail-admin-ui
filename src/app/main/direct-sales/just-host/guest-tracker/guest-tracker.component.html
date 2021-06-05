@@ -1,0 +1,15 @@
+<div class="guest-tracker-container">
+    <div class="title">
+        <p>Guest Tracker</p>
+    </div>
+
+    <div class="body">
+        <ag-grid-angular class="ag-theme-balham guest-tracker-all" [rowData]="guestArray" [paginationAutoPageSize]=false
+            [columnDefs]="columnDefs" floatingFilter=true [defaultColDef]="defaultColDef"
+            (gridReady)="onGridReady($event)" (gridSizeChanged)="onGridSizeChanged($event)"
+            [overlayLoadingTemplate]="loadingTemplate" [overlayNoRowsTemplate]="emptyTemplate"
+            [gridOptions]="gridOptions" [infiniteInitialRowCount]="infiniteInitialRowCount" [modules]="modules">
+        </ag-grid-angular>
+    </div>
+
+</div>

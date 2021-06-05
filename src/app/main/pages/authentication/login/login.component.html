@@ -1,0 +1,93 @@
+<div id="login">
+
+    <div id="login-left" >
+
+      <img class="img-doxa" src="assets/doxa.png" alt="">
+      <mat-carousel class="img"
+        timings="250ms ease-in"
+        [autoplay]="true"
+        interval="5000"
+        color="accent"
+        maxWidth="auto"
+        [maintainAspectRatio]="false"
+        slideHeight="100%"
+        proportion="25"
+        slides="2"
+        [loop]="true"
+        [hideArrows]="true"
+        [hideIndicators]="false"
+        [useKeyboard]="true"
+        [useMouseWheel]="false"
+        orientation="ltr"
+      >
+        <mat-carousel-slide
+          #matCarouselSlide
+          *ngFor="let slide of slides; let i = index"
+          [image]="slide.image"
+
+        ></mat-carousel-slide>
+      </mat-carousel>
+
+    </div>
+
+    <div id="login-right" fxLayout="column" fxLayoutAlign="center center">
+
+      <div class="text-center">
+        <h1 style="font-weight: 600;">Welcome</h1>
+        <p style="margin-top: -10px;">We make it easy!</p>
+      </div>
+
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group ">
+          <div class="label" >Email <div id="red"> *</div> </div>
+          <div class="first-example">
+                <input type="text" formControlName="email" id="input-form"
+                placeholder="Enter Email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                pattern="[a-zA-Z0-9!#$%&'*+/=?^_`{|}~\-.]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email is required</div>
+                  <div *ngIf="f.email.errors.pattern">Invalid email</div>
+                </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label" >Password <div id="red"> *</div> </div>
+          <div class="first-example">
+            <input type="password" id="password-field" id="input-form" name="password"
+              formControlName="password" placeholder="Enter Password">
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+            </div>
+
+          </div>
+          <a style="cursor: default;" (click)="nextToForgotPassword()" class="forgot">Forgot Password?</a>
+        </div>
+
+        <div class="text-center">
+          <button class="btn-login" [disabled]='isDisable' >Login</button>
+        </div>
+
+      </form>
+
+
+      <div id="login-top">
+        <mat-error class="error-message" *ngIf="isError">
+              {{message}}
+      </mat-error>
+
+      </div>
+
+
+      <!-- <div class="register text-center">
+        <p>Not a user yet? <a href="#">Register now</a></p>
+      </div> -->
+
+      <div class="footer text-center">
+        <div class="">V1.00.00 | <a href="">Terms of Use </a>| <a href="#"> Privacy Policy</a>| <a href="#"> Contact Us</a> </div>
+        <div class="copyRight"><p>Copyright @ 2019 Doxa Holdings International Pte. Ltd.</p></div>
+      </div>
+
+    </div>
+
+</div>

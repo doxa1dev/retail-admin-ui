@@ -1,0 +1,292 @@
+<div class="naep-detail-container">
+  <div class="title" >
+    <div>
+      <button mat-icon-button  (click) = "back()"><mat-icon>chevron_left</mat-icon></button>
+      <p *ngIf="is_advisor">New Advisor Earning Program (NAEP) Detail</p>
+      <p *ngIf="!is_advisor">Pending Recruitment Detail</p>
+    </div>
+    <span *ngIf="is_advisor">Advisor: {{advisorDetail.name}}</span>
+    <span *ngIf="!is_advisor">Candidate: {{advisorDetail.name}}</span>
+  </div>
+  <div class="row ml-2">
+    <div class="col-lg-8">
+      <div class="advisor-description row">
+
+        <div class="cart-detail">
+          <div class="advisor"  *ngIf="is_advisor"> Advisor Information</div>
+          <div class="advisor" *ngIf="!is_advisor"> Candidate Information</div>
+          <div class="detail">
+            <table>
+              <tr>
+                <td>Name:</td>
+                <td>{{advisorDetail.name}}</td>
+              </tr>
+              <tr>
+                <td>Date Of Birth:</td>
+                <td>{{advisorDetail.dob}}</td>
+              </tr>
+              <tr>
+                <td>Email:</td>
+                <td>{{advisorDetail.email}}</td>
+              </tr>
+              <tr>
+                <td>Phone number:</td>
+                <td>{{advisorDetail.phoneNumber}}</td>
+              </tr>
+              <tr *ngIf="advisorDetail.advisorId !== undefined && advisorDetail.advisorId !== null">
+                <td>Advisor Id:</td>
+                <td>{{advisorDetail.advisorId}}</td>
+              </tr>
+              <br>
+              <tr>
+                <td>Nationality:</td>
+                <td>{{advisorDetail.nation}}</td>
+              </tr>
+              <tr>
+                <td>National ID:</td>
+                <td>{{advisorDetail.nationId}}</td>
+              </tr>
+              <tr>
+                <td>Passport:</td>
+                <td>{{advisorDetail.passport}}</td>
+              </tr>
+              <br>
+              <tr>
+                <td>Address:</td>
+                <td>{{advisorDetail.address1}}</td>
+              </tr>
+              <!-- <tr>
+                <td>Address 2:</td>
+                <td style="padding-left: 15px;">{{advisorDetail.address2}}</td>
+              </tr>
+              <tr>
+                <td>Address 3:</td>
+                <td style="padding-left: 15px;">{{advisorDetail.address3}}</td>
+              </tr>
+              <tr>
+                <td>Postal Code:</td>
+                <td style="padding-left: 15px;">{{advisorDetail.postalCode}}</td>
+              </tr> -->
+              <br>
+              <tr>
+                <td>Bank Code:</td>
+                <td>{{advisorDetail.bankCode}}</td>
+              </tr>
+              <tr>
+                <td>Bank Account:</td>
+                <td>{{advisorDetail.bankAccount}}</td>
+              </tr>
+              <tr>
+                <td>Bank holder:</td>
+                <td>{{advisorDetail.bankHolder}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="naep-status" *ngIf="is_advisor">
+          <div class="time">
+            <div class="left-time">
+
+              <div>Package type:</div>
+              <div>NAEP status:</div>
+              <div>Start of NAEP:</div>
+              <div>End of NAEP:</div>
+            </div>
+
+            <div class="right-time">
+              <div style="width: max-content;">{{detailNAEP.package_name}}</div>
+              <div class="naepStatus" [ngStyle]="{'color':detailNAEP.status === 'COMPLETED' ? 'var(--primary-color)' : (detailNAEP.status  === 'IN PROCESS' ? 'var(--link-color)' : 'var(--red-color)') }"
+              >{{detailNAEP.status}}</div>
+              <div>{{detailNAEP.start}}</div>
+              <div>{{detailNAEP.end}}</div>
+            </div>
+
+            <div class="button-extend-date">
+              <!-- <button mat-raised-button *ngIf="detailNAEP.status === 'IN PROCESS'" (click)='extendDate()'>Extend NAEP date</button> -->
+              <button mat-raised-button  (click)='extendDate()'>Extend NAEP date</button>
+
+            </div>
+          </div>
+
+          <div class="status">
+            <div class="left-status">
+              <p>Sale status</p>
+            </div>
+
+            <div class="right-status">
+              <div class="list" *ngFor="let sale of saleHistory">
+                <div class="list-content">
+                    <div class="list-content-left">
+                        <div class="v2"></div>
+                        <img *ngIf="sale.date !== null" src="assets/icons/doxa-icons/Group_success.svg" alt="">
+                        <img *ngIf="sale.date === null" src="assets/icons/doxa-icons/Group_check.svg" alt="">
+                        <div class="vl"></div>
+                    </div>
+                    <div class="list-content-right">
+                        <p>{{sale.title}}</p>
+                    </div>
+                </div>
+
+                <div class="date-right">
+                  <p *ngIf="sale.date !== null">on {{sale.date | date : "dd/MM/yyyy"}}</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <br>
+          <!-- <div class="time" *ngIf="is_show_refund">
+            <div class="left-time">
+              <div>Refund amount:</div>
+              <div>Refund status:</div>
+            </div>
+
+            <div class="right-time">
+              <div>{{balance | currency: detailNAEP.currency_code + ' ':'symbol':''}}</div>
+              <div *ngIf="detailNAEP.is_refund == false">In Progress</div>
+              <div *ngIf="detailNAEP.is_refund == true">Paid</div>
+
+            </div>
+
+            <div class="button-extend-date" style="margin-top: 0px ;">
+              <button mat-raised-button *ngIf="detailNAEP.is_refund == false" (click)='markAsRefund()'>Mark as Refunded</button>
+
+            </div>
+          </div> -->
+          <div *ngIf="detailNAEP.status === 'COMPLETED'  && is_need_payback_product" >
+
+           <!-- Deposite package -->
+            <div class="cadidate-refund" *ngIf="detailNAEP.is_deposite_package">
+
+              <div class="content" *ngIf="detailNAEP.balance >=0">
+                <div class="left-column" >
+                  <div class="title-right">Candidate Refund to TMM</div>
+                  <div>Refund amount:</div>
+                  <div>Refund status:</div>
+                </div>
+                <div class="right-column" >
+                  <div style="margin-bottom: 10px">{{balance | currency: detailNAEP.currency_code + ' ':'symbol':''}}</div>
+                  <div *ngIf="detailNAEP.is_refund == false" style="color: #0A73EB;font-style: italic;">Not yet</div>
+                  <div *ngIf="detailNAEP.is_refund == true">Paid</div>
+                </div>
+
+                <div class="button-extend-date">
+                  <button *ngIf="detailNAEP.is_refund == false" style="margin-bottom: -30px;" mat-raised-button  (click)='markAsCandidateRefund()'>Mark as Refunded</button>
+                </div>
+              </div>
+
+
+              <div class="content" *ngIf="detailNAEP.balance < 0" >
+
+                <div class="left-column" >
+                  <div class="title-right">Admin Refund to Candidate</div>
+                  <div>Refund amount:</div>
+                  <div>Refund status:</div>
+                </div>
+                <div class="right-column" >
+                  <div style="margin-bottom: 10px">{{balance | currency: detailNAEP.currency_code + ' ':'symbol':''}}</div>
+                  <div *ngIf="detailNAEP.is_refund == false" style="color: #0A73EB;font-style: italic;">Not yet</div>
+                  <div *ngIf="detailNAEP.is_refund == true" style="color: #0A73EB;font-style: italic;">Paid</div>
+
+                </div>
+
+                <div class="button-extend-date">
+                  <button mat-raised-button *ngIf="detailNAEP.is_refund == false" (click)='markAsRefund()'>Mark as Refunded</button>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Kit package -->
+            <div class="cadidate-refund" *ngIf="detailNAEP.is_deposite_package === false ">
+                <div class="content">
+                  <div class="left-column" >
+                    <div class="title-right">Candidate Purchase Discount Product</div>
+                    <div>Purchase amount:</div>
+                    <div>Purchase status:</div>
+                  </div>
+                  <div class="right-column" >
+                    <div style="margin-bottom: 10px">{{balance | currency: detailNAEP.currency_code + ' ':'symbol':''}}</div>
+                    <div *ngIf="!detailNAEP.is_buy_discount && !detailNAEP.mark_buy_discount" style="color: #0A73EB;font-style: italic;">Not yet</div>
+                    <div *ngIf="detailNAEP.is_buy_discount || detailNAEP.mark_buy_discount" style="color: #0A73EB;font-style: italic;">Purchased</div>
+
+                  </div>
+
+                  <div class="button-extend-date">
+                    <button *ngIf="!detailNAEP.is_buy_discount && !detailNAEP.mark_buy_discount" mat-raised-button  style="margin-bottom: -30px;"  (click)='markAsPurchase()'>Mark as Purchased</button>
+                  </div>
+                </div>
+
+            </div>
+
+            <!-- Reward -->
+            <div class="cadidate-refund" *ngIf="detailNAEP.gift && detailNAEP.gift.isCompleted && detailNAEP.gift.checkGift " >
+              <div class="content">
+                <div class="left-column" >
+                  <div class="title-right">Candidate Get Reward
+                  </div>
+                  <div>Status:</div>
+                </div>
+                <div class="right-column" >
+                  <div *ngIf="!detailNAEP.gift.isGetGift && !detailNAEP.gift.isGetGiftBuy" style="color: #0A73EB;font-style: italic;">Not yet</div>
+                  <div  *ngIf="detailNAEP.gift.isGetGift || detailNAEP.gift.isGetGiftBuy" style="color: #0A73EB;font-style: italic;">Already</div>
+
+                </div>
+                <div class="button-extend-date">
+                  <button  *ngIf="!detailNAEP.gift.isGetGift && !detailNAEP.gift.isGetGiftBuy" mat-raised-button  style="margin-bottom: -30px;"  (click)='markAsGetReward()'>Mark as Rewarded</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-lg-4">
+      <div class="naep-detail-available row">
+        <div class="content">
+          <div id="header">
+            <div class="left-header">
+              <div style="margin-bottom: 10px;">Recruiter Name: </div>
+              <div>Recruiter ID: </div>
+            </div>
+            <div class="right-header">
+              <div style="margin-bottom: 10px;">{{recruiterDetail.recruiterCustomerName}}</div>
+              <div>{{recruiterDetail.recruiterCustomerId}}</div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="text" >
+            <div id="status">Recruitment status</div>
+            <div *ngIf="recruiterDetail.recruiterStatus === 'COMPLETED' " id="completed" style= "color: 'var(--primary-color)'">{{recruiterDetail.recruiterStatus}}</div>
+            <div *ngIf="recruiterDetail.recruiterStatus !== 'COMPLETED' " id="completed" style= "color: 'var(--link-color)'">in process</div>
+          </div>
+          <div class="list">
+            <div class="list-content">
+              <div class="list-content-left">
+                <div class="v2"></div>
+                <img src="assets/icons/doxa-icons/Group_success.svg" alt="">
+                <div class="vl"></div>
+              </div>
+              <div class="list-content-right">
+                <p>Recruited by Recruiter</p>
+                <p>({{recruiterDetail.recruiterCustomerName}} / ID: {{recruiterDetail.recruiterCustomerId}})</p>
+                <p>on {{recruiterDetail.createdAt}}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="naep-detail-available row">
+        <div class="content">
+          <p style="font-weight: 600;color: #5a616f;">Update History</p>
+          <mat-divider> </mat-divider>
+          <app-timeline [histories]="history"></app-timeline>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

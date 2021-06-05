@@ -1,0 +1,9 @@
+<div class="shipping-statuses">
+  <div id="table">
+    <h3 *ngIf="shipmentId">Master Shipment ID: {{shipmentId}}</h3>
+    <ag-grid-angular style="width: 97%; height: 250px;" class="ag-theme-balham" [rowData]="rowData"
+      [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" (gridSizeChanged)="onGridSizeChanged($event)"
+      [gridOptions]="gridOptions" [modules]="modules">
+    </ag-grid-angular>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="container-product">
+    <div class="title-product">
+        <p>Products</p>
+        <button mat-raised-button (click)="gotoProduct()">Add Product</button>
+    </div>
+    <div class="product-table">
+        <ag-grid-angular style="width: 100%; height: 420px"
+        class="ag-theme-balham product-all"
+        [rowData]="products"
+        [columnDefs]="columnDefs"
+        [gridOptions]="gridOptions"
+        floatingFilter=true
+        rowSelection="multiple"
+        (rowDoubleClicked)='onViewProduct($event)'
+        [singleClickEdit]=true
+        [paginationAutoPageSize]=true
+        [defaultColDef]="defaultColDef"
+        (gridReady)="onGridReady($event)"
+        (gridSizeChanged)="onGridSizeChanged($event)"
+        [overlayLoadingTemplate]="loadingTemplate"
+        [overlayNoRowsTemplate]="loadingTemplate"
+        [modules]="modules">
+        </ag-grid-angular>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+.axis {
+  font: 14px ;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis-title {
+  fill: none;
+  stroke: black;
+  stroke-width: 0.5px;
+  display: none;
+}
+
+
+.axis--y1 path {
+}
+
+.axis--y1 .tick {
+  display: none;
+  visibility: hidden;
+}
+
+.axis--x1 path {
+
+}
+
+.axis--x1 .tick {
+
+}
+

@@ -1,0 +1,60 @@
+<div class="naep-container">
+  <div class="title-naep">
+    <p>NAEP (New Advisor Earning Program)</p>
+  </div>
+
+  <div class="naep-table">
+    <mat-tab-group md-stretch-tabs class="tabs-naep" [(selectedIndex)]="selectedIndex">
+      <mat-tab>
+
+        <ng-template mat-tab-label>NAEP</ng-template>
+        <ng-template matTabContent>
+        <div class="naep-tab-body">
+            <ag-grid-angular style="width: 100%; height: 625px;"
+            class="ag-theme-balham naep-all"
+            [rowData]="naep"
+            [columnDefs]="columnNAEP"
+            floatingFilter=true
+            rowSelection="multiple"
+            (rowDoubleClicked)="onView($event, 'n' )"
+            [singleClickEdit]=true
+            [defaultColDef]="defaultColDef"
+            (gridReady)="onGridNAEP($event)"
+            (gridSizeChanged)="onGridSizeChanged($event)"
+            [gridOptions]="gridOptions"
+            [overlayLoadingTemplate]="loadingTemplate"
+            [overlayNoRowsTemplate]="loadingTemplate"
+            [groupIncludeFooter]="true"
+            [groupIncludeTotalFooter]="true"
+            [modules]="modules"
+            >
+          </ag-grid-angular>
+        </div>
+      </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <!-- <ng-template mat-tab-label>Pending Recruitment</ng-template> -->
+        <ng-template mat-tab-label>Recruitment List</ng-template>
+        <ng-template matTabContent>
+        <div class="naep-tab-body">
+          <ag-grid-angular style="width: 100%; height: 625px;"  class="ag-theme-balham naep-all"
+          [rowData]="pendingRecruitment" [columnDefs]="columnPendingRecruitment"
+          floatingFilter=true rowSelection="multiple"
+          (rowDoubleClicked)="onView($event , 'rl')"
+          [singleClickEdit]=true [defaultColDef]="defaultColDef"
+          (gridReady)="onGridNAEPPending($event)"
+          [gridOptions]="gridOptions" [paginationAutoPageSize]=true
+          (gridSizeChanged)="onGridSizeChanged($event)"
+          [overlayLoadingTemplate]="loadingTemplate"
+          [overlayNoRowsTemplate]="loadingTemplate"
+          [modules]="modules">
+          </ag-grid-angular>
+        </div>
+      </ng-template>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+</div>
+

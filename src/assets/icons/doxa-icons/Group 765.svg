@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+  <g id="Group_765" data-name="Group 765" transform="translate(-264 -1208.224)">
+    <g id="Profile" transform="translate(264 1220.224)">
+      <path id="Profile-2" data-name="Profile" d="M0,6V5.25c0-.825,1.35-1.5,3-1.5s3,.675,3,1.5V6ZM1.5,1.5A1.5,1.5,0,1,1,3,3,1.5,1.5,0,0,1,1.5,1.5Z" fill="#000000"/>
+    </g>
+    <g id="Profile-3" data-name="Profile" transform="translate(270 1208.224)">
+      <path id="Profile-4" data-name="Profile" d="M0,6V5.25c0-.825,1.35-1.5,3-1.5s3,.675,3,1.5V6ZM1.5,1.5A1.5,1.5,0,1,1,3,3,1.5,1.5,0,0,1,1.5,1.5Z" fill="#000000"/>
+    </g>
+    <g id="Profile-5" data-name="Profile" transform="translate(276 1220.224)">
+      <path id="Profile-6" data-name="Profile" d="M0,6V5.25c0-.825,1.35-1.5,3-1.5s3,.675,3,1.5V6ZM1.5,1.5A1.5,1.5,0,1,1,3,3,1.5,1.5,0,0,1,1.5,1.5Z" fill="#000000"/>
+    </g>
+    <path id="Path_804" data-name="Path 804" d="M-285,1289.037V1286h12.149v3.037" transform="translate(552.037 -68.888)" fill="none" stroke="#707070" stroke-width="0.5"/>
+    <line id="Line_6" data-name="Line 6" y2="3" transform="translate(273 1214.224)" fill="none" stroke="#707070" stroke-width="0.5"/>
+  </g>
+</svg>

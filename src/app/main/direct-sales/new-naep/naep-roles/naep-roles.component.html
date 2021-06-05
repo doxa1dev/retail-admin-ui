@@ -1,0 +1,32 @@
+<div class="container-naep-roles">
+    <div class="title-naep-roles">
+        <p>Admin Roles</p>
+    </div>
+    <div class="naep-role-table">
+        <ag-grid-angular style="width: 100%; height: 420px"
+        class="ag-theme-balham naep-process-all"
+        [rowData]="listAdminRole"
+        [columnDefs]="columnDefs"
+        [gridOptions]="gridOptions"
+        floatingFilter=true
+        rowSelection="multiple"
+        [singleClickEdit]=true
+        [paginationAutoPageSize]=true
+        [defaultColDef]="defaultColDef"
+        (gridReady)="onGridReady($event)"
+        (gridSizeChanged)="onGridSizeChanged($event)"
+        [overlayLoadingTemplate]="loadingTemplate"
+        [overlayNoRowsTemplate]="loadingTemplate"
+        [modules]="modules">
+        </ag-grid-angular>
+    </div>
+    <div class="btn-button-create-naep-packages-container" style="padding-top: 10px; margin-top: 20px;">
+        <div class="btn-back" fxFlex="1 0 auto" fxLayout="row">
+            <button mat-raised-button (click)="back()">BACK</button>
+        </div>
+        <div class="btn-save" fxFlex="0 1 auto" fxLayout="row">
+          <!-- <button class="btn-delete" (click)="deleteNAEP()" mat-raised-button>DELETE</button> -->
+          <button mat-raised-button (click)="test()">UPDATE</button>
+        </div>
+      </div>
+  </div>

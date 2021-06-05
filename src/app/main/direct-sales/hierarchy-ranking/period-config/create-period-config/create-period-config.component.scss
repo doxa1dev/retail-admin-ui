@@ -1,0 +1,314 @@
+
+@import "src/@fuse/scss/fuse";
+
+:host {
+    height: 100%;
+    width: 100%;
+    ::ng-deep .ui-dropdown{
+        width: 80%;
+        height: 40px;
+        border: 1px solid #707070;
+        border-radius: 6px;
+    }
+    ::ng-deep .ui-dropdown-label{
+      margin-top: 2px;
+      width: 100%;
+    }
+    ::ng-deep p-calendar {
+
+      .ui-calendar {
+          display: flex !important;
+          padding: 6px;
+          border-radius: 8px !important;
+          border: solid 1px #707070;
+          border-radius: 6px;
+          height: 40px;
+          width: 350px !important;
+
+          input {
+              width: 90%;
+              border: none !important;
+              border-right: none !important;
+              flex-grow: 1 !important;
+              transition: none;
+              box-shadow: none;
+              border-radius: 6px !important;
+
+              &:enabled:focus:not(.ui-state-error) {
+                  box-shadow: none;
+                  border-color: var(--border-color);
+              }
+          }
+
+          .ui-button:enabled:hover {
+              background-color: unset;
+              color: #ffffff;
+          }
+
+          button {
+              background-color: #fff;
+              border: none !important;
+
+              .ui-button-icon-left {
+                  color: #269A3E;
+                  height: 1.2rem;
+              }
+
+              .ui-button-text {
+                  margin-right: 2.5px;
+                  margin-bottom: 0.5px;
+
+                  &:enabled:active,
+                  &:enabled:hover {
+                      color: #ffffff;
+                  }
+              }
+
+              &:enabled:focus:not(.ui-state-error) {
+                  box-shadow: none;
+                  border-color: var(--border-color);
+              }
+          }
+
+          .ui-datepicker {
+              .ui-state-active {
+                  background-color: #269A3E;
+                  border: 0.5px solid var(--border-color);
+                  border-radius: 6px;
+              }
+          }
+      }
+    }
+    ::ng-deep .ui-dropdown-trigger{
+      border-right: 0;
+      border-top: 0;
+      border-bottom: 0;
+      cursor: pointer;
+      width: 1.5em;
+      height: 90%;
+      position: absolute;
+      right: 2%;
+      top: 5%;
+    }
+    ::ng-deep .ui-corner-top{
+        background-color: #707070;
+    }
+    ::ng-deep .ui-inputgroup-addon{
+        height: 40px;
+    }
+    ::ng-deep .ui-inputgroup{
+        width: 80%;
+    }
+    ::ng-deep .ui-inputtext{
+        border: none;
+    }
+
+    ::ng-deep .ui-inputnumber{
+      width: 100%;
+    }
+
+    ::ng-deep .ui-inputnumber-input{
+      height: 40px;
+      width: 100%;
+      border: 1px solid #707070;
+      border-radius: 6px;
+      padding-left: 10px;
+    }
+
+    ::ng-deep .ui-inputnumber-button{
+      background-color: white;
+      border: 1px white;
+      color: #707070;
+    }
+
+    ::ng-deep .ui-inputnumber-button-group{
+      height: 36px;
+      margin-left: -10%;
+      margin-top: 2px;
+    }
+
+    ::ng-deep .ui-button:enabled:hover{
+      background-color: white;
+      border: 1px white;
+      color: #707070;
+    }
+}
+.create-period-config-container{
+    height: 100%;
+    width: 100%;
+    background-color: #F5F5F5;
+    // margin: 0px auto;
+    // margin-bottom: 20px;
+    .title{
+        margin-bottom:20px;
+        height: 80px;
+        display: block;
+        div{
+          padding-top: 20px;
+          span{
+              color: var(--text-color);
+              font-size: var(--back-label);
+          }
+        }
+        p{
+          padding-left: 40px;
+          font-size: var(--header-page);
+          font-weight: 500;
+          margin-top: 0px;
+          color: var(--text-color);
+        }
+    }
+    .title-description{
+        padding: 5px;
+        height: 300px;
+        .cart{
+            padding: 20px 32px 32px 32px;
+            width: 100%;
+            height: auto;
+            background-color: white;
+            color: #5A616F;
+            box-shadow: 0px 2px 8px #00000029;
+          .naep{
+            font-size: var(--text-color);
+            margin-bottom: 10px;
+          }
+          mat-divider{
+            margin-top: 15px;
+          }
+          .title-input{
+            display: flex;
+            input{
+              width: 350px !important;
+              border: 1px solid #707070;
+              border-radius: 6px;
+              margin-bottom: 10px;
+              height: 40px;
+              font-size: var(--input-text);
+            }
+            .consolidated {
+              color: #269a3c;
+            }
+            .consolidating {
+              color: #F6B041;
+            }
+            .not-applicable {
+              color: var(--red-color);
+            }
+            .button {
+              margin-left: 100px !important;
+              background-color: #7DA863;
+              color: white;
+              border-radius: 6px;
+            }
+            p {
+                font-size: var(--label-input);
+                margin-top: 10px;
+                width: 20%;
+            }
+
+          }
+
+          .error-message{
+
+          }
+
+          .period-length-input{
+            margin-top: 15px;
+            display: flex;
+            p {
+              font-size: var(--label-input);
+              margin-top: 10px;
+              // margin-right: 40px;
+              width: 20%;
+            }
+            p-inputNumber{
+              width: 49.5%;
+              border-radius: 6px;
+              margin-bottom: 10px;
+              height: 40px;
+              font-size: var(--input-text);
+            }
+
+            p-dropdown {
+              width: 63% !important;
+              border-radius: 6px;
+              margin-bottom: 10px;
+              height: 40px;
+              font-size: var(--input-text);
+            }
+          }
+        }
+    }
+
+
+    .history-available{
+        padding: 5px;
+        height: 500px;
+        overflow-y: scroll;
+        .content{
+            margin-bottom: 55px;
+            padding: 20px;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0px 2px 8px #00000029;
+            #header{
+                color: #5A616F;
+                font-size: 14px;
+                font-weight: 600;
+            }
+            #text{
+              color: #5A616F;
+              font-size: 12px;
+
+            }
+            mat-divider{
+              margin-top: -5px;
+              height: 5px;
+            }
+        }
+    }
+
+    .btn-button-create-period-config-container{
+      background-color: white;
+      position: absolute;
+      display: flex;
+      bottom: 0 !important;
+      width: 100%;
+      height: 64px;
+      padding: 10px 32px;
+      text-align: center;
+      border-top: solid 1px #707070;
+      button{
+          width: 130px;
+          height: 40px;
+          border-radius: 5px;
+          text-align: center;
+      }
+      .btn-back{
+          // background-color: red;
+          button{
+              border: solid 1px #7DA863;
+              color: #7DA863;
+          }
+      }
+      .btn-save{
+          // background-color: green;
+          button{
+              background-color: #7DA863;
+              color: white;
+          }
+          .btn-disabled{
+              background-color: grey;
+              pointer-events: none;
+          }
+          .btn-delete{
+            background-color: #DE3535 ;
+            margin-right: 20px;
+          }
+      }
+
+    }
+
+}
+
+@import '~bootstrap/dist/css/bootstrap.min.css';

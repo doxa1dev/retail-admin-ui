@@ -1,0 +1,32 @@
+@import "src/@fuse/scss/fuse";
+div{
+    height: 48px;
+    width: 100%;
+    padding-left: 10px;
+    display: block;
+    margin: 0px auto;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    position: relative;
+    mat-icon{
+        margin: 0;
+        position: absolute;
+        top: 50% !important;
+        left: 6% !important;
+        transform: translate(-50%, -50%);
+        color: #DE3535;
+    }
+    .alertMessage{
+        position: absolute;
+        top: 50% !important;
+        left: 58% !important;
+        transform: translate(-50%, -50%);
+        color: #DE3535;
+        font-size: 12px;
+        font-weight: 500;
+    }
+}
+
+@import "../../../../assets/styles/bootstrap_customizations.scss";
+@import "../../../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../../../../node_modules/bootstrap/scss/bootstrap.scss";

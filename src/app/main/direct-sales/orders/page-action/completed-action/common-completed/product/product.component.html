@@ -1,0 +1,76 @@
+<div *ngIf="!checkProduct" style="padding: 10px; border-bottom: 0.5px solid #707070;">
+  <div class="clear">
+    <div id="img-product">
+      <img id="" src="{{storageUrl}}{{product.cover_photo_key}}">
+    </div>
+    <div id="detail-product">
+      <div id="name-product">
+        <p id="nameProd">{{product.productName}}</p>
+        <span id="sku"><span>SKU:</span> {{product.sku}}</span>
+        <div *ngIf="product.listedPrice" id="oldPrice">{{product.listedPrice | currency:product.currencyCode+' '}}</div>
+        <div *ngIf="product.promotionalPrice" id="newPrice">
+          {{product.promotionalPrice | currency:product.currencyCode+' '}}</div>
+      </div>
+      <div *ngIf="product.list_serial_number.length > 0">
+        <p>Serials Number :</p>
+        <p *ngFor="let item of product.list_serial_number">{{item}}</p>
+      </div>
+
+      <!-- show product kit -->
+      <div *ngIf="product.is_kit">
+        <div id="name-product" *ngFor="let kit of product.productKit">
+          <p id="nameProd">{{kit.name}}</p>
+          <span id="sku"><span>SKU:</span> {{kit.sku}}</span>
+          <!-- <div *ngIf="kit.promotionalPrice" id="newPrice">
+            {{kit.promotionalPrice | currency: kit.currencyCode + ' '}}</div> -->
+        </div>
+      </div>
+      <div *ngIf="product.is_host_gift">
+        <div id="name-product" *ngFor="let gift of product.productGift">
+          <p id="nameProd">{{gift.name}}</p>
+          <p *ngIf="gift.sku" id="sku">SKU: {{gift.sku}}</p>
+        </div>
+      </div>
+      <div id="another-detail">
+        <!-- <p *ngIf="product.language">Language: {{product.language}}</p>
+                <p *ngIf="product.properties.id">Advisor ID: {{product.properties.id}}</p>
+                <p *ngIf="product.properties.name">Advisor Name: {{product.properties.name}}</p> -->
+        <p *ngIf="product.quantity" class="product-quantity"><b>x {{product.quantity}}</b></p>
+      </div>
+    </div>
+  </div>
+  <div class="clear">
+    <div id="detail-gift">
+      <div *ngIf="this.single_full_paymt_gifts">
+        <mat-card *ngFor="let gift of this.single_full_paymt_gifts">
+          <mat-card-header>
+            <mat-card-title class="card-title">
+              {{SINGLE_FULL_PAYMENT_GIFT}}
+            </mat-card-title>
+            <mat-card-subtitle class="card-subtitle">
+              {{gift.name}}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="card-content">
+            x {{gift.quantity}}
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div *ngIf="this.online_bank_transfer_gifts">
+        <mat-card *ngFor="let gift of this.online_bank_transfer_gifts">
+          <mat-card-header>
+            <mat-card-title class="card-title">
+              {{ONLINE_BANK_TRANSFER_PAYMENT_GIFT}}
+            </mat-card-title>
+            <mat-card-subtitle class="card-subtitle">
+              {{gift.name}}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="card-content">
+            x {{gift.quantity}}
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

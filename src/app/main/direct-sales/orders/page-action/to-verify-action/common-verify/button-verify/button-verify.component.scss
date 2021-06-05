@@ -1,0 +1,51 @@
+.to-verify{
+  display: flex;
+  width: 90%;
+  margin-top: 20px;
+  margin: 0 auto;
+  .button-mark-as-verified{
+    margin-left: auto !important;
+    padding-right: 30px;
+
+    .verified-button{
+      float: right;
+      margin-bottom: 20px !important;
+      background-color: #7DA863;
+      color: white;
+      border: 1px solid #7DA863;
+      padding-left: 35px !important;
+      padding-right: 35px !important;
+      font-size: 14px;
+
+    }
+
+    .disable{
+      float: right;
+      margin-bottom: 20px !important;
+      background-color: grey;
+      color: white;
+      border: 1px solid grey;
+      padding-left: 35px !important;
+      padding-right: 35px !important;
+      font-size: 14px;
+    }
+  }
+  .button-cancel{
+    .cancel-button{
+      background-color: #DE3535;
+      color: white;
+      border: 1px solid #DE3535;
+      padding-left: 46px !important;
+      padding-right: 46px !important;
+      font-size: 14px;
+    }
+    .disable{
+      background-color: grey;
+      color: white;
+      border: 1px solid grey;
+      padding-left: 46px !important;
+      padding-right: 46px !important;
+      font-size: 14px;
+    }
+  }
+}

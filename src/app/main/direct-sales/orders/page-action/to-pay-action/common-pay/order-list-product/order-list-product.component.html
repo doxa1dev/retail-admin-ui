@@ -1,0 +1,10 @@
+<div class="order-list-product">
+    <div class ="order-product" *ngFor="let product of listProduct">
+        <app-product [paid]="paid" [product] = "product"
+        (onChangePrice)="onChangePrice()"
+        [checkOrderLock] = 'checkOrderLock'
+        [checkLock] = "checkLock"
+        [orderId] = "orderId"
+        ></app-product>
+    </div>
+</div>

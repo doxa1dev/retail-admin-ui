@@ -1,0 +1,46 @@
+<h1 matDialogTitle class="title">VERIFY</h1>
+<hr>
+<div mat-dialog-content class="message">{{confirmMessage}}</div>
+
+<div class="item">
+  <p>Type</p>
+  <p-dropdown  placeholder="Select Type" [(ngModel)]="selectedType"
+  (onChange)="changeType($event)"
+  [ngModelOptions]="{standalone: true}"
+  [options]="entity == 2 ? listTypeMY : listTypeSG" optionLabel="label" [filter]="true" filterBy="label"
+  [virtualScroll]="true">
+</p-dropdown>
+</div>
+
+<div class="item">
+  <p>Method</p>
+  <p-dropdown  placeholder="Select Method" [(ngModel)]="selectedMethod"
+  (onChange)="changeMethod($event)"
+  [ngModelOptions]="{standalone: true}"
+  [options]="listMethod" optionLabel="label" [filter]="true" filterBy="label"
+  [virtualScroll]="true">
+</p-dropdown>
+</div>
+
+<div class="item" *ngIf="checkReference">
+  <p style="margin-top: 0px;">Payment reference (If applicable)</p>
+  <input type="text" [(ngModel)]="paymentRef" placeholder="Enter reference">
+</div>
+<mat-error class="error-message" *ngIf="paymentRef.length == 0 && selectedMethod.id != 'CASH'" style="margin-left: 24%;">
+  Payment reference is required
+</mat-error>
+
+<div class="item" style="margin-top: 10px;">
+  <p>Comments</p>
+  <input style="width: 70%;" type="text" [(ngModel)]="comments" placeholder="Enter comments">
+</div>
+<mat-error class="error-message" *ngIf="(comments == undefined || comments.length == 0) && checkComments" style="margin-left: 24%;">
+  Comments is required
+</mat-error>
+
+<div *ngIf="type === 'APPROVED'" mat-dialog-actions class="pt-approved">
+    <button class="cancel-button-1" mat-button (click)="dialogRef.close(false)">CANCEL</button>
+    <button class="ok-button"
+    [style.background-color]= "buttonGreen"
+    mat-raised-button (click)="submitData()">VERIFY PAYMENT</button>
+</div>

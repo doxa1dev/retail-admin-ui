@@ -1,0 +1,96 @@
+<div class="active-setting-container">
+    <div class="active-setting-title">
+        Active Setting
+    </div>
+    <div class="active-setting-content">
+        <div class="setting-container">
+            <div class="setting-content" [formGroup]="settingForm">
+                <button mat-raised-button class="button-add" (click)="addActivePeriod()">Add Active Period</button>
+                <ng-container
+                    *ngFor="let activeSettingItem of settingForm.get('activeSettingItems')['controls'];let i = index"
+                    [formGroup]="activeSettingItem">
+                    <div class="active-setting-row">
+                        <div [ngClass]="{ 'status': true, 
+                                    'status-upcoming': activeSettingItem.value.status === 'UPCOMING',
+                                    'status-ongoing': activeSettingItem.value.status === 'ONGOING',
+                                    'status-completed': activeSettingItem.value.status === 'COMPLETED'
+                                }">
+                            {{formatStatus(activeSettingItem.value.status)}}
+                        </div>
+                        <div class="content-row select-date">
+                            <div class="content-row_calender">
+                                <div class="label">
+                                    From
+                                </div>
+                                <div class="calender">
+                                    <p-calendar appendTo="body" dateFormat="dd/mm/yy" placeholder='Select day'
+                                        [showIcon]="true" [readonlyInput]="true" showButtonBar="true"
+                                        formControlName="active_at" [minDate]="activeSettingItem.value.minActiveDate"
+                                        [maxDate]="activeSettingItem.value.maxActiveDate"
+                                        (onSelect)="setMinDateExpire(i)" [numberOfMonths]="1">
+                                    </p-calendar>
+                                    <ng-container *ngIf="activeSettingItem.controls.active_at.invalid && showError">
+                                        <div class="invalid-feedback">This value is required</div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="content-row_calender">
+                                <div class="label">
+                                    To
+                                </div>
+                                <div class="calender">
+                                    <p-calendar appendTo="body" dateFormat="dd/mm/yy" placeholder='Select day'
+                                        [showIcon]="true" [readonlyInput]="true" showButtonBar="true"
+                                        formControlName="expired_at" [minDate]="activeSettingItem.value.minExpireDate"
+                                        [maxDate]="activeSettingItem.value.maxExpireDate" (onSelect)="setDateRange(i)"
+                                        [numberOfMonths]="1">
+                                    </p-calendar>
+                                    <ng-container *ngIf="activeSettingItem.controls.expired_at.invalid && showError">
+                                        <div class="invalid-feedback">This value is required</div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-row">
+                            <div class="label">
+                                Select Host Gift
+                            </div>
+                            <div class="value">
+                                <p-multiSelect [virtualScroll]="true" [defaultLabel]="'Select Host Gift Item'"
+                                    [options]="hostGiftItems" filterBy="label" value="item" formControlName="hostGifts">
+                                </p-multiSelect>
+                                <ng-container *ngIf="activeSettingItem.controls.hostGifts.invalid && showError">
+                                    <div class="invalid-feedback">
+                                        Host Gift Item is required.
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="activeSettingItem.value.hostGifts.length > 0">
+                                    <div *ngFor="let item of activeSettingItem.value.hostGifts">
+                                        <div class="result">
+                                            {{item.label}}
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <ng-container
+                            *ngIf="activeSettingItem.value.status !== 'ONGOING' && activeSettingItemsArray.length > 0">
+                            <button mat-raised-button class="button-remove" (click)="deleteItem(i)">Remove Item</button>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="history-container">
+            <div class="history-content">
+                <div>Update History</div>
+                <hr />
+                <app-timeline [histories]="histories"></app-timeline>
+            </div>
+        </div>
+    </div>
+    <div class="active-setting-footer">
+        <button mat-raised-button class="button-cancel" (click)="ngOnInit()">CANCEL</button>
+        <mat-bar-button [options]="barButtonOptions" (btnClick)="save()"></mat-bar-button>
+    </div>
+</div>

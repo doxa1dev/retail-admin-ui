@@ -1,0 +1,72 @@
+<div class="create-naep-type-container">
+  <div class="title">
+    <div>
+      <button mat-icon-button (click)="back()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <span>NAEP Type</span>
+    </div>
+    <p *ngIf="mode === 'UPDATE'">{{typeName}}</p>
+  </div>
+  <div class="row ml-2" style="margin-bottom: 50px;">
+    <div class="col-lg-8">
+      <div class="title-description row">
+        <div class="cart">
+          <div class="title-input">
+            <p>NAEP type name</p>
+            <input type="text" placeholder="Enter Type Name" [(ngModel)]="title">
+
+          </div>
+
+          <mat-error class="error-message" style="margin-left: 21%; display: block;"
+            *ngIf="(title == undefined || title.length == 0) && submitted">
+            NAEP type is required
+          </mat-error>
+
+          <div class="period-length-input">
+            <p>Period Length</p>
+            <!-- <input type="text" placeholder="Days" [(ngModel)]="periodLength"> -->
+            <p-inputNumber [(ngModel)]="periodLength" mode="decimal"
+              [showButtons]="true" [min]="1" [max]="200">
+            </p-inputNumber>
+          </div>
+
+          <div class="period-length-input">
+            <p>Gift (Optional)</p>
+
+            <p-dropdown placeholder="Select a gift" [ngModel]="valueGift"
+            [options]="listGifts" optionLabel="label" [filter]="true" filterBy="label"
+            [virtualScroll]="true" (onChange)="selectGift($event)"></p-dropdown>
+          </div>
+          <!-- <mat-error class="error-message" style="margin-left: 21%; display: block;"
+            *ngIf="(periodLength == undefined || periodLength.length == 0) && submitted">
+            Period Length is required
+          </mat-error> -->
+        </div>
+        <div style="width: 100%; height: auto; background-color: none;">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="history-available row">
+        <div class="content">
+          <p id="header">Update History</p>
+          <mat-divider style="margin-bottom: 10px;"></mat-divider>
+          <app-timeline [histories]="updateHistory"></app-timeline>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn-button-create-naep-type-container" style="padding-top: 10px; margin-top: 20px;">
+    <div class="btn-back" fxFlex="1 0 auto" fxLayout="row">
+      <button mat-raised-button (click)="back()">BACK</button>
+    </div>
+    <div class="btn-save" fxFlex="0 1 auto" fxLayout="row" *ngIf="mode === 'CREATE'">
+      <button (click)="createNAEP()" mat-raised-button>SAVE</button>
+    </div>
+    <div class="btn-save" fxFlex="0 1 auto" fxLayout="row" *ngIf="mode === 'UPDATE'">
+      <!-- <button class="btn-delete" (click)="deleteNAEP()" mat-raised-button>DELETE</button> -->
+      <button (click)="updateNAEP()" mat-raised-button>UPDATE</button>
+    </div>
+  </div>
+

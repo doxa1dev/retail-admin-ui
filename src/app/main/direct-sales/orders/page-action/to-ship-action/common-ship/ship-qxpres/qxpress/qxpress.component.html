@@ -1,0 +1,87 @@
+<div *ngFor="let i of tracking" style=" height: 100%;">
+  <div id ="pdfTable" #pdfTable class="qxpress" style="border: 1px solid black; height: auto;">
+    <div class="logo-qxpress">
+            <table class="tr-qxpress" border="1" style="border-collapse: collapse; border: 1px solid #CCC;">
+              <tr>
+                  <td colspan="6" class="row1">
+                    <div class="title">
+                      <div id="top">For tracking the delivery status.</div>
+                      <div id="bottom">please visit our website <a>https://www.qxpress.net/Customer/PopupTraceParcels</a></div>
+                    </div>
+                    <img src="assets/DoxaImages/logoqxpress.png" alt="">
+                  </td>
+              </tr>
+              <tr class="row2">
+                  <td class="td"  style="width:15%; border-right: hidden;"><div id="col1">Consignee</div></td>
+                  <td colspan="2"  style="width:35%"><div id="col2">{{dataTest.consignee}}</div></td>
+                  <td class="td"  style="width:15% ; border-right: hidden;"><div id="col1">Shipper</div></td>
+                  <td colspan="2" style="width:35%"><div id="col2">{{dataTest.shipper}}</div></td>
+              </tr>
+              <tr class="row2">
+                <td class="td" style="border-right: hidden;"><div id="col1">Tel No.</div></td>
+                <td colspan="2"><div id="col2">{{dataTest.telConsignee}}</div></td>
+                <td class="td" style="border-right: hidden;"><div id="col1">Tel No.</div></td>
+                <td colspan="2"><div id="col1">{{dataTest.telShipper}}</div></td>
+              </tr>
+              <tr class="row2">
+                <td class="td" style="border-right: hidden;"><div id="col1" >Address</div></td>
+                <td colspan="2"><div id="col3" style="font-weight: 600;">{{dataTest.addressConsignee}}</div></td>
+                <td class="td" style="border-right: hidden;"><div id="col1" >Address</div></td>
+                <td colspan="2"><div id="col3">{{dataTest.addressShipper}}</div></td>
+              </tr>
+              <tr class="code" style="text-align: center;">
+                <td ><div id="name">Postal code</div><div id="detail">{{dataTest.postalCode}}</div></td>
+                <td ><div id="name">Area code</div><div id="detail">{{i.areaCode}}</div></td>
+                <td ><div id="name">Destination</div><div id="detail">{{dataTest.destination}}</div></td>
+                <td colspan="2"><div id="name">Registered date</div><div id="detail">{{i.registeredDate}}</div></td>
+                <td style="width:25%"><div id="name">Departure</div><div id="detail">{{dataTest.departure}}</div></td>
+              </tr>
+              <tr class="row3">
+                <td colspan="6"><div id="memo">Memo: {{dataTest.memo}}</div></td>
+              </tr>
+              <tr class="row3">
+                <td colspan="6"><div id="memo">Item Description: {{dataTest.itemDescription}}</div></td>
+              </tr>
+          </table>
+          <div style="display: flex;">
+            <table style="width: 50%; border-collapse: collapse; border: 1px solid #CCC;" border="1">
+              <div *ngFor="let j of i.detailProduct">
+                <tr>
+                  <td style="width:23%; padding-left: 5px;"><div id="col1">Qty: {{j.quantity}} ea</div></td>
+                  <td style="width:55% ;padding-left: 5px;">
+                    <div>Product Name: <b>{{j.productName}}</b></div>
+                    <div *ngIf="j.properties">Variant: <b>{{j.properties}}</b>  </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="width:23%; padding-left: 5px; height: 22px;"></td>
+                </tr>
+              </div>
+              <tr>
+                <td colspan="2" style="width:23%; padding-left: 5px;">
+                  <div style="float: right; font-weight: 600;">Total({{i.total}})</div>
+                </td>
+              </tr>
+            </table>
+            <div style="width: 47%; position: relative; margin-right: 3%;">
+              <div style="text-align: center ; padding-top: 20px ;">
+                <ngx-qrcode  [value] = "i.trackingId"></ngx-qrcode>
+              </div>
+              <div style="text-align: center" >
+                <ngx-barcode *ngFor="let bcValue of i.trackingIdValues" [bc-element-type]="elementType" [bc-value]="bcValue" [bc-format]="format"
+                  [bc-line-color]="lineColor"
+                  [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue" [bc-font-options]="fontOptions"
+                  [bc-font]="font"
+                  [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin"
+                  [bc-font-size]="fontSize" [bc-background]="background"
+                  [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom"
+                  [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
+                </ngx-barcode>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+<!-- <button click="haha()"></button> -->

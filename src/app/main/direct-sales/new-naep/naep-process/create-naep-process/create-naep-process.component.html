@@ -1,0 +1,155 @@
+<div class="create-naep-process-container">
+  <div class="title">
+    <div>
+      <button mat-icon-button (click)="back()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <span>NAEP Process</span>
+    </div>
+    <p *ngIf="mode === 'UPDATE'">{{processName}}</p>
+  </div>
+  <div class="row ml-2" style="margin-bottom: 50px;">
+    <div class="col-lg-8">
+      <div class="title-description row">
+        <div class="cart">
+
+          <div class="title-input">
+            <p>NAEP process name</p>
+            <input type="text" placeholder="Enter Process Name" [(ngModel)]="title">
+          </div>
+          <mat-error class="error-message" style="margin-left: 19%; display: block; margin-bottom: 10px;"
+            *ngIf="(title == undefined || title.length == 0) && submitted">
+            NAEP process name is required
+          </mat-error>
+
+          <div class="title-input">
+            <p>Product Qualifier(s)</p>
+            <p-multiSelect [(ngModel)]="selectedProduct" [virtualScroll]="true"
+              [defaultLabel]="'Select product'"
+              [ngModelOptions]="{standalone: true}"
+              (onChange)="selectedChange($event)"
+              [options]="products" [filter]="true"
+              filterBy="label">
+            </p-multiSelect>
+          </div>
+          <div *ngIf="selectedProduct.length > 0">
+            <div *ngFor="let item of selectedProduct" style="margin-left: 19%; margin-top: 10px; font-weight: 600; font-style: italic;">
+              {{item.name}}
+            </div>
+          </div>
+          <mat-error class="error-message" style="margin-left: 19%; display: block; margin-top: 10px; "
+            *ngIf="selectedProduct.length == 0 && submitted">
+            Product qualifier(s) is required
+          </mat-error>
+
+          <div [formGroup]="priceForm">
+
+            <div class="number-of-sale">
+              <p>Number of sale to complete NAEP</p>
+              <!-- [(ngModel)]="number_sale" -->
+              <p-inputNumber formControlName="number_sale" mode="decimal"
+                [showButtons]="false" [min]="1" [max]="10" (ngModelChange)="onChange()">
+              </p-inputNumber>
+            </div>
+
+            <div class="description-input">
+              <p>Description</p>
+              <!-- [(ngModel)]="description"  -->
+              <input type="text" formControlName="description" placeholder="Enter description">
+            </div>
+
+            <mat-error class="error-message" style="margin-left: 19%; display: block;"
+            *ngIf="priceForm.controls.description.hasError('required')  && submitted">
+            Description is required
+            </mat-error>
+
+            <!-- <div class="description-input">
+              <p>Currency</p>
+
+              <p-dropdown [options]="currency" [(ngModel)]="selectedCurrency" [ngModelOptions]="{standalone: true}"
+                [filter]="true" filterBy="label,value" [virtualScroll]="true">
+                <ng-template let-item pTemplate="selectedItem">
+                  <span style="vertical-align:middle;">{{item.value}}</span>
+                </ng-template>
+                <ng-template let-dial pTemplate="item">
+
+                  <div class="ui-helper-clearfix"
+                    style="display: inline-block; width: 100%;height:25px; overflow-y: hidden;line-height: 25px">
+                    <mat-list-item>
+
+                      <span
+                        style="width:200px;display:inline-block;overflow: hidden;height:25px; vertical-align: middle;">{{dial.label}}</span>
+                      <span style="width:50px;display:inline-block;height:25px; vertical-align: middle;">+
+                        {{dial.value}}</span>
+
+                    </mat-list-item>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </div> -->
+
+            <div class="description-input" style="margin-top: 15px;">
+              <p>Discount price per sales</p>
+
+              <div>
+                <div formArrayName="listPrice" *ngFor="let item of priceForm.get('listPrice')['controls']; let i=index">
+                  <div class="list-price" [formGroupName]="i">
+                    <input class="input-index" formControlName="index_sale" readonly>
+
+                    <div class="input-price">
+                      <!-- <p>{{selectedCurrency}}</p> -->
+                      <input type="text" class="price" formControlName="value" placeholder="0.00" (change)="changeValue($event, i)">
+                    </div>
+                  </div>
+
+                  <mat-error class="error-message" style="margin-left: 19%; display: block;"
+                  *ngIf="priceForm.get('listPrice')['controls'][i].controls.value.hasError('required') && submitted">
+                    Price is required
+                  </mat-error>
+
+                  <mat-error class="error-message" style="margin-left: 19%; display: block;"
+                  *ngIf="priceForm.get('listPrice')['controls'][i].controls.value.hasError('pattern') &&
+                        priceForm.get('listPrice')['controls'][i].controls.value.touched && submitted">
+                    Price must be number
+                  </mat-error>
+
+                  <mat-error class="error-message" style="margin-left: 19%; display: block;"
+                  *ngIf="i != 0 ? (priceForm.get('listPrice')['controls'][i].value.value
+                  >= priceForm.get('listPrice')['controls'][i - 1].value.value) &&
+                  (priceForm.get('listPrice')['controls'][i].controls.value.touched || priceForm.get('listPrice')['controls'][i - 1].controls.value.touched) && submitted : ''">
+                    Value of this field must be smaller than value of upper field
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div style="width: 100%; height: auto; background-color: none;">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="history-available row">
+        <div class="content">
+          <p id="header">Update History</p>
+          <mat-divider style="margin-bottom: 10px;"></mat-divider>
+          <app-timeline [histories]="updateHistory"></app-timeline>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn-button-create-naep-type-container" style="padding-top: 10px; margin-top: 20px;">
+    <div class="btn-back" fxFlex="1 0 auto" fxLayout="row">
+      <button mat-raised-button (click)="back()">BACK</button>
+    </div>
+    <div class="btn-save" fxFlex="0 1 auto" fxLayout="row" *ngIf="mode === 'CREATE'">
+      <button (click)="createNAEPProcess()" mat-raised-button>SAVE</button>
+    </div>
+    <div class="btn-save" fxFlex="0 1 auto" fxLayout="row" *ngIf="mode === 'UPDATE'">
+      <!-- <button class="btn-delete" (click)="deleteNAEP()" mat-raised-button>DELETE</button> -->
+      <button (click)="updateNAEP()" mat-raised-button>UPDATE</button>
+    </div>
+  </div>
+
+

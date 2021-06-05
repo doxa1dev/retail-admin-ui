@@ -1,0 +1,181 @@
+@import "src/@fuse/scss/fuse";
+
+
+:host {
+  ::ng-deep .ag-header{
+    min-height: 0px !important;
+    height: 38px !important;
+  }
+}
+
+.container-warrantied-product {
+  height: auto;
+  width: 100%;
+  background-color: #f5f5f5;
+  margin-bottom: 20px;
+  color: var(--text-color);
+
+  .title {
+    margin-bottom: 20px;
+    height: 80px;
+    div {
+      padding-top: 20px;
+      span {
+        font-size: var(--input-text);
+      }
+    }
+    p {
+      padding-left: 40px;
+      font-size: var(--header-page);
+      font-weight: 600;
+      margin-top: 0px;
+    }
+  }
+
+  .title-description {
+    padding: 0px 10px 10px 10px;
+    display: block;
+
+    .cart-info-1 {
+      padding: 20px 30px 10px 30px;
+      width: 100%;
+      background-color: white;
+      box-shadow: 0px 2px 8px #00000029;
+
+      .type {
+        display: flex;
+        .left-title {
+          width: 50%;
+          margin-bottom: 5px;
+        }
+      }
+    }
+
+    .cart-info-2 {
+      padding: 20px 30px 10px 30px;
+      width: 100%;
+      background-color: white;
+      box-shadow: 0px 2px 8px #00000029;
+
+      .type {
+        display: flex;
+        .left-title {
+          width: 50%;
+          margin-bottom: 5px;
+        }
+      }
+    }
+
+    .cart-customer-info {
+      padding: 20px 30px 10px 30px;
+      width: 100%;
+      background-color: white;
+      box-shadow: 0px 2px 8px #00000029;
+
+      .content {
+        display: flex;
+
+        .right {
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+
+  .warrantied-history {
+    padding: 0px 10px 10px 10px;
+    display: block;
+
+
+    .warrantied-history-body {
+      padding: 10px 30px 10px 30px;
+      width: 100%;
+      background-color: white;
+      box-shadow: 0px 2px 8px #00000029;
+
+      .warrantied-history-title {
+        margin-top: 10px;
+        padding-left: 20px;
+        margin-bottom: 10px;
+        font-size: var(--header-page);
+        font-weight: 600;
+      }
+
+
+      .warrantied-history-tab {
+        .product-list {
+          .ag-header {
+            height: 38px !important;
+            font-size: var(--ag-grid-text);
+            color: black;
+            padding: 5px 0px;
+            display: flex;
+            vertical-align: middle;
+            min-height: 0 !important;
+          }
+          .ag-header-row{
+            height: 0px !important;
+          }
+
+          .ag-header-row [aria-rowindex="2"] {
+            display: none;
+            height: 0px !important;
+          }
+        }
+      }
+
+      .warrantied-comment {
+        .comments {
+          margin-top: 20px;
+          margin-bottom: 0px;
+        }
+        .text-comment {
+          width: 100%;
+          height: 90px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          box-shadow: 1px 1px 1px #999;
+          letter-spacing: 1px;
+          padding: 10px;
+          font-size: var(--input-text);
+          margin-bottom: 20px;
+        }
+      }
+
+      .add-new-record-btn {
+        font-weight: 600;
+        width: 240px;
+        height: 40px;
+        border: solid 1px var(--primary-color);
+        border-radius: 8px;
+        background-color: var(--primary-color);
+        color: white;
+      }
+    }
+  }
+
+  .warrantied-right {
+    .warrantied-content {
+      margin-right: 25px;
+      padding: 20px;
+      width: 100%;
+      background-color: white;
+      box-shadow: 0px 2px 8px #00000029;
+      display: flex;
+      .warrantied-left {
+        margin-right: 15px;
+        p {
+          font-weight: 600;
+        }
+      }
+
+      .warrantied-right {
+        .warrantied-month {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+}
+
+@import "~bootstrap/dist/css/bootstrap.min.css";

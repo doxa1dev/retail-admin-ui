@@ -1,0 +1,269 @@
+
+@import "src/@fuse/scss/fuse";
+
+.container-insight{
+    height: 100%;
+    width: 100%;
+    // padding: 10px;
+    background-color: #F5F5F5;
+    // margin: 0px auto;
+    margin-bottom: 20px;
+    .header{
+      width: 80%;
+      margin: 0 auto;
+      .text{
+          width: 80%;
+          height: 64px;
+          display: flex;
+          margin: 0 auto;
+          margin-bottom: 20px;
+          p{
+            font-size: 18px !important;
+            color: white;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-left: 50px;
+          }
+          .notes{
+            .shape{
+              .src1{
+                width: 40px;
+                height: 40px;
+                margin-left: 50px;
+                display: flex;
+              }
+              .name{
+                margin: 14px;
+                color: white;
+              }
+              .src2{
+                margin-top: -12px;
+                width: 40px;
+                height: 40px;
+                margin-left: 50px;
+                display: flex;
+              }
+            }
+
+          }
+          .calendar{
+            margin-top: 20px;
+            margin-left: auto;
+            display: flex;
+            .fixDate{
+              width: 200px;
+              border: 1px solid #707070;
+              border-radius: 6px 6px 6px 6px!important;
+              margin-right: 20px;
+              margin-bottom: 10px;
+              height: 36px;
+              border-left: 0px 0px !important;
+            }
+            .names{
+              color: white;
+              margin-top: 7px;
+              margin-right: 3px;
+            }
+            p-calendar{
+                  display: flex !important;
+                  // border: solid 1px #707070;
+                  border-radius: 6px;
+                  height: 36px;
+                  background-color: white;
+                  width: 80%;
+                  // border: 1px solid #707070;
+                  input {
+                      padding:8px;
+                      border: none !important;
+
+                      flex-grow: 1 !important;
+                      transition: none;
+                      box-shadow: none;
+                      // border: 1px solid var(--border-color) !important;
+                      border-right: none !important;
+                      border-radius: 6px 0px 0px 6px !important;
+                      &:enabled:focus:not(.ui-state-error) {
+                          box-shadow:none;
+                          border-color: var(--border-color);
+                      }
+
+                  }
+                  button {
+                      background-color: #fff;
+                      border: none !important;
+                      .ui-button-icon-left {
+                          color: #269A3E;
+                          height: 1.2rem;
+                      }
+                      .ui-button-text {
+                          margin-right: 2.5px;
+                          margin-bottom: 0.5px;
+                          &:enabled:active,&:enabled:hover {
+                              color: #ffffff;
+                          }
+                      }
+                      &:enabled:focus:not(.ui-state-error) {
+                          box-shadow:none;
+                          border-color: var(--border-color);
+                      }
+                  }
+            }
+          }
+        }
+
+    }
+    .news-chart{
+        height: 400px;
+        background-color: #7DA863;
+    }
+    .title-description{
+        height: 100%;
+        padding: 5px;
+        .cart{
+            padding: 32px 32px 32px 32px;
+            width: 100%;
+            background-color: white;
+            min-height: 200px;
+            color: var(--text-color);
+            box-shadow: 0px 2px 8px #00000029;
+            p {
+                font-size: var(--header-page);
+            }
+            .mat-error{
+                margin-bottom: 10px;
+            }
+            .insight-table{
+            //   margin: 10px 20px;
+              // width: 100%;
+              height: 100%;
+              background-color: white;
+              // padding: 20px !important;
+              .ag-theme-balham{
+                  font-size: var(--ag-grid-text);
+                  width: 100%;
+                  .ag-has-focus{
+                      border: none !important;
+                      outline: none !important;
+                  }
+                  .ag-cell-focus{
+                      border: none !important;
+                      outline: none !important;
+                  }
+
+              }
+              .insight-all{
+                  .ag-header{
+                      min-height: 73px !important;
+                      font-size: var(--ag-grid-text);
+                      color: black;
+                      padding: 5px 0px;
+                      display: flex;
+                      vertical-align: middle;
+                  }
+                  .ag-row{
+                      height: 100px !important;
+                  }
+                  .ag-header-row[aria-rowindex="2"]{
+                      height: 50px;
+                      .ag-header-cell{
+                          .ag-floating-filter-body{
+                              .ag-input-wrapper{
+                                  .ag-floating-filter-input{
+                                      border-radius: 5px;
+                                  }
+                              }
+                          }
+                      }
+                    //   display: none;
+                      // background-color: red;
+                  }
+                  .ag-header-cell-text[aria-colindex="2"]{
+                      width: 100%;
+                      text-align: center;
+                      // padding: 20px;
+                  }
+                  .ag-cell[aria-colindex="4"]{
+                      text-align: center;
+                      img{
+                          height: auto;
+                          vertical-align: middle !important;
+                      }
+                  }
+              }
+          }
+        }
+
+    }
+    .product-available{
+        padding: 5px;
+        height: 75%;
+        .content{
+            padding: 32px 32px 32px 32px;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0px 2px 8px #00000029;
+            p{
+                color: var(--text-color);
+                font-size: var(--header-page);
+            }
+            mat-checkbox{
+                font-size: 14px;
+            }
+            .top-table{
+                // margin: 10px 20px;
+                // width: 100%;
+                // height: 100%;
+                background-color: white;
+                // padding: 20px !important;
+                .ag-theme-balham{
+                    font-size: var(--ag-grid-text);
+                    width: 100%;
+                    .ag-has-focus{
+                        border: none !important;
+                        outline: none !important;
+                    }
+                    .ag-cell-focus{
+                        border: none !important;
+                        outline: none !important;
+                    }
+
+                }
+                .top-all{
+                    .ag-header{
+                        min-height: 45px !important;
+                        font-size: var(--ag-grid-text);
+                        color: black;
+                        padding: 5px 0px;
+                        display: flex;
+                        vertical-align: middle;
+                    }
+                    .ag-row{
+                        height: 40px !important;
+                    }
+                    .ag-header-row[aria-rowindex="2"]{
+                        display: none;
+                        // background-color: red;
+                    }
+                    .ag-header-cell-text[aria-colindex="2"]{
+                        width: 100%;
+                        text-align: center;
+                        // padding: 20px;
+                    }
+                    .ag-cell[aria-colindex="4"]{
+                        text-align: center;
+                        img{
+                            height: auto;
+                            vertical-align: middle !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+// .chart{
+//     width: 100%;
+//     background-color: #7DA863;
+// }
+// @import '~bootstrap/dist/css/bootstrap.min.css';

@@ -1,0 +1,101 @@
+.button{
+  // background-color: rgb(136, 12, 12);
+  width: 90%;
+  margin: 0 auto;
+  .to-pay{
+    display: flex;
+    // .button-mark-as-paid-and-verified{
+    //   margin-right: 30px;
+    //   margin-left: auto !important;
+    //   margin-bottom: 20px !important;
+    //   .verified-button{
+    //     background-color: white;
+    //     color:#7DA863;
+    //     border: 1px solid #7DA863;
+    //     font-size: 14px;
+    //     @media only screen and (max-width : 1200px) {
+    //       font-size: 12px !important;
+
+    //     }
+    //   }
+    // }
+    .button-mark-as-paid{
+      margin-bottom: 20px !important;
+      margin-left: auto !important;
+      margin-right: 30px;
+      .paid-button{
+        background-color: var(--primary-color);
+        color: white;
+        border: 1px solid var(--primary-color);
+        padding-left: 35px !important;
+        padding-right: 35px !important;
+        font-size: 14px;
+        @media only screen and (max-width : 1200px) {
+          padding-left: 43px !important;
+          padding-right: 45px !important;
+          font-size: 12px;
+        }
+      }
+      .paid-button-disable{
+        background-color: var(--button-disable-background);
+        color: white;
+        border: 1px solid var(--button-disable-background);
+        padding-left: 35px !important;
+        padding-right: 35px !important;
+        font-size: 14px;
+        pointer-events: none;
+        @media only screen and (max-width : 1200px) {
+          padding-left: 43px !important;
+          padding-right: 45px !important;
+          font-size: 12px;
+        }
+      }
+    }
+    .button-cancel{
+      .cancel-button{
+        background-color: #DE3535;
+        color: white;
+        border: 1px solid #DE3535;
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+        font-size: 14px;
+        @media only screen and (max-width : 1200px) {
+          padding-left: 45px !important;
+          padding-right: 45px !important;
+          font-size: 12px;
+        }
+      }
+      .disable{
+        background-color: grey;
+        color: white;
+        border: 1px solid grey;
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+        font-size: 14px;
+        @media only screen and (max-width : 1200px) {
+          padding-left: 45px !important;
+          padding-right: 45px !important;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+
+
+
+
+  .to-unbox-and-host{
+    display: flex;
+    p{
+      margin-left: auto;
+    }
+  }
+
+  .completed{
+    display: flex;
+    p{
+      margin-left: auto;
+    }
+  }
+}

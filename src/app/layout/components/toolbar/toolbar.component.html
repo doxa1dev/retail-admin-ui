@@ -1,0 +1,94 @@
+<mat-toolbar class="p-0 mat-elevation-z1">
+
+  <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+
+      <div class="icons" fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+
+          <!-- <button mat-icon-button class="navbar-toggle-button"
+                  *ngIf="!hiddenNavbar && !rightNavbar" (click)="toggleSidebarOpen('navbar')" fxHide.gt-md> -->
+              <mat-icon class="navbar-toggle-button secondary-text" *ngIf="!hiddenNavbar && !rightNavbar" id="tool" svgIcon="menu-navbar" (click)="toggleSidebarOpen('navbar')" fxHide.gt-md></mat-icon>
+          <!-- </button> -->
+
+      </div>
+
+      <div class="" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
+
+          <!-- Logo theme -->
+
+          <div class="logoThermo mr-8" fxLayout="row" fxLayoutAlign="center center">
+              <img class="Thermo" src="../../../../assets/DoxaImages/thermomix-logo.png">
+          </div>
+
+          <!-- End Logo themme -->
+          <div class="toolbar-separator"></div>
+
+          <button mat-button fxHide fxShow.gt-xs
+                  class="language-button"
+                  [matMenuTriggerFor]="languageMenu">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                  <i class="material-icons">language</i>
+              </div>
+          </button>
+
+          <mat-menu #languageMenu="matMenu" [overlapTrigger]="false">
+
+              <button mat-menu-item *ngFor="let lang of languages" (click)="setLanguage(lang)">
+                  <span fxLayout="row" fxLayoutAlign="start center">
+                      <img class="flag mr-16" [src]="'assets/icons/flags/'+lang.flag+'.png'">
+                      <span class="iso">{{lang.title}}</span>
+                  </span>
+              </button>
+
+          </mat-menu>
+
+          <div class="toolbar-separator" fxHide fxShow.gt-xs></div>
+
+          <button mat-button [matMenuTriggerFor]="userMenu"
+                  class="user-button">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                  <img class="avatar mr-0 mr-sm-16" [src]="imgProfile" style="object-fit: cover;">
+                  <!-- <span class="username mr-12" fxHide fxShow.gt-sm>UserName</span> -->
+                  <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+              </div>
+          </button>
+
+          <mat-menu class="userMenu" #userMenu="matMenu" [overlapTrigger]="false">
+
+            <div style="padding: 5px 16px 10px 16px; color: #5A616F;">
+              <p style="font-weight: 600; margin: 0px;">Logged in as:</p>
+              <p style="width: 160px; word-break: break-word; margin: 0px; width: 200px;">{{profile.email}}</p>
+              <p style="font-weight: 600; margin: 10px 0px 0px 0px;">Company</p>
+              <p style="margin: 0px;">{{profile.company}}</p>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <button mat-menu-item class="profile" (click)="nextProfile()">
+                <mat-icon>person</mat-icon>
+                <span>Change Profile</span>
+            </button>
+
+            <mat-divider></mat-divider>
+
+            <button mat-menu-item class="inbox" fxHide.gt-xs>
+                <mat-icon>mail</mat-icon>
+                <span>Inbox </span>
+            </button>
+
+            <button mat-menu-item class="profile" fxHide.gt-xs>
+              <mat-icon>language</mat-icon>
+              <span>Language</span>
+            </button>
+
+            <button mat-menu-item class="logout" (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Logout </span>
+            </button>
+
+          </mat-menu>
+
+      </div>
+
+  </div>
+
+</mat-toolbar>

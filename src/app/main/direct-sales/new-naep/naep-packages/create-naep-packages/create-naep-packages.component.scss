@@ -1,0 +1,458 @@
+
+@import "src/@fuse/scss/fuse";
+
+:host {
+  ::ng-deep .ui-dropdown{
+      width: 80%;
+      height: 48px;
+      border: 1px solid #707070;
+      border-radius: 6px;
+  }
+  ::ng-deep .ui-corner-top{
+      background-color: #707070;
+  }
+  ::ng-deep .ui-inputgroup-addon{
+      height: 48px;
+      border-color: #707070;
+      padding : 12px !important
+  }
+  ::ng-deep .ui-inputgroup{
+      width: 80%;
+      // padding : 15px !important
+  }
+
+  ::ng-deep .ui-inputtext{
+      border: none;
+  }
+  ::ng-deep .ui-dropdown-label-container{
+      padding: 8px;
+      width: 100%;
+  }
+  ::ng-deep .ui-multiselect{
+      width: 100%;
+      height: 40px;
+      display: block;
+      border: 1px solid #707070;
+      border-radius: 6px;
+
+  }
+  ::ng-deep .ui-multiselect-label{
+      vertical-align: middle;
+      // padding: 0px 10px;
+      height: 40px;
+      width: 100%;
+      padding-left: 1em;
+      font-size: var(--input-text);
+      // margin: 0px;
+      margin : -6px 6px;
+      line-height: 37px;
+      color: #788190;
+  }
+  ::ng-deep .ui-multiselect-item{
+      display: flex !important;
+  }
+  ::ng-deep .ui-multiselect-trigger{
+      border-right: 0;
+      border-top: 0;
+      border-bottom: 0;
+      cursor: pointer;
+      width: 1.5em;
+      height: 90%;
+      position: absolute;
+      right: 2%;
+      top: 5%;
+  }
+
+  ::ng-deep .ui-dropdown .ui-dropdown-label {
+    text-overflow: ellipsis;
+  }
+
+  ::ng-deep .ui-dropdown{
+    border: 1px solid  #707070;
+    width: 100%;
+    // min-width: 0px;
+    line-height: 0.5em;
+    box-shadow: none !important;
+    height: 40px;
+  }
+
+  ::ng-deep .ui-dropdown-trigger{
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+    cursor: pointer;
+    width: 1.5em;
+    margin: -2px;
+    position: absolute;
+    right: 2%;
+    top: 5%;
+  }
+
+  ::ng-deep .mat-slide-toggle-bar {
+    border-radius: 15px !important;
+    height: 20px !important;
+  }
+
+  ::ng-deep .mat-slide-toggle-thumb {
+    margin-top: 3px;
+  }
+
+  ::ng-deep .mat-slide-toggle-content{
+    font-weight: 600;
+  }
+
+  .mat-select-disabled {
+    // ::ng-deep .mat-form-field {
+      background-color: #f0f0f0 !important;
+    // }
+  }
+
+  ::ng-deep .mat-slide-toggle.mat-warn.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: white;
+  }
+
+  ::ng-deep .mat-slide-toggle.mat-warn.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #00A23B;
+  }
+
+  ::ng-deep .mat-slide-toggle.mat-warn.mat-checked:not(.mat-disabled) .mat-slide-toggle-content {
+    color: #00A23B;
+  }
+
+  ::ng-deep .ui-inputnumber{
+    width: 100%;
+  }
+
+  ::ng-deep .ui-inputnumber-input{
+    height: 40px;
+    width: 100%;
+    border: 1px solid #707070;
+    border-radius: 6px;
+    padding-left: 10px;
+  }
+
+  ::ng-deep .ui-inputnumber-button{
+    background-color: white;
+    border: 1px white;
+    color: #707070;
+  }
+
+  ::ng-deep .ui-inputnumber-button-group{
+    height: 36px;
+    margin-left: -18%;
+    margin-top: 2px;
+  }
+
+  ::ng-deep .ui-button:enabled:hover{
+    background-color: white;
+    border: 1px white;
+    color: #707070;
+  }
+}
+.create-naep-packages-container{
+    height: auto;
+    width: 100%;
+    background-color: #F5F5F5;
+    // margin: 0px auto;
+    // margin-bottom: 20px;
+    .title{
+        margin-bottom:20px;
+        height: 80px;
+        display: block;
+        div{
+          padding-top: 20px;
+          span{
+              color: var(--text-color);
+              font-size: var(--back-label);
+          }
+        }
+        p{
+          padding-left: 40px;
+          font-size: var(--header-page);
+          font-weight: 500;
+          margin-top: 0px;
+          color: var(--text-color);
+        }
+    }
+    .title-description{
+        padding: 5px;
+        // height: 300px;
+        .cart{
+            padding: 20px 32px 0px 32px;
+            width: 100%;
+
+            background-color: white;
+            color: #5A616F;
+            box-shadow: 0px 2px 8px #00000029;
+
+            mat-divider{
+              margin-top: 15px;
+            }
+          .title-input{
+            display: flex;
+            input{
+              width: 50%;
+              border: 1px solid #707070;
+              border-radius: 6px;
+              margin-bottom: 10px;
+              height: 40px;
+              font-size: var(--input-text);
+            }
+            p {
+                font-size: var(--label-input);
+                margin-top: 10px;
+                width: 20%;
+                margin-right: 2%;
+            }
+          }
+          .error-message{
+            margin-left: 24%;
+            // margin-top: 0px !important;
+          }
+          .naep-process , .naep-fee , .naep-type{
+            display: flex;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            p-multiSelect{
+              width: 50%;
+
+            }
+            p-dropdown{
+              width: 50%;
+            }
+            p {
+                font-size: var(--label-input);
+                margin-top: 10px;
+                width: 20%;
+                margin-right: 2%;
+            }
+
+          }
+
+          .grace-period{
+
+            margin-top: 5px;
+            .select-period-day{
+              width: 100%;
+              display: flex;
+              .period-days{
+                margin-top: 10px;
+                display: flex;
+                width: 50%;
+                p{
+                  margin-top: 10px;
+                }
+                p-inputNumber{
+                  margin-left: auto;
+                  padding-right: 5px;
+                }
+              }
+
+            }
+          }
+        }
+
+        .button-add{
+          width: 100%;
+          height: auto;
+          background-color: white;
+          color: #5A616F;
+          padding: 0px 32px 15px 32px;
+          .add-naep-deposit-product , .add-advisor-kit{
+            background-color: white;
+            color: #788190;
+            height: 40px;
+            padding: 0px 20px;
+            margin-top: 30px;
+            border-radius: 6px;
+          }
+
+          .deposit-product , .kit-product{
+            display: flex;
+            margin-top: 20px;
+            p-multiSelect{
+              width: 50%;
+              margin-bottom: 5px;
+            }
+            p {
+                font-size: var(--label-input);
+                margin-top: 10px;
+                width: 20%;
+                margin-right: 2%;
+            }
+            mat-icon{
+              margin-left: 30px;
+              margin-top: 6px;
+              cursor: pointer;
+            }
+          }
+          .kit-input{
+            display: flex;
+            margin-top: 15px;
+            input{
+              width: 50%;
+              border: 1px solid #707070;
+              border-radius: 6px;
+              margin-bottom: 5px;
+              height: 40px;
+              font-size: var(--input-text);
+            }
+            p {
+                font-size: var(--label-input);
+                margin-top: 10px;
+                width: 20%;
+                margin-right: 2%;
+            }
+          }
+          .error-message{
+            margin-left: 24%;
+            margin-top: -10px !important;
+          }
+          .description-input{
+            margin-top: 20px;
+            display: flex;
+            p {
+              font-size: var(--label-input);
+              margin-top: 10px;
+              margin-right: 2%;
+              width: 20%;
+            }
+            input{
+              width: 70%;
+              border: 1px solid #707070;
+              border-radius: 6px;
+              margin-bottom: 12px;
+              height: 40px;
+              font-size: var(--input-text);
+            }
+          }
+        }
+    }
+
+
+    .history-available{
+        padding: 5px;
+        height: 500px;
+
+        .content-photo {
+          margin-bottom: 20px !important;
+          height: auto !important;
+          overflow-y: unset !important;
+
+          .up-photo {
+            padding-bottom: 20px;
+            padding-top: 25px;
+            border: dashed #0A73EB;
+
+            .image-photo{
+                text-align: center;
+                img{
+                    object-fit: contain;
+                }
+            }
+            .sub-text{
+                margin-top: 25px;
+                width: 100%;
+                display: grid;
+                text-align: center;
+                p{
+                    display: block;
+                    font-size: 14px;
+                    float: left;
+                }
+                span{
+                    font-size: 14px;
+                    text-decoration: none;
+                    color: #0A73EB;
+                    display: block;
+                    float: right;
+                    // cursor: pointer;
+                    label{
+                        text-decoration: none;
+                        cursor: pointer;
+                    }
+                }
+                margin-bottom: 0px;
+            }
+            .image-condition{
+                text-align: center;
+            }
+          }
+        }
+
+        .content {
+            margin-bottom: 55px;
+            padding: 20px;
+            width: 96%;
+            background-color: white;
+            box-shadow: 0px 2px 8px #00000029;
+            overflow-y: scroll;
+            height: 350px;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+
+            #header{
+                color: #5A616F;
+                font-size: 14px;
+                font-weight: 600;
+            }
+            #text{
+              color: #5A616F;
+              font-size: 12px;
+
+            }
+            mat-divider{
+              margin-top: -5px;
+              height: 5px;
+            }
+        }
+
+        .content::-webkit-scrollbar {
+          display: none;
+        }
+    }
+
+    .btn-button-create-naep-packages-container{
+      background-color: white;
+      position: sticky;
+      display: flex;
+      bottom: 0;
+      width: 100%;
+      height: 64px;
+      padding: 10px 32px;
+      text-align: center;
+      border-top: solid 1px #707070;
+      button{
+          width: 130px;
+          height: 40px;
+          border-radius: 5px;
+          text-align: center;
+      }
+      .btn-back{
+          // background-color: red;
+          button{
+              border: solid 1px #7DA863;
+              color: #7DA863;
+          }
+      }
+      .btn-save{
+          // background-color: green;
+          button{
+              background-color: #7DA863;
+              color: white;
+          }
+          .btn-disabled{
+              background-color: grey;
+              pointer-events: none;
+          }
+          .btn-delete{
+            background-color: #DE3535 ;
+            margin-right: 20px;
+          }
+      }
+
+    }
+
+}
+
+@import '~bootstrap/dist/css/bootstrap.min.css';

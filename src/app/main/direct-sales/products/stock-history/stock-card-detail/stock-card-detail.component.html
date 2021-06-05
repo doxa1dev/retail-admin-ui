@@ -1,0 +1,96 @@
+<div class="container-stock" [formGroup]="formCategory">
+  <div class="title">
+      <div>
+          <button mat-icon-button  (click) = "back()"><mat-icon>chevron_left</mat-icon></button>
+          <span>STOCK CARD</span> <br>
+          <span style="padding-left: 50px;">{{stockCardNumber}}</span>
+      </div>
+      <!-- <p>at {{time | date:"dd/MM/yyyy"}}</p> -->
+  </div>
+  <div class="row ml-2">
+      <div class="col-lg-8">
+          <div class="title-description row">
+              <div class="cart">
+                <div class="type">
+                  <div class="left-title">
+                    <p style="font-weight: 600;">Type:</p>
+                    <p>{{type}}</p>
+                  </div>
+                  <div class="right-title">
+                    <p style="font-weight: 600;">IN/OUT date:</p>
+                    <p>{{inOutDate | date: "dd/MM/yyyy"}}</p>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="table" style="margin-top: 20px; margin-bottom: 20px;">
+                  <ag-grid-angular style="width: 97%; height: 180px;" class="ag-theme-balham stock_detail"
+                  [rowData]="stockCardItem" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"
+                  (gridSizeChanged)="onGridSizeChanged($event)" [singleClickEdit]=true [gridOptions]="gridOptions"
+                  [modules]="modules">
+                  </ag-grid-angular>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="comment">
+                  <p id="haha">Comment: </p>
+                  <p>{{comment}}</p>
+                  <!-- <p>Fullbox: {{fullbox}} </p>
+                  <p style="margin-top: -9px;">Defective packaging: {{defectivePackaging}}</p> -->
+                </div>
+              </div>
+
+          </div>
+
+      </div>
+      <div class="col-lg-4">
+          <div class="product-available row">
+              <div class="content">
+                <div class="left">
+                  <p>Created by:</p>
+                  <p>Created date:</p>
+                </div>
+                <div class="right">
+                  <p>{{adminName}}</p>
+                  <p>{{createdDate | date: "dd/MM/yyyy   hh:mm"}}</p>
+                </div>
+
+              </div>
+          </div>
+
+          <div class="product-classification row">
+              <div class="content">
+                  <p class="main-text">Documents</p>
+                  <div class="detail" *ngFor = "let doc of documents">
+                    <div class="doc-detail">
+                      <div>
+                        <mat-icon style="margin-right: 5px;" svgIcon="document"></mat-icon>
+                      </div>
+                      <a href="javascript:void(0)" (click)="openUrl(doc.value)" >{{doc.name}}</a>
+                    </div>
+                  </div>
+                  <!-- <p-dropdown [options]="categories"></p-dropdown> -->
+              </div>
+              <mat-divider></mat-divider>
+          </div>
+          <!-- <div class="product-classification row" *ngIf="modeEdit">
+              <div class="history">
+                  <p>Update History</p>
+                  <app-timeline [histories] = "arrCategoryHistory"></app-timeline>
+                  <mat-divider> </mat-divider>
+              </div>
+          </div> -->
+      </div>
+  </div>
+  <!-- <div class="btn-button-product">
+      <div class="btn-back" fxFlex="1 0 auto" fxLayout="row">
+          <button mat-raised-button (click) = "back()">BACK</button>
+      </div>
+      <div class="btn-save" fxFlex="0 1 auto" fxLayout="row">
+          <button *ngIf="!modeEdit" [ngClass]="(!formCategory.valid || checkValidateFile || !url) ? 'btn-disabled' : ''" mat-raised-button (click) ="SaveOrUpdateCategory()">SAVE</button>
+          <button *ngIf="modeEdit" mat-raised-button style="background-color: red;" (click) ="deleteCategory()">DELETE</button>
+          <button *ngIf="modeEdit"  [ngClass]="modeChange ? '' : 'btn-disabled'"mat-raised-button style="margin-left: 5px;" (click) ="SaveOrUpdateCategory()">UPDATE</button>
+      </div>
+  </div> -->
+</div>
+

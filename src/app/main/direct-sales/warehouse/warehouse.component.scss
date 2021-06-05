@@ -1,0 +1,198 @@
+:host {
+  ::ng-deep .ui-dropdown {
+    width: 80%;
+    height: 40px;
+    border: 1px solid #707070;
+    border-radius: 6px;
+  }
+  ::ng-deep .ui-corner-top {
+    background-color: #707070;
+  }
+  ::ng-deep .ui-inputgroup-addon {
+    height: 40px;
+  }
+  ::ng-deep .ui-inputgroup {
+    width: 80%;
+  }
+  ::ng-deep .ui-inputtext {
+    border: none;
+  }
+  ::ng-deep .ui-dropdown {
+    height: 40px;
+    display: block;
+    border: 1px solid #707070;
+    border-radius: 6px;
+    width: 100%;
+  }
+  ::ng-deep .ui-dropdown-trigger {
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+    cursor: pointer;
+    width: 1.5em;
+    height: 90%;
+    position: absolute;
+    right: 2%;
+    top: 5%;
+  }
+  ::ng-deep .ag-header {
+    min-height: 0px !important;
+    height: 38px !important;
+    font-size: var(--ag-grid-text);
+    font-weight: 600;
+  }
+  ::ng-deep .ui-dropdown-label {
+    margin-top: 2px;
+    width: 100%;
+  }
+  ::ng-deep .ui-dropdown .ui-dropdown-label {
+    color: var(--text-color);
+    text-overflow: ellipsis;
+  }
+
+  ::ng-deep .ui-multiselect {
+    width: 100%;
+    height: 40px;
+    display: block;
+    border: 1px solid #707070;
+    border-radius: 6px;
+  }
+  ::ng-deep .ui-multiselect-label {
+    vertical-align: middle;
+    height: 36px;
+    width: 95%;
+    margin: 0 auto !important;
+    font-size: var(--input-text);
+    margin: 0px;
+    line-height: 28px;
+    color: #788190 !important;
+  }
+  ::ng-deep .ui-multiselect-trigger {
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+    cursor: pointer;
+    width: 1.5em;
+    height: 90%;
+    position: absolute;
+    right: 2%;
+    top: 5%;
+  }
+
+  p-calendar {
+    ::ng-deep .ui-calendar {
+      display: flex !important;
+      padding: 6px;
+      border-radius: 8px !important;
+      border: solid 1px #707070;
+      border-radius: 6px;
+      height: 40px;
+      width: 80%;
+      input {
+        width: 90%;
+        border: none !important;
+        border-right: none !important;
+        flex-grow: 1 !important;
+        transition: none;
+        box-shadow: none;
+        // border: 1px solid var(--border-color) !important;
+        border-radius: 6px !important;
+        &:enabled:focus:not(.ui-state-error) {
+          box-shadow: none;
+          border-color: var(--border-color);
+        }
+      }
+      button {
+        background-color: #fff;
+        border: none !important;
+        .ui-button-icon-left {
+          color: #269a3e;
+          height: 1.2rem;
+        }
+        .ui-button-text {
+          margin-right: 2.5px;
+          margin-bottom: 0.5px;
+          &:enabled:active,
+          &:enabled:hover {
+            color: #ffffff;
+          }
+        }
+        &:enabled:focus:not(.ui-state-error) {
+          box-shadow: none;
+          border-color: var(--border-color);
+        }
+      }
+      .ui-datepicker {
+        .ui-state-active {
+          background-color: #269a3e;
+          border: 0.5px solid var(--border-color);
+          border-radius: 6px;
+        }
+      }
+    }
+  }
+}
+
+.container-warehouse {
+  width: 100%;
+  background-color: #F5F5F5;
+  margin: 0px auto;
+
+  .title {
+    margin-bottom:20px;
+    height: 80px;
+    div {
+      padding-top: 40px;
+      margin-left: 40px;
+      color: #5A616F;
+      font-size: 16px;
+    }
+  }
+
+  .body-warehouse {
+    padding: 20px 40px 40px 40px;
+    background-color: white;
+    color: #5A616F;
+    box-shadow: 0px 2px 8px #00000029;
+    margin: 15px;
+    height: 80%;
+
+    .today-text {
+      font-weight: 600;
+      margin: 12px !important;
+    }
+
+    p {
+      margin: 20px 10px 10px 12px;
+    }
+
+    .form-day {
+      display: flex;
+      width: 100%;
+
+      .date-text {
+        width: 5%;
+        margin: 12px !important;
+      }
+
+      // p-calendar {
+      //   width: 30%;
+      // }
+    }
+
+    .form-product {
+      display: flex;
+      width: 100%;
+      margin-top: 10px;
+
+      p {
+        width: 5%;
+        margin: 12px !important;
+      }
+
+      p-multiSelect {
+        width: 24%;
+      }
+    }
+  }
+}

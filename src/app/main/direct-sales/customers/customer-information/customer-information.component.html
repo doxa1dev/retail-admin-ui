@@ -1,0 +1,570 @@
+<div class="customer-information">
+
+  <div class="title">
+    <button style="margin-top: 31px;" mat-icon-button (click)="back()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <p>Customer Information</p>
+  </div>
+
+  <div class="row ml-2">
+    <div class="col-lg-8">
+      <div class="customer-description row">
+        <div class="personal-information">
+          <p style="font-weight: 600;">Personal Information</p>
+
+          <div class="content">
+            <table class="table table-borderless">
+              <tr>
+                <td style="width: 20%;">
+                  <p>Full Name:</p>
+                </td>
+                <td style="width: 55%;">
+                  <p>{{nameAsInIC}}</p>
+                </td>
+                <td>
+                  <a (click)="changeName()" style="color: #0A73EB ; cursor: pointer;">{{editOrCloseNameIC}}</a>
+                </td>
+
+              </tr>
+              <tr *ngIf="modeEditOrCloseName">
+                <td colspan="2" class="edit_phone">
+                  <div class="edit">
+                    <p>New Name as in I.C:</p>
+                    <div class="input_phone">
+                      <input type="text" [(ngModel)]="inputName" placeholder="Enter Name as in I.C">
+                      <!-- <button [ngClass]="(inputName == undefined || inputName.length == 0) ? 'btn-disable' : 'btn-active' " (click)= "updateName()">Submit</button> -->
+                      <app-button-loading [disabledBtn]="(inputName == undefined || inputName.length == 0)"
+                        [active]="active"
+                        [ngClass]="(inputName == undefined || inputName.length == 0) ? 'btn-disabled' : ''"
+                        [buttonName]="buttonName" (click)="updateName()">
+                      </app-button-loading>
+                    </div>
+                    <!-- <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                        *ngIf="(inputPhone == undefined || inputPhone.length < 8)">
+                        Phone number is at least 8 characters.
+                      </mat-error> -->
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+
+                <td>
+                  <p>Preferred Name:</p>
+                </td>
+                <td>
+                  <p>{{customer.preferredName}}</p>
+                </td>
+              </tr>
+              <tr>
+
+                <td>
+                  <p>Address:</p>
+                </td>
+                <td>
+                  <p>{{customer.address}}</p>
+                </td>
+              </tr>
+            </table>
+
+
+          </div>
+          <mat-divider></mat-divider>
+
+          <div class="content">
+            <p style="font-weight: 600; margin-top:20px">Account Credentials</p>
+
+            <!-- <table class="table table-borderless">
+              <tr>
+
+                <td style="width: 25%;">
+                  <p>Phone number:</p>
+                </td>
+                <td>
+                  <p>{{phone_number_customer}}</p>
+                </td>
+                <td *ngIf="is_registered == true">
+                  <div class="verify">
+                    <mat-icon style="margin-right: 5px">check_circle</mat-icon>
+                    <p>Verified</p>
+                  </div>
+                </td>
+                <td *ngIf="is_registered == false">
+                  <div class="unverify">
+                    <mat-icon style="margin-right: 5px">error_outline </mat-icon>
+                    <p>Unverified</p>
+                  </div>
+                </td>
+                <td *ngIf="is_registered == false">
+                  <button class="button-verify" (click)="verifyPhone()">Verify now</button>
+                </td>
+                <td>
+                  <a (click)="changePhone()" style="color: #0A73EB ; cursor: pointer;">{{editOrClosePhone}}</a>
+                </td>
+              </tr>
+              <tr *ngIf="modeEditOrClosePhone">
+                <td colspan="2" class="edit_phone">
+                  <div class="edit">
+                    <p>New Phone Number</p>
+                    <div class="input_phone">
+                      <input type="text" [(ngModel)]="inputPhone" (keypress)="keyPressNumbers($event)"
+                        placeholder="Enter Number">
+                      <app-button-loading [disabledBtn]="(inputPhone == undefined || inputPhone.length < 8)"
+                        [active]="activePhone" [buttonName]="buttonName" (click)="updatePhone()">
+                      </app-button-loading>
+                    </div>
+                    <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                      *ngIf="(inputPhone == undefined || inputPhone.length < 8)">
+                      Phone number is at least 8 characters.
+                    </mat-error>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <p>Email:</p>
+                </td>
+                <td>
+                  <p>{{email_customer}}</p>
+                </td>
+                <td *ngIf="is_active == true">
+                  <div class="verify">
+                    <mat-icon style="margin-right: 5px">check_circle</mat-icon>
+                    <p>Verified</p>
+                  </div>
+                </td>
+                <td *ngIf="is_active == false">
+                  <div class="unverify">
+                    <mat-icon style="margin-right: 5px">error_outline</mat-icon>
+                    <p>Unverified</p>
+                  </div>
+                </td>
+                <td *ngIf="is_active == false">
+                  <button class="button-verify" (click)="verifyEmail()">Verify now</button>
+                </td>
+                <td>
+                  <a (click)="changeEmail()" style="color: #0A73EB ; cursor: pointer;">{{editOrCloseEmail}}</a>
+                </td>
+              </tr>
+
+              <tr *ngIf="modeEditOrCloseEmail">
+                <td colspan="2" class="edit_phone">
+                  <div class="edit" [formGroup]="emailForm">
+                    <p>New Email</p>
+                    <div class="input_phone">
+                      <input type="text" formControlName="email" placeholder="Enter Email">
+                      <app-button-loading [disabledBtn]="emailForm.invalid" [active]="activeEmail"
+                        [buttonName]="buttonName" (click)="updateEmail()">
+                      </app-button-loading>
+                    </div>
+                    <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                      *ngIf="emailForm.invalid">
+                      Please enter a valid email address.
+                    </mat-error>
+                  </div>
+                </td>
+              </tr>
+
+            </table> -->
+
+            <div class="content-row">
+              <div class="content-row_label">
+                <div>Phone number:</div>
+              </div>
+              <div class="content-row_value">
+                <div>{{phone_number_customer}}</div>
+              </div>
+              <div class="content-row_status">
+                <ng-container *ngIf="is_registered === true">
+                  <div class="verified">
+                    <mat-icon style="margin-right: 0.25em">check_circle</mat-icon>
+                    <div>Verified</div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="is_registered === false">
+                  <div class="unverified">
+                    <div>
+                      <mat-icon style="margin-right: 0.25em">error_outline </mat-icon>
+                      <div>Unverified</div>
+                    </div>
+                    <!-- <button mat-raised-button class="button-verify" (click)="verifyPhone()">Verify now</button> -->
+                  </div>
+                </ng-container>
+              </div>
+              <div class="content-row_action">
+                <a (click)="changePhone()" style="color: #0A73EB ; cursor: pointer;">{{editOrClosePhone}}</a>
+              </div>
+            </div>
+
+            <ng-container *ngIf="modeEditOrClosePhone">
+              <div class="edit-form">
+                <div class="edit">
+                  <div class="edit-title">New Phone Number</div>
+                  <div class="input-edit">
+                    <input type="text" [(ngModel)]="inputPhone" (keypress)="keyPressNumbers($event)"
+                      placeholder="Enter Number">
+                    <app-button-loading
+                      [disabledBtn]="(inputPhone == undefined || inputPhone.length < 8) || !checkValidPhoneNumber()"
+                      [active]="activePhone" [buttonName]="buttonName" (click)="updatePhone()">
+                    </app-button-loading>
+                  </div>
+                  <mat-error class="error-message" style="margin-left: 0.25em; margin-top: 0.25em; display: block;"
+                    *ngIf="(inputPhone == undefined || inputPhone.length < 8 || !checkValidPhoneNumber())">
+                    Phone number is not valid (At least 8 characters, must be numbers).
+                  </mat-error>
+                </div>
+              </div>
+            </ng-container>
+
+            <div class="content-row">
+              <div class="content-row_label">
+                <div>Email:</div>
+              </div>
+              <div class="content-row_value">
+                <div>{{email_customer}}</div>
+              </div>
+              <div class="content-row_status">
+                <ng-container *ngIf="is_active === true">
+                  <div class="verified">
+                    <mat-icon style="margin-right: 0.25em">check_circle</mat-icon>
+                    <div>Verified</div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="is_active === false">
+                  <div class="unverified">
+                    <div>
+                      <mat-icon style="margin-right: 0.25em">error_outline</mat-icon>
+                      <div>Unverified</div>
+                    </div>
+                    <!-- <button mat-raised-button class="button-verify" (click)="verifyEmail()">Verify now</button> -->
+                  </div>
+                </ng-container>
+              </div>
+              <div class="content-row_action">
+                <a (click)="changeEmail()" style="color: #0A73EB ; cursor: pointer;">{{editOrCloseEmail}}</a>
+              </div>
+            </div>
+
+            <ng-container *ngIf="modeEditOrCloseEmail">
+              <div class="edit-form">
+                <div class="edit" [formGroup]="emailForm">
+                  <div class="edit-title">New Email</div>
+                  <div class="input-edit">
+                    <input type="text" formControlName="email" placeholder="Enter Email">
+                    <app-button-loading [disabledBtn]="emailForm.invalid" [active]="activeEmail"
+                      [buttonName]="buttonName" (click)="updateEmail()">
+                    </app-button-loading>
+                  </div>
+                  <mat-error class="error-message" style="margin-left: 0.25em; margin-top: 0.25em; display: block;"
+                    *ngIf="emailForm.invalid">
+                    Please enter a valid email address.
+                  </mat-error>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="allowEditBankInfo">
+              <div class="content-row">
+                <div class="content-row_label">
+                  <div>Bank Holder:</div>
+                </div>
+                <div class="content-row_value">
+                  <div>{{bankName}}</div>
+                </div>
+                <div class="content-row_status"></div>
+                <div class="content-row_action">
+                  <a (click)="changeBankName()" style="color: #0A73EB ; cursor: pointer;">{{editBankName}}</a>
+                </div>
+              </div>
+
+              <ng-container *ngIf="isEditBankName">
+                <div class="edit-form">
+                  <form class="edit" [formGroup]="bankNameFormGroup" (ngSubmit)="updateBankName()">
+                    <div class="edit-title">New Bank Holder</div>
+                    <div class="input-edit">
+                      <input type="text" formControlName="bankNameFormControl" placeholder="Enter Bank Name">
+                      <app-button-loading [disabledBtn]="bankNameFormGroup.invalid || !bankNameFormGroup.dirty"
+                        [active]="activeBankName" [buttonName]="buttonName">
+                      </app-button-loading>
+                    </div>
+                    <mat-error class="error-message" style="margin-left: 0.25em; margin-top: 0.25em; display: block"
+                      *ngIf="bankNameFormGroup.invalid">
+                      Bank Holder is required.
+                    </mat-error>
+                  </form>
+                </div>
+              </ng-container>
+
+              <div class="content-row">
+                <div class="content-row_label">
+                  <div>Bank Code:</div>
+                </div>
+                <div class="content-row_value">
+                  <div>{{bankCode}}</div>
+                </div>
+                <div class="content-row_status"></div>
+                <div class="content-row_action">
+                  <a (click)="changeBankCode()" style="color: #0A73EB ; cursor: pointer;">{{editBankCode}}</a>
+                </div>
+              </div>
+
+              <ng-container *ngIf="isEditBankCode">
+                <div class="edit-form">
+                  <div class="edit" [formGroup]="bankCodeFormGroup">
+                    <div class="edit-title">New Bank Code</div>
+                    <div class="input-edit">
+                      <div class="dropdown-bank-code">
+                        <p-dropdown formControlName="bankCodeFormControl" filter="true" [options]="listBankCode"
+                          placeholder="Select Bank Code" optionLabel="bank_name">
+                          <ng-template let-item pTemplate="selectedItem">
+                            <span style="vertical-align:middle">{{item.value.bank_code}}</span>
+                          </ng-template>
+                          <ng-template let-dis pTemplate="item">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div>{{dis.value.bank_name}}</div>
+                              <div>{{dis.value.bank_code}}</div>
+                            </div>
+                          </ng-template>
+                        </p-dropdown>
+                      </div>
+                      <app-button-loading [disabledBtn]="bankCodeFormGroup.invalid || !bankCodeFormGroup.dirty"
+                        [active]="activeBankCode" [buttonName]="buttonName" (click)="updateBankCode()">
+                      </app-button-loading>
+                    </div>
+                    <mat-error class="error-message" style="margin-left: 0.25em; margin-top: 0.25em; display: block"
+                      *ngIf="bankCodeFormGroup.invalid">
+                      Bank Code is required.
+                    </mat-error>
+                  </div>
+                </div>
+              </ng-container>
+
+              <div class="content-row">
+                <div class="content-row_label">
+                  <div>Bank Account:</div>
+                </div>
+                <div class="content-row_value">
+                  <div class="d-flex align-items-center justify-content-start">
+                    <div style="min-width: 50%;">{{showBankCode ? bankAccount : bankAccountHidden}}</div>
+                    <ng-container *ngIf="bankAccount">
+                      <button mat-icon-button color="primary" aria-label="Icon button"
+                        (click)='showBankCode = !showBankCode'>
+                        <mat-icon>{{!showBankCode ? 'visibility' : 'visibility_off' }}</mat-icon>
+                      </button>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="content-row_status"></div>
+                <div class="content-row_action">
+                  <a (click)="changeBankAccount()" style="color: #0A73EB ; cursor: pointer;">{{editBankAccount}}</a>
+                </div>
+              </div>
+
+              <ng-container *ngIf="isEditBankAccount">
+                <div class="edit-form">
+                  <form class="edit" [formGroup]="bankAccountFormGroup" (ngSubmit)="updateBankAccount()">
+                    <div class="edit-title">New Bank Account</div>
+                    <div class="input-edit">
+                      <input type="text" formControlName="bankAccountFormControl" placeholder="Enter Bank Account"
+                        (keypress)="onKeyNumber($event)">
+                      <app-button-loading [disabledBtn]="bankAccountFormGroup.invalid || !bankAccountFormGroup.dirty"
+                        [active]="activeBankAccount" [buttonName]="buttonName">
+                      </app-button-loading>
+                    </div>
+                    <mat-error class="error-message" style="margin-left: 0.25em; margin-top: 0.25em; display: block"
+                      *ngIf="bankAccountFormGroup.controls.bankAccountFormControl.hasError('required')">
+                      Bank Account is required.
+                    </mat-error>
+                    <mat-error class="error-message" style="margin-left: 0.25em; margin-top: 0.25em; display: block"
+                      *ngIf="bankAccountFormGroup.controls.bankAccountFormControl.hasError('pattern')">
+                      Bank Account is invalid (must be numbers).
+                    </mat-error>
+                  </form>
+                </div>
+              </ng-container>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+      <div class="questionaire">
+        <div class="list-of-question">
+          <p style="font-weight: 600;">Questionnaires </p>
+          <table class="statusAndEdit">
+            <tr>
+              <td style="width: 30%;">
+                <p>Pre-demo questionnaire: </p>
+              </td>
+              <td style="width: 66%;">
+                <p [ngClass]="
+                QF1CompleteStatus == 'Completed'
+                  ? 'completed'
+                  : 'not-completed'
+              "> {{QF1CompleteStatus}}</p>
+              </td>
+              <td>
+                <a (click)="viewQuestionairePre()"
+                  style="color: #0A73EB ; cursor: pointer;">{{editOrCloseQuestionairePre}}</a>
+              </td>
+            </tr>
+          </table>
+
+          <div style="margin:15px 0 0 15px;" *ngIf="modeEditOrCloseQuestionairePre" class="prequestion-content">
+            <!-- <p style="font-weight: 600;">Guest</p>
+            <tr>
+              <td style="width: 30%;">Name:</td>
+              <td>{{nameAsInIC}}
+              </td>
+            </tr>
+            <tr>
+              <td>Address:</td>
+              <td>{{customer.address}}
+              </td>
+            </tr>
+            <tr>
+              <td>Phone number: </td>
+              <td>{{phone_number_customer}}
+              </td>
+            </tr>
+            <tr>
+              <td>Date of cooking show:</td>
+              <td>{{questionOne.dateOfCookingShow}}</td>
+            </tr>
+            <hr> -->
+            <div class="content">
+              <p class="title-2">1. For you, cooking should be:</p>
+              <div>
+                <p>{{answerData.answer1}}</p>
+              </div>
+              <p class="title-2">2. How do you feel about eating out?</p>
+              <p>{{answerData.answer2}}</p>
+              <p class="title-2">3. What products do you normally buy which are ready made?</p>
+              <p>{{answerData.answer3}}</p>
+              <p class="title-2">4. How often do you cook per week?</p>
+              <p>{{answerData.answer4}}</p>
+              <p class="title-2">5. For how many people?</p>
+              <p>{{answerData.answer5}}</p>
+              <p class="title-2">6. Which meals do you prepare every day?</p>
+              <p>{{answerData.answer6}}</p>
+              <p class="title-2">7. What do you enjoy about cooking?</p>
+              <p>{{answerData.answer7}}</p>
+              <p class="title-2">8. Does anyone in your family follow a special diet?</p>
+              <p>{{answerData.answer8}}</p>
+              <p class="title-2">9. Do you own a Thermomix?</p>
+              <p>{{answerData.answer9}}</p>
+
+            </div>
+
+          </div>
+          <!-- questionaire post -->
+          <table class="statusAndEdit">
+
+            <tr>
+              <td style="width: 30%;">
+                <p>Post-demo questionnaire: </p>
+              </td>
+              <td style="width: 66%;">
+                <p [ngClass]="
+                QF2CompleteStatus == 'Completed'
+                  ? 'completed'
+                  : 'not-completed'
+              "> {{QF2CompleteStatus}}</p>
+              </td>
+              <td>
+                <a (click)="viewQuestionairePost()"
+                  style="color: #0A73EB ; cursor: pointer;">{{editOrCloseQuestionairePost}}</a>
+              </td>
+
+            </tr>
+          </table>
+
+          <div style="margin:15px 0 0 15px;" *ngIf="modeEditOrCloseQuestionairePost" class="prequestion-content">
+            <div class="content">
+              <p class="title-2">1. What impress you the MOST from this Thermomix® Cooking Experience? (You may choose
+                more than one)</p>
+              <p>{{answerData.answer10}}</p>
+              <p class="title-2">2. What would you make first in your Thermomix®?</p>
+              <p>{{answerData.answer11}}</p>
+              <p class="title-2">3. I would like to recommend Thermomix® to my friends. My Preferred Show Time with my
+                friends:</p>
+              <p>{{answerData.answer12}}</p>
+              <p class="title-2">4. What is Best For You?</p>
+              <p>{{answerData.answer13}}</p>
+              <p class="title-2">5. Would you like to know more about a career with Thermomix®?</p>
+              <p>{{answerData.answer14}}</p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      <div class="advising-team">
+        <div class="customer-advisor">
+          <p style="font-weight: 600;">Advising Team</p>
+          <div class="content">
+            <table class="table table-borderless">
+              <tr>
+                <td style="width: 20%">
+                  <p>Advisor ID:</p>
+                </td>
+                <td style="width: 55%">
+                  <p>{{customer.myAdvisorId}}</p>
+                </td>
+                <td style="width: 25%;"></td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Recruiter:</p>
+                </td>
+                <td>
+                  <p *ngIf="customer.recruiterId != null">{{customer.recruiterName}}<br>(ID: {{customer.recruiterId}})
+                  </p>
+                </td>
+                <td> <img class="cover-img" src="{{imgRecruiter}}" *ngIf="customer.recruiterId != null"></td>
+              </tr>
+              <tr>
+                <td style="width: 300px;">
+                  <p>Team Leader:</p>
+                </td>
+                <td>
+                  <p *ngIf="customer.teamLeaderId != null">{{customer.teamLeaderName}}<br>(ID:
+                    {{customer.teamLeaderId}})</p>
+                </td>
+                <td> <img src="{{imgTeamLeader}}" *ngIf="customer.teamLeaderId != null"></td>
+              </tr>
+              <tr>
+                <td style="width: 300px;">
+                  <p>Branch Manager:</p>
+                </td>
+                <td>
+                  <p *ngIf="customer.branchManagerId != null">{{customer.branchManagerName}}<br>(ID:
+                    {{customer.branchManagerId}})</p>
+                </td>
+
+                <td> <img class="cover-img" src="{{imgBranchManager}}" *ngIf="customer.branchManagerId != null"></td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="history-customer row">
+        <div class="content">
+          <p id="header">Update History</p>
+          <mat-divider style="padding-bottom: 10px;"></mat-divider>
+          <app-timeline [histories]="customerUpdateHistory"></app-timeline>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

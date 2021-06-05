@@ -1,0 +1,17 @@
+
+<div mat-dialog-content style="margin-left: 5px;" class="message">{{confirmMessage}}:</div>
+<div class="dialog-radio-button">
+	<div mat-dialog-actions>
+		<input type="text" id="input" style="margin-top: 10px; margin-left: -10px;" placeholder="Enter {{confirmMessage}}">
+  </div>
+</div>
+<div mat-dialog-actions class="pt-input">
+    <button class="ok-button1" [disabled]="disableButton"  [style.background-color]= "disableButton ? buttonGrey : buttonGreen "
+    mat-raised-button (click)="update()">
+    Confirm
+    </button>
+    <button class="ok-button2"   [style.background-color]= "colorButton ? buttonRed : buttonRed "
+    mat-raised-button (click)="dialogRef.close(false)">
+    Cancel
+    </button>
+</div>

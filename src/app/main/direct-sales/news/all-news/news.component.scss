@@ -1,0 +1,90 @@
+
+@import "src/@fuse/scss/fuse";
+
+.container-news{
+    height: 100%;
+    width: 100%;
+    background-color: #F5F5F5;
+    .title-news{
+        margin: 20px 20px;
+        height: 80px;
+        line-height: 80px;
+        position: relative;
+        p{
+            font-size: var(--header-page);
+            color: var(--text-color);
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 0px;
+            transform: translate(0%, -50%);
+        }
+        button{
+            padding: 2px 20px;
+            font-size: var(--button-text);
+            background-color: var(--primary-color);
+            color: white;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            right: 0px;
+            transform: translate(0%, -50%);
+            font-weight: normal !important;
+        }
+
+    }
+    .news-table{
+        margin: 10px 20px;
+        height: 100%;
+        background-color: white;
+        padding: 20px !important;
+        .ag-theme-balham{
+            font-size: var(--ag-grid-text);
+            width: 100%;
+            .ag-has-focus{
+                border: none !important;
+                outline: none !important;
+            }
+            .ag-cell-focus{
+                border: none !important;
+                outline: none !important;
+            }
+
+        }
+        .news-all{
+            .ag-header{
+                height: 45px !important;
+                min-height: 45px !important;
+                font-size: var(--ag-grid-text);
+                color: black;
+                padding: 5px 0px;
+                display: flex;
+                vertical-align: middle;
+            }
+            .ag-row{
+                height: 100px !important;
+            }
+            .ag-header-row[aria-rowindex="2"]{
+                display: none;
+                // background-color: red;
+            }
+            .ag-header-cell-text[aria-colindex="3"]{
+                width: 100%;
+                text-align: center;
+                // padding: 20px;
+            }
+            .ag-header-cell-text[aria-colindex="4"]{
+                width: 100%;
+                text-align: center;
+                // padding: 20px;
+            }
+            .ag-cell[aria-colindex="4"]{
+                text-align: center;
+                img{
+                    height: auto;
+                    vertical-align: middle !important;
+                }
+            }
+        }
+    }
+}

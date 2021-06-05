@@ -1,0 +1,282 @@
+<div *ngIf="is_agent_shipping">
+
+  <div class="shipping-form-container">
+    <form name="shippingAgentForm" [formGroup]="shippingAgentForm" novalidate (ngSubmit)="onSubmit()">
+      <div *ngIf="fullOrder.shipping.shippingMethod != 'SELF_COLLECT'">
+      <div *ngIf="isSelectingShippingAgent">
+        <h1>Generate Shipping Labels</h1>
+        <mat-label *ngIf="(entityId==1 || entityId == 3)">*Shipping Agent (At the moment, shipping is by QXpress only)</mat-label>
+        <mat-label *ngIf="entityId==2">*Shipping Agent</mat-label>
+        <mat-form-field appearance="none">
+          <mat-select formControlName="shippingAgentId" placeholder="Select Shipping Agent"
+            (selectionChange)="setFormState($event)">
+            <div *ngFor="let shipper of listAgent;">
+              <mat-option value="{{shipper.id}}">{{shipper.name}}
+              </mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="isShippingAgentChosen && isShippingAgentIntegrated">
+          <mat-label>*Pickup Address</mat-label>
+          <mat-form-field appearance="none">
+            <mat-select formControlName="pickupAddressId" placeholder="Select Pickup Address">
+              <div *ngFor="let address of shipperPickupAddresses;">
+                <mat-option value="{{address.id}}">{{address.addr_label}}</mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- <mat-label>Remarks</mat-label>
+            <mat-form-field appearance="none">
+            <input matInput formControlName="remarks" placeholder="Please note">
+          </mat-form-field> -->
+
+          <!-- <mat-label>*Pickup Date</mat-label>
+          <mat-form-field appearance="none">
+            <input matInput readonly formControlName="pickupDate" [matDatepicker]="picker"
+              (dateChange)="updateDateField($event)" [min]="minPickupDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-label>*Pickup Time</mat-label>
+          <mat-form-field appearance="none">
+            <input matInput type="time" formControlName="pickupTime" [min]="minPickupTime" [max]="maxPickupTime">
+          </mat-form-field> -->
+
+          <div class="container-padding">
+            <mat-checkbox formControlName="customShipmentGroups">
+              <mat-label>Custom Shipment Groups?</mat-label>
+            </mat-checkbox>
+            <div *ngIf="shippingAgentForm.get('customShipmentGroups').value == false"
+              class="error-msg-container">
+              <p class="error">Please choose shipment group!</p>
+            </div>
+          </div>
+
+          <div *ngIf="isCustomShipmentGroups">
+            <div class="container-padding">
+              <h2>Please specify the number of shipment groups and their respective contents.</h2>
+            </div>
+            <mat-label>*Number Of Shipment Groups</mat-label>
+            <mat-form-field appearance="none">
+              <input matInput type="number" formControlName="numOfGroups" [min]="minNumOfGroups">
+              <div *ngIf="shippingAgentForm.get('numOfGroups').hasError('required')
+                    && (shippingAgentForm.get('numOfGroups').dirty || shippingAgentForm.get('numOfGroups').touched)"
+                class="error-msg-container">
+                <p class="error">Number of shipment groups is required!</p>
+              </div>
+              <div
+                *ngIf="!shippingAgentForm.get('numOfGroups').hasError('required')
+                    && shippingAgentForm.get('numOfGroups').hasError('negativeOrZeroNumOfGroups')
+                    && (shippingAgentForm.get('numOfGroups').dirty || shippingAgentForm.get('numOfGroups').touched)"
+                class="error-msg-container">
+                <p class="error">Number of shipment groups must be at least one!</p>
+              </div>
+              <div *ngIf="!shippingAgentForm.get('numOfGroups').hasError('required')
+                    && shippingAgentForm.get('numOfGroups').hasError('tooManyGroups')
+                    && (shippingAgentForm.get('numOfGroups').dirty || shippingAgentForm.get('numOfGroups').touched)"
+                class="error-msg-container">
+                <p class="error">You cannot create more shipment groups than the total quantity of all products!</p>
+              </div>
+            </mat-form-field>
+
+            <div class="container-padding">
+              <div formArrayName="shipmentGroups"
+                *ngFor="let shipmentGroup of shippingAgentForm['controls'].shipmentGroups['controls']; let i = index">
+                <h3>Shipment Group {{i+1}}</h3>
+                <div [formGroupName]="i">
+                  <div class="shipment-product-row-padding">
+                    <div class="shipment-groups-left-col">
+                      <span>Product</span>
+                    </div>
+                    <div class="shipment-groups-right-col">
+                      <span>Quantity</span>
+                    </div>
+                  </div>
+                  <div formArrayName="shipmentProducts"
+                    *ngFor="let shipmentProduct of shipmentGroup.get('shipmentProducts').controls; let j = index">
+                    <div [formGroupName]="j">
+                      <div class="shipment-product-row-padding">
+                        <div class="shipment-groups-left-col">
+                          <input matInput type="text" readonly formControlName="productName">
+                        </div>
+                        <div class="shipment-groups-right-col product-qty">
+                          <input matInput type="number" formControlName="quantity" min="0"
+                            [ngClass]="{'error' : shipmentProduct.get('quantity').hasError('negativeQty')}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="!shippingAgentForm.get('shipmentGroups').hasError('required')
+                      && shippingAgentForm.get('shipmentGroups').hasError('incorrectQty')" class="error-msg-container">
+                <p class="error">Product quantities in shipment groupings do not tally with order quantities!</p>
+              </div>
+              <div *ngIf="!shippingAgentForm.get('shipmentGroups').hasError('required')
+                      && shippingAgentForm.get('shipmentGroups').hasError('emptyShipmentGroup')"
+                class="error-msg-container">
+                <p class="error">There cannot be empty shipment groups!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isShippingAgentChosen && !isShippingAgentIntegrated">
+          <mat-form-field>
+            <mat-chip-list #chipList formControlName="shipmentIdArr" aria-label="Shipment IDs">
+              <mat-chip *ngFor="let shipmentId of shippingAgentForm.get('shipmentIdArr').value"
+                [selectable]="matChipSelectable" [removable]="matChipRemovable" (removed)="removeShipmentId(shipmentId)">
+                {{shipmentId}}
+                <mat-icon matChipRemove *ngIf="matChipRemovable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Enter Shipment IDs..." [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="matChipAddOnBlur"
+                (matChipInputTokenEnd)="addShipmentId($event)">
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+      </div>
+      </div>
+      <div class=" to-ship">
+
+        <div class="left-button-container" *ngIf="fullOrder.shipping.shippingMethod != 'SELF_COLLECT'">
+          <button mat-raised-button (click)="toggleForm()" class="cancel-shipping-form-button"
+            aria-label="View" type="button" *ngIf="isSelectingShippingAgent">
+            Cancel
+          </button>
+        </div>
+
+        <div class="middle-button-container" *ngIf="fullOrder.shipping.shippingMethod != 'SELF_COLLECT'">
+          <button mat-raised-button color="primary"
+            [disabled]= "(fullOrder.checkOrderLock && checkLock == 2)"
+            [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'select-shipping-agent-button' "
+            (click)="toggleForm()"
+            aria-label="View" type="button"
+            *ngIf="!isShippingSelfCollect && !isShippingAgentSelected && !isSelectingShippingAgent">
+            Select Shipping Agent
+          </button>
+          <button mat-raised-button
+            [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'create-shipping-labels-button' "
+            aria-label="View" type="submit"
+            *ngIf="(entityId == 1 || entityId == 3) && isSelectingShippingAgent && isShippingAgentChosen"
+            [disabled]="(fullOrder.checkOrderLock && checkLock == 2) && shippingAgentForm.get('customShipmentGroups').value == false ||
+            shippingAgentForm.get('numOfGroups').invalid"
+            >
+            <!-- ||  shippingAgentForm.get('shipmentGroups').invalid -->
+            Create Shipping Label
+          </button>
+          <!-- <button mat-raised-button
+            [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'create-shipping-labels-button' "
+            aria-label="View" type="submit"
+            *ngIf="entityId == 2 && isSelectingShippingAgent && isShippingAgentChosen && isShippingAgentIntegrated"
+            [disabled]="((fullOrder.checkOrderLock && checkLock == 2) && (shippingAgentForm.get('customShipmentGroups').value ==null || shippingAgentForm.get('customShipmentGroups').value == false)) || isDisable">
+            Create Shipping Label
+          </button> -->
+          <app-button-loading
+            *ngIf="(entityId === 2 && isSelectingShippingAgent && isShippingAgentChosen && isShippingAgentIntegrated)"
+            [disabledBtn]="((fullOrder.checkOrderLock && checkLock == 2) && (shippingAgentForm.get('customShipmentGroups').value ==null || shippingAgentForm.get('customShipmentGroups').value == false)) || isDisable"
+            [active]="active"
+            [buttonName]="buttonName" type="submit">
+          </app-button-loading>
+          <button mat-raised-button class="create-shipping-labels-button" aria-label="View" type="submit"
+            *ngIf="(isSelectingShippingAgent && isShippingAgentChosen && !isShippingAgentIntegrated)"
+            [disabled]="shippingAgentForm.invalid">
+            Save Shipment IDs
+          </button>
+          <button mat-raised-button
+            [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'download-shipping-labels-button' "
+            [disabled] = "(fullOrder.checkOrderLock && checkLock == 2)"
+            (click)="downloadShippingLabels()" aria-label="View" type="button"
+            *ngIf="!isSelectingShippingAgent && shippingLabels && entityId == 2"
+            >
+            Download Shipping Labels
+          </button>
+
+          <button mat-raised-button
+            [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'download-shipping-labels-button' "
+            [disabled] = "(fullOrder.checkOrderLock && checkLock == 2)"
+            (click)="downloadQxpress()"
+            aria-label="View" type="button"
+            *ngIf="(entityId == 1 || entityId == 3) && !isCreatingShipment && !isSelectingShippingAgent && checkLabelQxpress">
+            Download Shipping Labels
+          </button>
+
+        </div>
+
+        <div class="right-button-container">
+          <!-- <button mat-raised-button
+            [disabled]= "(fullOrder.checkOrderLock && checkLock == 2)"
+            [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'shipped-button' "
+            (click)="navigateToReceive()"
+            aria-label="View"
+            type="button" *ngIf="isShippingSelfCollect || isShippingAgentSelected">
+            Mark As Shipped/Collected
+          </button> -->
+
+          <app-button-loading
+            *ngIf="isShippingSelfCollect || isShippingAgentSelected"
+            [disabledBtn]="(fullOrder.checkOrderLock && checkLock == 2)"
+            [active]="activeMarkAsShip"
+            [buttonName]="buttonNameMarkAsShip" (click)="navigateToReceive()">
+          </app-button-loading>
+        </div>
+
+      </div>
+    </form>
+    <div class="error-msg-container" *ngIf="fullOrder.shipping.shippingMethod != 'SELF_COLLECT'">
+      <p>
+        <span
+          *ngIf="entityId == 2 && isCreatingShipment && !isCreatingShipmentError && !isUpdatingShipmentError && !isTrackingShipmentError && !isUpdatingShipmentTrackingError && isShippingAgentIntegrated">
+          Requesting for shipping labels... Please wait a moment...</span>
+        <span
+          *ngIf="(entityId == 1 || entityId == 3) && isCreatingShipment && !isCreatingShipmentError && !isUpdatingShipmentError && !isTrackingShipmentError && !isUpdatingShipmentTrackingError && isShippingAgentIntegrated && !errorQexpress">
+          Requesting for shipping labels... Please wait a moment...</span>
+        <span
+          *ngIf="isCreatingShipment && !isCreatingShipmentError && !isUpdatingShipmentError && !isTrackingShipmentError && !isUpdatingShipmentTrackingError && !isShippingAgentIntegrated && !errorQexpress">Saving
+          Shipment IDs... Please wait a moment...</span>
+        <span *ngIf="isCreatingShipmentError" class="error">
+          <p>There was an error processing your request. Please try again later. </p>
+          <p *ngIf="shipmentCreationErrorMsg">Error Details: {{shipmentCreationErrorMsg}}</p>
+        </span>
+        <span *ngIf="isUpdatingShipmentError" class="error">Your shipping labels have been created but there was an
+          error updating the database. Please try again later.</span>
+        <span *ngIf="isTrackingShipmentError" class="error">Your shipping labels have been created but tracking status is currently unavailable. Shipment status will be updated at a later time.</span>
+        <span *ngIf="isUpdatingShipmentTrackingError" class="error">Your shipping labels have been created but tracking status is currently unavailable. Shipment status will be updated at a later time.</span>
+        <span style="color: red;"
+          *ngIf="!qexpressError">
+          Error Details: {{errorQexpress}}
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <div style="display: none;" id="printArea" *ngIf="this.laberOf != 'MXPRESS' ">
+    <app-qxpress
+      [dataCustomer]="customerData"
+      [deliveryAddress]="deliveryAddress"
+      [trackingData]="trackingData"
+      [dataProduct]="dataProduct"
+      [is_naep_order]="fullOrder.is_naep_order"
+    ></app-qxpress>
+  </div>
+</div>
+
+<div *ngIf="fullOrder.shipping.shippingMethod != 'SELF_COLLECT'">
+
+  <div *ngIf="!is_agent_shipping ">
+    <div class="manual_shipping" >
+      <div class="container">
+          <p>Notes for Manual Shipping</p>
+          <textarea placeholder = "Enter notes" [(ngModel)]="test_manual_shipping" ></textarea>
+
+          <button *ngIf="!isShowMaskAsShipped" [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2 || test_manual_shipping.length == 0 ||
+          shippingLabels || checkLabelQxpress) ? 'disable' : 'btn-ship' "
+           mat-raised-button type="button" (click)="manualShipping()"> Mark As Shipped </button>
+
+          <button *ngIf="isShowMaskAsShipped" [ngClass]="test_manual_shipping.length == 0 ? 'disable' : 'btn-ship'"
+           mat-raised-button type="button" (click)="manualShipping()"> Mark As Shipped </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div matDialogTitle class="dialog__title">COMMENTS</div>
+<hr>
+
+<div mat-dialog-content class="dialog__content">
+    <div class="dialog__content__title">
+        Please provide comments for rejection
+    </div>
+    <form [formGroup]="formComment">
+        <p-dropdown [options]="data.comments" optionLabel="label" optionValue="value" filter="true" filterBy="label"
+            formControlName="commentSelect" [showClear]="true" placeholder="Select comment" appendTo="body">
+        </p-dropdown>
+        <div *ngIf="formComment.controls.commentSelect.errors?.required && showError" class="error">
+            This value is required.
+        </div>
+        <textarea rows="5" formControlName="commentEnter" placeholder="Enter comment"></textarea>
+        <div *ngIf="formComment.controls.commentEnter.errors?.required && showError" class="error">
+            This value is required.
+        </div>
+    </form>
+</div>
+
+<div mat-dialog-actions class="dialog__actions">
+    <button mat-raised-button class="btn btn--back" (click)="back()">BACK</button>
+    <button mat-raised-button class="btn btn--submit" (click)="submit()"
+        [disabled]="formComment.invalid">SUBMIT</button>
+</div>

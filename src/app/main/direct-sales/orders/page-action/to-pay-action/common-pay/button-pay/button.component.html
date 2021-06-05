@@ -1,0 +1,26 @@
+<div class="button">
+  <div class="to-pay">
+    <!-- <div class="button-mark-as-paid-and-verified">
+      <button mat-raised-button color="primary" (click)="navigateToShip()" class="verified-button" aria-label="View">
+        Mark as paid and verified
+      </button>
+    </div> -->
+
+    <div class="button-mark-as-paid">
+      <button mat-raised-button color="primary"
+      (click)="navigateToVerify()"  aria-label="View"
+      [ngClass]="checkPaid && (fullOrder.checkOrderLock && checkLock == 2) ? 'paid-button':'paid-button-disable'">
+        Mark As Paid
+      </button>
+    </div>
+
+    <div class="button-cancel">
+      <button mat-raised-button color="primary"
+        [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'cancel-button'"
+        [disabled]="fullOrder.checkOrderLock && checkLock == 2"
+        (click)="navigateCancel()" aria-label="View">
+        Cancel Order
+      </button>
+    </div>
+  </div>
+</div>

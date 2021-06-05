@@ -1,0 +1,28 @@
+<ng-container>
+<h1 matDialogTitle class="title">CONFIRM</h1>
+<hr>
+<div class="message">
+  <div class="title-message">{{confirmMessage}}</div>
+  <div class='detail-message' >
+
+    <!-- <p-calendar  dateFormat="DD,dd/mm/yy" showIcon= 'true' [minDate]="minDateStart"
+    (onSelect)="onChangeStart($event)"></p-calendar> -->
+
+    <mat-form-field>
+      <mat-label>Select time</mat-label>
+      <input matInput [matDatepicker]="picker" readonly [(ngModel)]="date" [min]="minDateStart"
+        (dateChange)="addEvent('change', $event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+</div>
+
+<div mat-dialog-actions class="pt-option">
+    <button class="cancel-button" mat-button (click)="dialogRef.close(false)" >CANCEL</button>
+    <button class="ok-button" mat-raised-button (click)="checkOK()" *ngIf='!disableButton' [disabled]='false'>OK</button>
+    <button class="disableButton" mat-raised-button *ngIf='disableButton'  [disabled]='true'>OK</button>
+</div>
+</ng-container>
+

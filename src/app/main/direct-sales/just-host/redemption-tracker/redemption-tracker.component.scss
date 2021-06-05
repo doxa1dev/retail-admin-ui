@@ -1,0 +1,70 @@
+@import "src/@fuse/scss/fuse";
+
+.redemption-tracker-container {
+  height: 100%;
+  width: 100%;
+  background-color: #f5f5f5;
+
+  .title {
+    margin-bottom: 20px;
+    height: 80px;
+    display: flex;
+
+    p {
+      padding-left: 20px;
+      padding-top: 40px;
+      font-size: var(--header-page);
+      font-weight: 600;
+      margin-top: 0px;
+      color: var(--text-color);
+    }
+  }
+
+  .body {
+    margin: 10px 20px;
+    height: auto;
+    background-color: white;
+    padding: 20px !important;
+
+    .ag-theme-balham {
+      font-size: var(--ag-grid-text);
+      width: 100%;
+
+      .ag-cell-focus {
+        border: none !important;
+        outline: none !important;
+      }
+    }
+
+    .redemption-tracker-all {
+      height: 500px;
+      width: 100%;
+
+      .not-yet {
+        color: #e96d3b;
+      }
+
+      .redeemed {
+        color: #00a23b;
+      }
+
+      .expired {
+        color: #de3535;
+      }
+
+      .rejected {
+        color: #ff0000;
+      }
+
+      .pending {
+        color: #ff8000;
+      }
+
+      .ag-text-field-input-wrapper {
+        input {
+          padding: 0 5px;
+        }
+      }
+    }
+  }
+}

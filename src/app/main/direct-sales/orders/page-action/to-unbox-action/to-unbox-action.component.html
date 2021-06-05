@@ -1,0 +1,216 @@
+<div class="container">
+  <div class="order">
+    <div class="text">
+      <div class="link-icons" *ngIf="fullOrder !== undefined">
+        <mat-icon (click)="back()">chevron_left</mat-icon>
+        <a href="javascript:void(0);">Order #{{fullOrder.orderIdTmm}}</a>
+        <div class="orderAt">
+          <p>Ordered at {{orderAt| date :'dd/MM/yyyy HH:mm'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="name-page">
+      <mat-card class="name">
+        <p>{{namePage}}</p>
+      </mat-card>
+    </div>
+    <button mat-raised-button color="primary" (click)= 'downloadInvoice()'
+      class="create-invoice-button" aria-label="View" type="button">
+      Create Invoice
+    </button>
+    <div class="lock">
+      <mat-slide-toggle [checked]="checkedLock" (change)="checkLockOrder($event)" color="warn">{{lockOrderTitle}}</mat-slide-toggle>
+      <p *ngIf="checkedLock">By {{lockBy}} - at {{lockTime | date: "hh:mm"}}</p>
+    </div>
+  </div>
+  <div class="detail" *ngIf="fullOrder !== undefined">
+    <!-- left -->
+    <div class="left">
+      <div class="product">
+        <div class="list-product">
+          <app-order-list-product [listProduct]="fullOrder.listProduct">
+          </app-order-list-product>
+        </div>
+        <div *ngIf="isShippingAgentSelected">
+          <app-shipping-status [shippingAgent]="shippingAgent" [shipmentId]="this.fullOrder.shipping.shipmentId"
+            [rowData]="shippingStatusTableData"></app-shipping-status>
+        </div>
+        <div class="to-unbox-and-host">
+          <div class="button-mark-as-no-unboxed">
+            <button mat-raised-button
+              [disabled]="(fullOrder.checkOrderLock && checkLock == 2)"
+              [ngClass]="(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'verified-button'"
+              (click)="noUnboxed()" aria-label="View">
+              Mark As Not Unboxed
+            </button>
+          </div>
+
+          <div class="button-mark-as-unboxed">
+            <button mat-raised-button
+              [disabled]="(fullOrder.checkOrderLock && checkLock == 2)"
+              [ngClass]="(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'paid-button'"
+              (click)="navigateToHost()" aria-label="View">
+              Mark As Unboxed
+            </button>
+          </div>
+
+          <div class="button-cancel">
+            <button mat-raised-button
+              [disabled]="(fullOrder.checkOrderLock && checkLock == 2)"
+              [ngClass]="(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'receive-button'"
+              (click)="navigateToCancel()" aria-label="View">
+                Cancel Order
+            </button>
+          </div>
+          <!-- <p>Advisor/Customer will update the status of this order.</p> -->
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="header">
+          <p>Timeline</p>
+          <hr>
+
+        </div>
+        <app-timeline [histories]="fullOrder.history" [customerName]='fullOrder.customerInformation.firstName'></app-timeline>
+      </div>
+    </div>
+    <!-- right -->
+    <div class="right">
+      <div class="payment-info">
+        <div class="header">Payment Information</div>
+        <div class="full-payment-detail">
+          <div class="AAA">
+            <p id="left">Shipping:</p>
+            <p id="right">{{fullOrder.shippingFee| currency:" "}}</p>
+          </div>
+          <div class="BBB">
+            <p id="left">Subtotal:</p>
+            <p id="right">{{fullOrder.subtotal| currency:" "}}</p>
+          </div>
+          <div class="BBB">
+            <p id="left">Tax:</p>
+            <p id="right">{{fullOrder.tax| currency:" "}} </p>
+          </div>
+          <div class="CCC">
+            <p id="left">Total:</p>
+            <p id="right">{{fullOrder.totalAmount | currency:currency+" "}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="payment-method">
+        <div class="inside" style="display: block">
+          <div id="header">Payment Method</div>
+          <div id="method" *ngIf='methodPaymentList.length === 0'>Unpaid</div>
+          <div id="method" *ngIf='methodPaymentList.length != 0'>
+            <div *ngFor="let method of methodPaymentList">
+              <p style="margin-top: 3px; margin-bottom: 0px;">{{method}} <span *ngIf="isRecurringPayment"> (Recurring Payment) </span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shipping-method" [style]="style_shipping_location">
+        <div class="inside">
+          <div id="header">Shipping Method</div>
+          <div *ngIf="fullOrder.shipping.shippingMethod === 'SELF_COLLECT'">
+            <div id="method">By Self Collect</div>
+          </div>
+          <div *ngIf="fullOrder.shipping.shippingMethod === 'BY_COURRIER' && !fullOrder.shipping.isManualShipping">
+            <div id="method">By Courier</div>
+          </div>
+          <div *ngIf="fullOrder.shipping.shippingMethod === 'BY_COURRIER' && fullOrder.shipping.isManualShipping">
+            <div id="method">By Thermomix</div>
+          </div>
+          <!-- <div id="method" *ngIf="!shipping_method">By Courier</div> -->
+          <div id="note" *ngIf="fullOrder.shipping.customerNotes">Note: {{fullOrder.shipping.customerNotes}}</div>
+          <div id="note"  *ngIf="fullOrder.shipping.shipping_location_name">Shipping Location: {{fullOrder.shipping.shipping_location_name}}  </div>
+
+        </div>
+      </div>
+
+      <!-- check lại css nhé -->
+      <div class="delivery-address">
+        <div class="infos">
+          <p><b>Delivery Address</b></p>
+          <p id="p">{{ fullOrder.deliveryAddress.firstName + " " + fullOrder.deliveryAddress.lastName }}</p>
+          <p id="p">{{ displayAddress }}</p>
+          <p id="p">{{ displayStateCountry }}</p>
+        </div>
+        <div class="messages">
+          <mat-icon svgIcon="messages-order" id="icons"></mat-icon>
+          <mat-card id="card"><p>{{ fullOrder.deliveryAddress.email }}</p></mat-card>
+        </div>
+        <div class="phone">
+          <mat-icon svgIcon="phone-order" id="icons"></mat-icon>
+          <mat-card id="card">
+            <p>{{'(' + fullOrder.deliveryAddress.phoneDialCode+ ") " + fullOrder.deliveryAddress.phoneNumber}}</p> </mat-card>
+        </div>
+
+      </div>
+
+      <div class="customer-info">
+        <div class="inside">
+          <div class="header">
+            <p id="text-customer">Customer Information</p>
+            <!-- <p id="text-view" style="cursor: pointer;" (click)="nextViewCustomer()">View</p> -->
+          </div>
+          <div id="method">
+            <p style="margin-top: 5px;margin-bottom: 5px;">{{fullOrder.customerInformation.firstName + " " +fullOrder.customerInformation.lastName}}</p>
+
+            <div class="address-customer" style="width: 310px;">
+              <span style="word-break: break-word;">{{fullOrder.customerInformation.email}}</span><br>
+            </div>
+            <div class="address-customer" style="width: 310px;margin-top: 5px;">
+              <span style="word-break: break-word;">{{fullOrder.customerInformation.phoneNumber}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shipping-info">
+        <div class="inside">
+          <div id="header">Shipping Information</div>
+          <div *ngIf="fullOrder.shipping.shippingMethod === 'SELF_COLLECT'" id="self-collect">
+            <div id="method">Delivered by SELF COLLECTION</div>
+            <!-- <div id="footer">Collection Date:
+              {{fullOrder.shipping.customerSelectedShippingDate | date :'dd/MM/yyyy'}}</div> -->
+          </div>
+          <div *ngIf="fullOrder.shipping.shippingMethod === 'BY_COURRIER'" id="by-courier">
+            <div *ngIf="!isShippingAgentSelected">
+              <p id="method">Pending selection of shipping agent.</p>
+            </div>
+            <div *ngIf="isShippingAgentSelected">
+              <p id="method">Delivered by {{fullOrder.shipping.shippingStatus.shippingAgent}}</p>
+              <p id="info" *ngIf="fullOrder.shipping.pickupDateTime !== null">Pickup Date & Time:
+                {{fullOrder.shipping.pickupDateTime | date: 'EEE, MMM dd yyyy HH:mm'}}</p>
+              <p id="info" *ngIf="fullOrder.shipping.shippingStatus.overallStatus">
+                Shipment Status: {{fullOrder.shipping.shippingStatus.overallStatus}}
+              </p>
+              <p id="footer" *ngIf="fullOrder.shipping.shippingStatus.updatedTime">
+                Tracking Updated At: {{fullOrder.shipping.shippingStatus.updatedTime | date: 'EEE, MMM dd yyyy HH:mm'}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="advisor" *ngIf="fullOrder.advisorCustomer">
+        <div class="inside" style="display: block">
+          <div id="header">Advisor</div>
+          <div id="method" *ngIf="fullOrder.advisorCustomer.preferredName">{{fullOrder.advisorCustomer.preferredName}}
+            (ID: {{fullOrder.advisorCustomer.advisorIdNumber}})</div>
+          <div id="method" *ngIf="!fullOrder.advisorCustomer.preferredName">{{fullOrder.advisorCustomer.firtName}} (ID:
+            {{fullOrder.advisorCustomer.advisorIdNumber}})</div>
+        </div>
+
+        <img class="img-advisor" src="{{advisorImage}}">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div style="display: none;" id="printInvoice">
+  <app-invoice [orderDetail]='fullOrder'></app-invoice>
+</div>

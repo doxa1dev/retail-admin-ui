@@ -1,0 +1,22 @@
+<h1 matDialogTitle class="title">COMMENTS</h1>
+<hr>
+<div mat-dialog-content class="message">{{confirmMessage}}</div>
+<textarea name="" id="comment" placeholder="Enter comments"
+style="width: 100%; margin: 0 auto; height: 100px; border: 1px solid gray; border-radius: 6px; padding: 5px;"></textarea>
+<br> <br>
+<!-- <label id="image" class="custom-file-label" for="inputGroupFile">Choose file to upload</label> -->
+<div style="border-bottom: 1px solid #707070;height: 32px; width: 60%;">
+  <button style="height: 30px; background-color: #DDDDDD ; cursor: pointer;" onclick="document.getElementById('image').click()">Upload evidence Photo</button>
+  <input type="file" name="image" id="image" value=""
+      class="form-control" style="display: none ;" (change)="onSelectFile($event)" />
+  <input readonly type="text" id="image_name" matInput [(ngModel)]="text"
+      name="image_name" placeholder="No file chosen">
+  <span (click)="deleteImage()" style="color: red; cursor: pointer;">X</span>
+</div>
+<br>
+<div *ngIf="type === 'APPROVED'" mat-dialog-actions class="pt-approved">
+    <button class="cancel-button-1" mat-button (click)="dialogRef.close(false)">CANCEL</button>
+    <button class="ok-button" [disabled]="checkComments"
+    [style.background-color]= "checkComments ? buttonGrey : buttonGreen"
+    mat-raised-button (click)="submitDataComments()">SUBMIT</button>
+</div>

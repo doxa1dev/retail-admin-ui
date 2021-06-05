@@ -1,0 +1,73 @@
+<!-- <div style="background-color: #7DA863; width: 100%; height: 400px;">
+
+</div> -->
+<div class="container-insight">
+    <div class="header" style="background-color: #7DA863; width: 100%; height: 450px; margin-bottom: 10px;" >
+
+      <div class="text">
+        <p>Week Insight</p>
+        <div class="notes">
+          <div class="shape">
+            <!-- <mat-icon class="nav-link-icon"  svgIcon="chart1"></mat-icon> -->
+            <div class="src1">
+              <img src="assets/icons/doxa-icons/chart1.svg" alt="">
+              <div class="name">Reaches</div>
+            </div>
+            <div class="src2">
+              <img src="assets/icons/doxa-icons/chart2.svg" alt="">
+              <div class="name">Views</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calendar">
+          <div class="names">From:</div>
+          <input class="fixDate" type="text" [disabled]="true" placeholder="{{weekdate|date :'EEEE,dd/MM/yyyy'}}" [(ngModel)]="date">
+          <div class="names">To:</div>
+          <p-calendar  dateFormat="DD,dd/mm/yy" [showIcon]="true" [maxDate]="maxdate" (onSelect)="onChange($event)" placeholder="{{maxdate|date :'EEEE,dd/MM/yyyy'}}" ></p-calendar>
+        </div>
+      </div>
+
+      <app-line-chart style="width: 100%; margin-left: -40px; " [DataNews]="dataNewsToPlot"></app-line-chart>
+    </div>
+    <div class="row ml-2" style="display: flex;">
+        <div class="col-lg-8" style="width: 65%;">
+            <div class="title-description row">
+                <div class="cart">
+                    <p>News List</p>
+                    <div class="insight-table">
+                        <ag-grid-angular style="width: 100%; height: 610px"
+                            class="ag-theme-balham insight-all"
+                            [rowData]="rowData"
+                            [columnDefs]="columnDefs"
+                            [gridOptions]="gridOptions"
+                            floatingFilter=true
+                            rowSelection="multiple"
+                            (rowDoubleClicked)='onRowDoubleClick($event)'
+                            [singleClickEdit]=true
+                            [defaultColDef]="defaultColDef"
+                            (gridReady)="onGridReady($event)"
+                            (gridSizeChanged)="onGridSizeChanged($event)"
+                            [modules]="modules">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" style="width: 35%;">
+            <div class="product-available row">
+                <div class="content">
+                    <p>Top News</p>
+                    <div class="top-table">
+                        <ag-grid-angular style="width: 100%; height: 250px" class="ag-theme-balham top-all" [rowData]="newTop"
+                            [columnDefs]="columnDefsTopNew"  [gridOptions]="gridOptionsTopView" rowSelection="multiple"
+                            (rowDoubleClicked)='onRowDoubleClick($event)' [singleClickEdit]=true [paginationAutoPageSize]=true
+                            [defaultColDef]="defaultColDefTop"  (gridSizeChanged)="onGridSizeChanged($event)"
+                            [modules]="modules">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

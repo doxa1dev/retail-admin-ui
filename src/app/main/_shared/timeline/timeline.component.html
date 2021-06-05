@@ -1,0 +1,21 @@
+<div class="container" *ngIf="newhistories">
+  <div id="time" *ngFor="let time of newhistories">
+    <div id="day">{{time.date}}</div>
+    <div *ngFor="let val of time.value">
+      <div class="col1"></div>
+      <div class="cycle"></div>
+      <div class="col2"></div>
+      <div class="content">
+        <div class="text" [style.margin-top]="val.status ? '-77px' : ((val.comments) ? '-57px' :'-40px')">
+          <div class="text-timeline">
+            <div id="left">{{val.action}}</div>
+            <div id="right">{{val.time}}</div>
+          </div>
+          <div class="infor" *ngIf="(val.status !== 'verify-email') && (val.status !== 'verify-phone') && val.status">Change {{val.status}} from "{{val.old_data}}" to "{{val.new_data}}"</div>
+          <div class="infor" *ngIf="val.comments">{{val.comments}}</div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+

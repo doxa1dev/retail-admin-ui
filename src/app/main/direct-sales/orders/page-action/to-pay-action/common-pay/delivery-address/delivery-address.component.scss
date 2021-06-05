@@ -1,0 +1,39 @@
+.infos{
+  // padding-top: 10px;
+    width: 90%;
+    margin: 0 auto;
+    // font-size: 12px;
+    #p{
+
+        margin-top: -10px;
+    }
+}
+
+.messages , .phone{
+    display: flex;
+    // font-size: 12px ;
+    width: 80%;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    // background-color: cyan;
+    position: relative;
+    margin-bottom: 10px;
+    #icons {
+        display: block;
+        padding: auto;
+        margin: auto 0;
+    }
+
+    #card {
+        // position: absolute;
+        margin-left: auto;
+        width: 85% !important;
+        background-color: #EEEEEE;
+        // -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+        // -moz-box-shadow: 0px 3px 16px #00000029 !important;
+        // box-shadow: 0px 3px 16px #00000029 !important;
+        // opacity: 0.8;
+        border-radius: 8px;
+
+    }
+}

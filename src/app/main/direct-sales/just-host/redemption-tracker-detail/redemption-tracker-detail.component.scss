@@ -1,0 +1,223 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+  ::ng-deep .guest-information-all {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+.redemption-tracker-detail {
+  width: 100%;
+  height: 100%;
+  background-color: #f5f5f5;
+  color: var(--text-color) !important;
+  position: relative;
+
+  &__title {
+    height: 80px;
+    margin: 20px -5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: var(--header-page);
+    font-weight: 600;
+  }
+
+  &__content {
+    width: 100%;
+    height: auto;
+    min-height: calc(100% - 200px);
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 1;
+    flex-shrink: 1;
+    margin-bottom: 10px;
+
+    .detail-container {
+      flex: 0 0 66.666667%;
+      max-width: 66.666667%;
+      padding: 0 5px 0 10px;
+
+      &__content {
+        background-color: #fff;
+        box-shadow: 0px 2px 8px #00000029;
+        height: auto;
+        min-height: 100px;
+        padding: 20px;
+        font-size: var(--primary-text) !important;
+        position: relative;
+        margin-bottom: 10px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        &__title {
+          color: #5a616f;
+          font-weight: 600;
+          margin-bottom: 0.8em;
+        }
+
+        &__body {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          flex-basis: 1;
+          flex-shrink: 1;
+
+          .request-info {
+            flex-basis: 60%;
+            max-width: 60%;
+
+            &__row {
+              display: flex;
+              margin-bottom: 0.2em;
+
+              &:last-child {
+                margin-bottom: 0;
+              }
+
+              &__title {
+                min-width: 180px;
+              }
+            }
+
+            &__row--title {
+              margin-bottom: 0;
+            }
+          }
+
+          .request-image {
+            flex-basis: 40%;
+            max-width: 60%;
+            text-align: center;
+
+            img {
+              width: 100%;
+              max-width: 200px;
+              height: 100%;
+              object-position: center;
+              object-fit: contain;
+              box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%),
+                0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
+            }
+          }
+
+          .guest-information-all {
+            width: 100%;
+            height: 200px;
+          }
+
+          textarea {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            color: #495057;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+
+            &:focus {
+              border-color: #80bdff;
+              outline: 0;
+              box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+            }
+          }
+        }
+      }
+    }
+
+    .history-container {
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+      padding: 0 10px 0 5px;
+
+      .history-content {
+        background-color: #fff;
+        box-shadow: 0px 2px 8px #00000029;
+        height: auto;
+        padding: 20px 20px 40px;
+
+        &__header {
+          font-size: var(--header-page);
+          font-weight: 600;
+        }
+
+        hr {
+          border-top: 2px solid #707070;
+        }
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    height: 64px;
+    position: sticky;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: solid 1px #707070;
+    background-color: #fff;
+
+    .button-cancel {
+      width: 130px;
+      height: 40px;
+      border-radius: 5px;
+      text-align: center;
+      background-color: #fff;
+      color: #7da863;
+      border: 0.5px solid #7da863;
+
+      &:focus {
+        outline: unset;
+      }
+    }
+
+    .button-reject {
+      width: 140px;
+      height: 40px;
+      border-radius: 5px;
+      text-align: center;
+      background-color: #de3535 !important;
+      color: #fff !important;
+      margin-right: 20px;
+
+      &:focus {
+        outline: unset;
+        border: unset;
+      }
+
+      &:disabled {
+        background-color: gray !important;
+        cursor: not-allowed !important;
+        color: #fff !important;
+      }
+    }
+
+    .button-approve {
+      width: 130px;
+      height: 40px;
+      border-radius: 5px;
+      text-align: center;
+      background-color: #7da863 !important;
+      color: #fff !important;
+
+      &:focus {
+        outline: unset;
+        border: unset;
+      }
+
+      &:disabled {
+        background-color: gray !important;
+        cursor: not-allowed !important;
+        color: #fff !important;
+      }
+    }
+  }
+}

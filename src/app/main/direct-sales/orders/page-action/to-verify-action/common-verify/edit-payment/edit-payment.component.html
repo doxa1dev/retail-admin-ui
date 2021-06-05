@@ -1,0 +1,11 @@
+<div class="button-mark-as-verified-active">
+  <button [disabled]="true" *ngIf="active" mat-raised-button color="primary"  class="verified-button-active" aria-label="View">
+    <div>Verify</div>
+  </button>
+</div>
+
+<div class="button-mark-as-verified">
+  <button *ngIf="!active" (click)="editAction()" mat-raised-button color="primary" class="verified-button-nonactive" aria-label="View">
+        <div>Edit</div>
+  </button>
+</div>

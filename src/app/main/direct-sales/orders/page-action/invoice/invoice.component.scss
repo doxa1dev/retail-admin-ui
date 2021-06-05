@@ -1,0 +1,166 @@
+html, body {
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto;
+}
+
+@page {
+  size: auto;
+  margin: 0;
+}
+.invoice-detail {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  // display: none;
+  font-size: 12px;
+
+  @media screen {
+    div.divFooter {
+      display: none;
+      page-break-before: always;
+    }
+    #Header {
+      display: none;
+    }
+    @page { margin: 0 !important; }
+    body { margin: 1.6cm; }
+  }
+  @media print {
+    div.divFooter {
+      page-break-before: always;
+      position: fixed;
+      bottom: 0;
+    }
+
+    // .Header { display: none !important; }
+
+    // @page :footer {
+    //   display: none
+    // }
+
+    // @page :header {
+    //     display: none
+    // }
+    .container { margin: 1.6cm; }
+
+  }
+
+  .logo-invoice {
+      // text-align: center;
+      width: 100%;
+      .tr-invoice{
+          width: 100%;
+          border-collapse: collapse;
+          border: hidden;
+          // border: 1px solid #CCC;
+          .img{
+            // height: 80px;
+            width: 35%;
+            align-items: center;
+            .logo{
+              width: 80%;
+              margin-left: 10%;
+              // margin-top: 20px;
+              display: table-cell;
+              vertical-align: middle;
+            }
+          }
+          .row1{
+            width: 65%;
+            .title{
+              text-align: right;
+              padding-left: 5px;
+            }
+          }
+          .name{
+            text-align: center;
+            font-weight: 600;
+            font-size: 20px;
+          }
+      }
+      .tr2-invoice{
+        width: 100%;
+        border-collapse: collapse;
+        border: hidden;
+        // .detail{
+        //   color: #c55a11;
+        // }
+      }
+      .tb3-invoice{
+        width: 100%;
+        border-collapse: collapse;
+        order: hidden;
+        .bold{
+          font-weight: 600;
+        }
+        // .detailColor{
+        //   color: #c55a11;
+        // }
+      }
+      .tb4-invoice{
+        width: 100%;
+        border-collapse: collapse;
+        order: hidden;
+        .bold{
+          font-weight: 600;
+        }
+        // .detailColor{
+        //   color: #c55a11;
+        // }
+      }
+      .tb5-invoice{
+        width: 100%;
+        border-collapse: collapse;
+        order: hidden;
+        .bold{
+          font-weight: 600;
+        }
+        // .detailColor{
+        //   color: #c55a11;
+        // }
+      }
+
+      .tb6-invoice{
+        width: 100%;
+        border-collapse: collapse;
+        order: hidden;
+        .bold{
+          font-weight: 600;
+        }
+        .detailColor{
+          // color: #c55a11;
+          text-align: right;
+        }
+      }
+
+      .tb7-invoice{
+        width: 100%;
+        border-collapse: collapse;
+        order: hidden;
+        .bold{
+          font-weight: 600;
+        }
+        // .detailColor{
+        //   color: #c55a11;
+        // }
+      }
+
+      .divFooter{
+        font-size: 11px;
+        display: flex;
+        width: 100%;
+        margin-bottom: 10px;
+        .left{
+          width: 65%;
+        }
+        .right{
+          width: 30%;
+          .vorwerk{
+            width: 60px;
+            height: 60px;
+            float: right;
+          }
+        }
+      }
+  }
+}

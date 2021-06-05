@@ -1,0 +1,87 @@
+<div class="container-warehouse">
+  <div class="title">
+    <div>Export Packing List</div>
+  </div>
+
+  <!-- <p-dropdown placeholder="Select Product" optionLabel="label" [options]="listProduct"
+  [filter]="true" filterBy="label" (onChange)="onChangeProduct($event)"></p-dropdown>
+  <button>export order</button>
+  <button (click)='exportProduct()'>export product</button> -->
+
+  <div class="body-warehouse">
+
+    <!-- <p class="today-text">To day is {{showToday}}</p> -->
+    <p>Packing List From Order</p>
+
+    <div [formGroup]="orderForm">
+      <div class="form-day">
+
+        <p class="date-text">From</p>
+
+        <div style="display: block; width: 30%;">
+          <p-calendar appendTo="body" dateFormat="DD, dd/mm/yy" [showIcon]="true" placeholder='Select day'
+          [maxDate]="maxDateFrom1" (onSelect)="onChangeFromOrder($event)" formControlName='startDayOrder'></p-calendar>
+
+          <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 5px;"
+          *ngIf="orderForm.controls.startDayOrder.hasError('required') && isShowOrder">
+          Start day is required
+          </mat-error>
+        </div>
+
+        <p class="date-text">To</p>
+
+        <div style="display: block; width: 30%;">
+          <p-calendar appendTo="body" dateFormat="DD, dd/mm/yy" [showIcon]="true" placeholder='Select day'
+          [minDate]="minDateStart1" [maxDate]="maxDateTo1" (onSelect)="onChangeToOrder($event)" formControlName='endDayOrder'></p-calendar>
+
+          <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 5px;"
+          *ngIf="orderForm.controls.endDayOrder.hasError('required') && isShowOrder">
+          End day is required
+          </mat-error>
+        </div>
+
+        <app-button-loading [active]="active1" style="cursor: pointer;" [buttonName]="buttonName1" (click)='exportOrder()'></app-button-loading>
+      </div>
+
+      <div class="form-product">
+        <p>Product</p>
+
+        <p-multiSelect [showToggleAll] = true [defaultLabel]="'Select Product'" optionLabel="label" [options]="listProduct"
+        [filter]="true" filterBy="label" (onChange)="onChangeProduct($event)" formControlName='product'></p-multiSelect>
+      </div>
+
+      <mat-error class="error-message" style="margin-left: 8%; display: block;"
+      *ngIf="orderForm.controls.product.hasError('required') && isShowOrder">Product is required</mat-error>
+    </div>
+
+    <p>Packing List By Product Quantity</p>
+    <div class="form-day" [formGroup]="productForm">
+
+      <p class="date-text">From</p>
+
+      <div style="display: block; width: 30%;">
+        <p-calendar appendTo="body" dateFormat="DD, dd/mm/yy" [showIcon]="true" placeholder='Select day'
+        [maxDate]="maxDateFrom2" (onSelect)="onChangeFromProduct($event)" formControlName='startDayProduct'></p-calendar>
+
+        <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 5px;"
+        *ngIf="productForm.controls.startDayProduct.hasError('required') && isShowProduct">
+        Start day is required
+        </mat-error>
+      </div>
+
+      <p class="date-text">To</p>
+
+      <div style="display: block; width: 30%;">
+        <p-calendar appendTo="body" dateFormat="DD, dd/mm/yy" [showIcon]="true" placeholder='Select day'
+        [minDate]="minDateStart2" [maxDate]="maxDateTo2" (onSelect)="onChangeToProduct($event)" formControlName='endDayProduct'></p-calendar>
+
+        <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 5px;"
+        *ngIf="productForm.controls.endDayProduct.hasError('required') && isShowProduct">
+        End day is required
+        </mat-error>
+      </div>
+
+      <app-button-loading [active]="active2" style="cursor: pointer;" [buttonName]="buttonName2" (click)='exportProduct()'></app-button-loading>
+    </div>
+  </div>
+</div>

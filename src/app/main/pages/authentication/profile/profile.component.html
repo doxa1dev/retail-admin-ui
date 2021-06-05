@@ -1,0 +1,173 @@
+<div class="container-profile">
+  <div class="title">
+    <div>Profile: {{profile.name}}</div>
+  </div>
+
+  <div class="row ml-2">
+    <div class="col-lg-8">
+      <div class="profile-description">
+        <div class="row" style="box-shadow: 0px 2px 8px #00000029;">
+
+          <div class="change-avatar">
+            <p class="title-photo">User profile photo</p>
+
+            <div class="user-profile row">
+              <div class="col-lg-3 img-user">
+                <img [src]="imgProfile">
+              </div>
+
+              <div class="col-lg-9 add-img" appDnd (fileDropped)="onFileDropped($event)">
+                <label for="fileInput" style="margin-bottom: 0px;">
+                  <p style="font-size: 16px; color: var(--link-color);
+                  cursor: pointer;margin-top: 15px; margin-bottom: 10px;">Add file</p>
+                </label>
+
+                <input id="fileInput" type="file" (change)="onSelectFile($event.target.files)"
+                accept="image/bmp, image/jpeg, image/png" style="display: none;"/>
+
+                  
+                <p>or drop file to upload</p>
+                <p>Supported File type : JPG, PNG</p>
+                <p>Maximum File size 5.00 MB per file</p>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider style="width: 100%;"></mat-divider>
+
+          <div class="profile">
+            <p class="title-infor">User Information</p>
+
+            <div class="user-information1">
+              <div class="info-left">
+                <!-- <p>User:</p> -->
+                <p>Name:</p>
+              </div>
+
+              <div class="info-right">
+                <!-- <p>{{profile.user}}</p> -->
+                <div class="edit-name" style="display: flex;">
+                  <p>{{profile.name}}</p>
+                  <p style="color: var(--link-color); padding-left: 80px; cursor: pointer;" (click)="changeName()">
+                    {{isShowChangeName ? 'Close' : 'Edit'}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-name" *ngIf="isShowChangeName" [formGroup]="changeNameForm">
+              <!-- <p>New User</p> -->
+              <!-- <input placeholder="Enter New User" formControlName="newUser"> -->
+              <!-- check error -->
+              <!-- <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 2px;"
+                *ngIf="changeNameForm.controls.newUser.hasError('required') && isShowName">
+                User is required
+              </mat-error> -->
+
+              <p style="padding-top: 5px;">New Name</p>
+              <input placeholder="Enter New Name" formControlName="newName">
+              <!-- check error -->
+              <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 2px;"
+                *ngIf="changeNameForm.controls.newName.hasError('required') && isShowName">
+                Name is required
+              </mat-error>
+              <button class="btn-save-name" (click)="saveName()">Save change</button>
+            </div>
+
+            <div class="user-information2">
+              <div class="left">
+                <p>Roles:</p>
+                <p>Email:</p>
+                <p>Company:</p>
+              </div>
+
+              <div class="right">
+                <p>{{profile.role}}</p>
+                <p>{{profile.email}}</p>
+                <p>{{profile.company}}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="change-pass row">
+        <div class="password">
+
+          <p class="text-security">Security</p>
+
+          <div class="body-pass">
+            <p>Password:</p>
+            <p class="text-pass">********</p>
+            <p class="text-change" style="cursor: pointer;" (click)='changePassword()'>
+              {{ isShowChangePass ? 'Close' : 'Change Password'}}</p>
+          </div>
+
+          <div class="form-pass" *ngIf="isShowChangePass" [formGroup]="changePasswordForm">
+            <p>Current Password</p>
+            <input placeholder="Enter current password" formControlName="currentPassword" type="password" PasswordOnly>
+            <!-- check error -->
+            <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 2px; margin-top: 2px;"
+              *ngIf="changePasswordForm.controls.currentPassword.hasError('required') && isShow">
+              Current Password is required.
+            </mat-error>
+
+            <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 2px;"
+              *ngIf="!changePasswordForm.controls.currentPassword.hasError('required') &&
+              changePasswordForm.controls.currentPassword.touched &&
+              changePasswordForm.controls.currentPassword.errors?.minlength && isShow">
+              Password is at least 8 characters.
+            </mat-error>
+
+            <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 2px;"
+            *ngIf="isShowFail && changePasswordForm.get('currentPassword').pristine">
+              {{massagePassword}}
+            </mat-error>
+
+            <p>New Password</p>
+            <input placeholder="Enter new password" formControlName="newPassword" type="password" PasswordOnly>
+            <!-- check error -->
+            <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 2px;"
+              *ngIf="changePasswordForm.controls.newPassword.hasError('required') && isShow">
+              New Password is required.
+            </mat-error>
+
+            <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 2px;"
+            *ngIf="!changePasswordForm.controls.newPassword.hasError('required') &&
+            changePasswordForm.controls.newPassword.touched &&
+            changePasswordForm.controls.newPassword.errors?.minlength && isShow">
+            Password is at least 8 characters.
+            </mat-error>
+
+            <p>Confirm Password</p>
+            <input placeholder="Enter confirm password" formControlName="confirmPassword" type="password" PasswordOnly>
+            <!-- check error -->
+            <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 2px;"
+              *ngIf="changePasswordForm.controls.confirmPassword.hasError('required') && isShow">
+              Confirm Password is required.
+            </mat-error>
+
+            <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 2px;"
+            *ngIf="!changePasswordForm.controls.confirmPassword.hasError('required') &&
+            changePasswordForm.controls.confirmPassword.touched &&
+            changePasswordForm.controls.confirmPassword.errors?.minlength && isShow">
+              Password is at least 8 characters.
+            </mat-error>
+
+            <mat-error class="error-message" style="margin-left: 5px; display: block; margin-top: 2px;"
+            *ngIf="!changePasswordForm.controls.confirmPassword.hasError('required') &&
+            changePasswordForm.controls.confirmPassword.touched &&
+            changePasswordForm.controls.confirmPassword.errors?.mustMatch && isShow">
+              Confirm password not match.
+            </mat-error>
+
+            <button class="btn-save" (click)="savePassword()">Save change</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

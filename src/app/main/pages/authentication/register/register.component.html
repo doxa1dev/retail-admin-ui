@@ -1,0 +1,162 @@
+<div id="register" fxLayout="column">
+
+    <div id="register-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+        <div id="register-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+            <div id="FormTitle">
+                <div class="formLogo">
+                    <img src="assets/DoxaImages/thermomix-logo.png">
+                </div>
+                <div class="fromLanguage">
+                    <button mat-icon-button>
+                        <mat-icon>language</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div class="title">SIGN UP</div>
+
+            <form name="registerForm" [formGroup]="registerForm" novalidate>
+                <mat-label class="secondary-text">First Name</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput formControlName="fname" placeholder="Chen">
+                    <div *ngIf="registerForm.get('fname').hasError('required') && registerForm.controls.fname.touched">
+                        <app-alert>
+                            <p>First Name is required.</p>
+                        </app-alert>
+                    </div>
+                </mat-form-field>
+                <mat-label class="secondary-text">Last Name</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput formControlName="lname" placeholder="Cecilla">
+                    <div *ngIf="registerForm.get('lname').hasError('required') && registerForm.controls.lname.touched">
+                        <app-alert>
+                            <p>Last Name is required.</p>
+                        </app-alert>
+                    </div>
+                </mat-form-field>
+
+                <mat-label class="secondary-text">Email</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput formControlName="email" placeholder="Cecilla@gmail.com">
+                    <div *ngIf="registerForm.get('email').hasError('required') && registerForm.controls.email.touched">
+                        <app-alert>
+                            <p>Email is required.</p>
+                        </app-alert>
+                    </div>
+                    <div *ngIf="!registerForm.get('email').hasError('required') &&
+                                                    registerForm.get('email').hasError('email') && registerForm.controls.email.touched">
+                        <app-alert>
+                            <p>Please enter a valid email address.</p>
+                        </app-alert>
+                    </div>
+                </mat-form-field>
+
+                <mat-label class="secondary-text">Designation</mat-label>
+
+                <p-dropdown id="designation" [options]="designations" [(ngModel)]="selectedDesignation" [style]="{'width':'100%','height':'48px'}">
+                    <ng-template let-item pTemplate="selectedItem">
+                        <span style="vertical-align:middle">{{item.value}}</span>
+                    </ng-template>
+                    <ng-template let-dis pTemplate="item">
+                        <div class="ui-helper-clearfix" style="position: relative;height:25px;">
+                            <div style="font-size:14px;float:left;margin-top:4px">{{dis.value}}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+
+                <mat-label class="secondary-text">Phone Number</mat-label>
+                <div id="phoneNumber">
+                        <div id="phoneCode">
+                            <app-dialCode></app-dialCode>
+                        </div>
+                        
+
+                        <mat-form-field appearance="none" id="phoneNum">
+                            <input matInput formControlName="phoneNum" placeholder="123456">
+                        </mat-form-field>
+                        
+                        <div id="alertPhoneNumber">
+                            <div *ngIf="registerForm.get('phoneNum').hasError('required') && registerForm.controls.phoneNum.touched">
+                                <app-alert>
+                                    <p>Phone Number is required.</p>
+                                </app-alert>
+                            </div>
+                            <div
+                                *ngIf="!registerForm.get('phoneNum').hasError('required') &&                                                                                                         registerForm.get('phoneNum').hasError('phoneNum') && registerForm.controls.phoneNum.touched">
+                                <app-alert>
+                                    <p>Phone Number must be a number.</p>
+                                </app-alert>
+                            </div>
+                        </div>    
+                </div>
+                
+                    
+                <mat-label class="secondary-text">Advisor ID</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput formControlName="AdId" placeholder="1234">
+                </mat-form-field>
+
+                <mat-label class="secondary-text">Advisor Name</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput formControlName="AdNa" placeholder="Filla Wong">
+                    
+                </mat-form-field>
+
+                <mat-label class="secondary-text">Password</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput type="password" formControlName="password" placeholder="********">
+                    <div *ngIf="registerForm.get('password').hasError('required') && registerForm.controls.password.touched ">
+                        <app-alert>
+                            <p>Password is required.</p>
+                        </app-alert>
+                    </div>
+                    <div
+                        *ngIf="!registerForm.get('password').hasError('required') && registerForm.controls.password.touched && registerForm.get('password').hasError('minlength')">
+                        <app-alert>
+                            <p>Password is at least 8 character.</p>
+                        </app-alert>
+                    </div>
+                </mat-form-field>   
+
+
+                <mat-label class="secondary-text">Confirm Password</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput type="password" formControlName="confirmPassword" placeholder="********">
+                    <div *ngIf="registerForm.get('confirmPassword').hasError('required') && registerForm.controls.confirmPassword.touched ">
+                        <app-alert>
+                            <p>Confirm Password is required.</p>
+                        </app-alert>
+                    </div>
+                    <div
+                        *ngIf="!registerForm.get('confirmPassword').hasError('required') &&  registerForm.get('confirmPassword').hasError('mustMatch') && registerForm.controls.password.touched">
+                        <app-alert>
+                            <p>Confirm password not match.</p>
+                        </app-alert>
+                    </div>
+                </mat-form-field>
+
+
+                <div class="terms" fxLayout="row" fxLayoutAlign="center center">
+                    <mat-checkbox name="terms" aria-label="I read and accept" required color="warn"></mat-checkbox>
+                    <span> I agrees to <a href="#"> Term of Use</a> and <a href="#">Privacy Policy</a> Provided by Thermomix.</span>
+                </div>
+                
+                <button mat-raised-button color="accent" class="submit-button" aria-label="CREATE AN ACCOUNT"
+                    [disabled]="registerForm.invalid">
+                    CREATE AN ACCOUNT
+                </button>
+
+            </form>
+
+            <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text">Already have an account ? <a class="link" [routerLink]="'/login'">&nbsp; Sign In</a></span>
+                
+            </div>
+
+        </div>
+        <h2 class="FormFooter">Powered by Doxa</h2>
+    </div>
+
+</div>

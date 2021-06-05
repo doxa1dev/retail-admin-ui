@@ -1,0 +1,699 @@
+<div class="container-product">
+  <form action="" [formGroup]="productForm" (keydown)="OnKeyDownEven($event)">
+    <div class="title">
+      <div>
+        <button mat-icon-button (click)="back()">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span>Product List</span>
+      </div>
+      <p>Add Product</p>
+    </div>
+    <div class="row ml-2">
+      <div class="col-lg-8">
+        <div class="title-description row">
+          <div class="cart">
+            <p>Title</p>
+            <input type="text" placeholder="Thermomix TM6" formControlName="productTitle">
+            <mat-error class="error-message" style="margin-left: 5px; display: block;"
+              *ngIf="f.productTitle.hasError('required') && submitted">
+              Title is required
+            </mat-error>
+            <p>Description ({{productdescription.value.length}}/2000)</p>
+
+            <textarea class="text-area" formControlName="productDescription" #productdescription
+              maxlength="2000"></textarea>
+          </div>
+        </div>
+
+        <div class="image row">
+          <div class="cart">
+            <p>Media</p>
+            <div *ngIf="imageArray.length > 0">
+              <div class="row" cdkDropList (cdkDropListDropped)="drop($event)">
+                <div class="col-6">
+                  <div class="cover-photo">
+                    <img [src]="imageArray[0]" alt="" cdkDrag>
+                    <button class="deleteButton" mat-icon-button (click)="deleteFile(0)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+
+                </div>
+                <div class="col-6">
+                  <div class="row picturesmall">
+                    <ng-container *ngFor="let item of imageArray, let x = index">
+                      <div *ngIf="x !== 0 " class="col-6 photocol">
+                        <div class="photo">
+                          <img [src]="item" alt="" cdkDrag>
+                          <button class="deleteButtonSmall" mat-icon-button (click)="deleteFile(x)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </ng-container>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container" appDnd (fileDropped)="onFileDropped($event)">
+              <img *ngIf="imageArray.length == 0" src="assets\icons\doxa-icons\Photos.svg" alt=""
+                style="width: 130px; height: auto;">
+              <button type="button" (click)="fileDropRef.click()">
+                <span>Add file</span>
+                <input #fileDropRef type="file" id="file" accept='image/*' (change)="fileBrowseHandler($event.target.files)"
+                  style="display:none;" />
+              </button>
+              <p>or drop file to upload</p>
+
+              <p>Supported File tyep: JPG, PNG, SVG</p>
+
+              <p>Maximum File Size 4.00 MB per file</p>
+            </div>
+            <mat-error class="error-message" style="margin-left: 5px; display: block;"
+              *ngIf="imageArray.length == 0 && submitted">
+              Image is required
+            </mat-error>
+            <div class="files-list">
+              <div class="single-file" *ngFor="let file of files; let i = index">
+                <ng-container *ngIf="file.progress !== 100">
+                  <img src="assets/dnd/ic-file.svg" width="45px" alt="file">
+                  <div class="info">
+                    <h4 class="name">
+                      {{ file?.name }}
+                    </h4>
+                    <p class="size">
+                      {{ formatBytes(file?.size) }}
+                    </p>
+                    <app-progress [progress]="file?.progress"></app-progress>
+                  </div>
+                  <img src="assets/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file"
+                    (click)="deleteFile(i)">
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="price row" style="display: block;">
+          <div class="cart">
+            <p>Pricing</p>
+            <div class="row-content">
+              <div class="currency  col-lg-6">
+                <p>Currency</p>
+                <p-dropdown [options]="currency" [(ngModel)]="selectedCurrency" [ngModelOptions]="{standalone: true}"
+                  [filter]="true" filterBy="label,value" [virtualScroll]="true">
+                  <ng-template let-item pTemplate="selectedItem">
+                    <span style="vertical-align:middle;">{{item.value}}</span>
+                  </ng-template>
+                  <ng-template let-dial pTemplate="item">
+
+                    <div class="ui-helper-clearfix"
+                      style="display: inline-block; width: 100%;height:25px; overflow-y: hidden;line-height: 25px">
+                      <mat-list-item>
+
+                        <span
+                          style="width:200px;display:inline-block;overflow: hidden;height:25px; vertical-align: middle;">{{dial.label}}</span>
+                        <span style="width:50px;display:inline-block;height:25px; vertical-align: middle;">+
+                          {{dial.value}}</span>
+
+                      </mat-list-item>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+              </div>
+              <div class="rowdata row col-lg-12">
+                <div class="halfrow col-lg-6">
+                  <p>Listed Price</p>
+                  <input type="text" placeholder="0.00" formControlName="listedPrice">
+                  <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                    *ngIf="f.listedPrice.hasError('required') && submitted">
+                    Listed price is required
+                  </mat-error>
+                  <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                    *ngIf="f.listedPrice.errors?.pattern && f.listedPrice.touched">
+                    Price must be number
+                  </mat-error>
+                </div>
+                <div class="halfrow col-lg-6">
+                  <p>Promotion Price</p>
+                  <input type="text" placeholder="0.00" #3 formControlName="promotionPrice">
+                  <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                    *ngIf="f.promotionPrice.errors?.pattern && !isCheckPrice && f.promotionPrice.touched">
+                    Price must be number
+                  </mat-error>
+                  <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                  *ngIf="isCheckPrice && !isCheckPriceNaep && f.promotionPrice.pristine">
+                    Promotion price must be less than or equal to listed price
+                </mat-error>
+
+
+                <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                *ngIf="checkPromotionPrice && !isCheckPriceNaep && f.promotionPrice.pristine">
+                  Please fill in promotion price.
+                </mat-error>
+
+
+                </div>
+              </div>
+              <div class="rowdata row col-lg-12">
+                <div class="halfrow col-lg-6">
+                  <p>Promotion Start Time</p>
+                  <p-calendar formControlName="promotionStartDay" dateFormat="DD,dd/mm/yy" [showIcon]="true"
+                    [minDate]="minDateStart" (onSelect)="onChangeStart($event)"></p-calendar>
+                    <mat-error class="error-message" style="margin-left: 5px; margin-top: 8px; display: block;"
+                    *ngIf="checkPromotionTime && f.promotionStartDay.pristine && f.promotionEndDay.pristine">
+                     Please fill in promotion start time, end time
+                  </mat-error>
+                </div>
+                <div class="halfrow col-lg-6">
+                  <p>Promotion End Time</p>
+                  <p-calendar [disabled]="disable" formControlName="promotionEndDay" dateFormat="DD,dd/mm/yy"
+                    [showIcon]="true" [minDate]="minDateEnd"></p-calendar>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <br>
+          <br> -->
+          <mat-divider></mat-divider>
+
+          <div class="cart ">
+            <div class="row-content tax-shiping">
+              <div class="rowdata row col-lg-12">
+                <div class="halfrow col-lg-6">
+                  <p>NAEP Deposit Amount</p>
+                  <div class="tax">
+                    <div class="ui-inputgroup">
+                      <span class="ui-inputgroup-addon">{{selectedCurrency}}</span>
+                      <input type="text" pInputText placeholder="0.00" formControlName="naepDiscount"
+                      [ngModel]="naepDiscountPrice | currency:'':''">
+                    </div>
+                    <!-- check -->
+                    <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                    *ngIf="f.naepDiscount.errors?.pattern && !isCheckPrice && f.naepDiscount.touched">
+                      NAEP Discount price must be number
+                    </mat-error>
+                    <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                    *ngIf="isCheckPriceNaep && !isCheckPrice&& f.naepDiscount.pristine">
+                      NAEP Discount price must be less than or equal to listed price
+                    </mat-error>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+          <div class="cart ">
+            <div class="row-content tax-shiping">
+              <div class="rowdata row col-lg-12">
+                <div class="halfrow col-lg-6">
+                  <p>Internal discount price</p>
+                  <div class="tax">
+                    <div class="ui-inputgroup">
+                      <span class="ui-inputgroup-addon">{{selectedCurrency}}</span>
+                      <input type="text" pInputText placeholder="0.00" formControlName="internalDiscount"
+                      [(ngModel)]="internalDiscountPrice" (change)="changeDiscount()">
+                    </div>
+
+                    <!-- check -->
+                    <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                    *ngIf="f.internalDiscount.errors?.pattern && f.internalDiscount.touched">
+                      Internal discount price must be number
+                    </mat-error>
+
+                    <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                    *ngIf="f.internalDiscount.hasError('required') && f.internalDiscount.touched && isShowDiscountFor">
+                      Internal discount price is required
+                    </mat-error>
+                    <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                    *ngIf="f.internalDiscount.pristine && isCheckPriceInternal && !f.internalDiscount.hasError('required') ">
+                      Internal discount price  must be less than or equal to listed price
+                    </mat-error>
+                  </div>
+
+                  <p style="padding-top: 24px;">Discount start date</p>
+                  <div class="tax">
+                    <p-calendar [disabled]="isDisabled" formControlName="discountStartDate" [(ngModel)]="todayDate" dateFormat="DD,dd/mm/yy"
+                    [showIcon]="true" [minDate]="minDateStart" ></p-calendar>
+                  </div>
+                </div>
+                <div class="halfrow col-lg-6">
+                  <div class="active-for">
+                    <p>Internal discount for</p>
+                    <div style="padding-left: 20px;">
+
+                      <mat-checkbox class="checkActive" style="font-size: var(--checkbox);"
+                      [(ngModel)]="checkAdvisorInternalDiscount" [ngModelOptions]="{standalone: true}"
+                      (change)="changeAdvisorInternalDiscount($event)" [disabled]="isDisabled">Advisors</mat-checkbox>
+                      <br>
+
+                      <mat-checkbox class="checkActive" style="font-size: var(--checkbox);"
+                      [(ngModel)]="checkTeamLeaderInternalDiscount" [ngModelOptions]="{standalone: true}"
+                      (change)="changeTeamLeaderInternalDiscount($event)" [disabled]="isDisabled">Team Leaders</mat-checkbox>
+                      <br>
+
+                      <mat-checkbox class="checkActive" style="font-size: var(--checkbox);"
+                      [(ngModel)]="checkBranchManagerInternalDiscount" [ngModelOptions]="{standalone: true}"
+                      (change)="changeBranchManagerInternalDiscount($event)" [disabled]="isDisabled">Branch Managers</mat-checkbox>
+
+                      <mat-error class="error-message" style="margin-left: -20px; display: block;"
+                      *ngIf="isShowSelectDiscountFor">
+                        Please choose the beneficiary.
+                      </mat-error>
+
+                    </div>
+
+                    <p style="padding-top: 10px;">Maximum total discount items one can purchase</p>
+                    <input type="text" placeholder="Enter number" formControlName="totalDiscount">
+                    <mat-error class="error-message" style="margin-left: 5px; display: block; margin-bottom:5px;"
+                    *ngIf="f.totalDiscount.errors?.pattern && f.totalDiscount.touched">
+                      Total Discount Price must be number
+                    </mat-error>
+
+                    <mat-error class="error-message" style="margin-left: 5px; display: block; margin-bottom:5px;"
+                    *ngIf="f.totalDiscount.hasError('required') && submitted">
+                      Total Discount Price is required
+                    </mat-error>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="cart ">
+            <div class="row-content tax-shiping">
+              <div class="rowdata row col-lg-12">
+                <div class="halfrow col-lg-6">
+                  <p>Tax</p>
+                  <div class="tax">
+                    <div class="ui-inputgroup">
+                      <span class="ui-inputgroup-addon">%</span>
+                      <input type="text" pInputText placeholder="Price" formControlName="tax">
+
+                    </div>
+                    <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                      *ngIf="f.tax.errors?.pattern && f.tax.touched">
+                      Tax must be number
+                    </mat-error>
+
+                  </div>
+                </div>
+                <div class="halfrow col-lg-6">
+                  <p>Shipping Fee</p>
+                  <input type="text" placeholder="0.00" formControlName="shippingFee">
+                  <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                    *ngIf="f.shippingFee.errors?.pattern && f.shippingFee.touched">
+                    Shipping fee must be number
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shipping row">
+          <div class="cart">
+            <p>Shipping</p>
+            <div class="row-content">
+
+              <div class="rowdata row col-lg-12">
+                <div class="halfrow col-lg-6">
+                  <mat-checkbox [(ngModel)]="checkShippingWeight" [ngModelOptions]="{standalone: true}">This is a
+                    physical product</mat-checkbox>
+
+                  <div *ngIf="checkShippingWeight">
+                    <p>Weight</p>
+
+                    <div class="ui-inputgroup">
+                      <input *ngIf="checkShippingWeight" type="text" pInputText placeholder="Weight"
+                        formControlName="weight">
+                      <input *ngIf="!checkShippingWeight" type="text" pInputText placeholder="Weight">
+                      <span class="ui-inputgroup-addon">Kg</span>
+                    </div>
+                    <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                      *ngIf="productForm.controls.weight.errors?.pattern && productForm.controls.weight.touched">
+                      Weight must be number
+                    </mat-error>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variant row">
+          <div class="cart">
+            <p>Variant</p>
+            <mat-checkbox (change)="checkHasVariant($event)" [(ngModel)]="checkVariant" [ngModelOptions]="{standalone: true}">This product has multiple
+              options, like different size / colors / language</mat-checkbox>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row-content" *ngIf="checkVariant">
+            <p>OPTIONS</p>
+            <div [formGroup]="propertiesArray">
+              <div formArrayName="properties">
+                <div *ngFor="let property of properties.controls, let i = index">
+                  <div [formGroupName]="i">
+                    <div class="row rowdata" id="addOptions">
+                      <div class="col-lg-4 input">
+                        <input type="text" formControlName="property_name">
+                        <mat-error class="error-message"
+                          style="margin-top: 5px; margin-left: 10px ;margin-bottom:5px; display: block;"
+                          *ngIf="checkVariant && (property.get('property_name').value.length <=0) && submitted">
+                          Type option is required
+                        </mat-error>
+                      </div>
+                      <div class="col-lg-8" formArrayName="property_option">
+                        <mat-form-field class="example-chip-list">
+                          <mat-chip-list #chipList aria-label="Selection">
+                            <mat-chip *ngFor="let option of propertiesValueArray[i]" [selectable]="selectable"
+                              [removable]="removable" (removed)="remove(option,i)">
+                              {{option }}
+                              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+                            <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                              [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event,i)">
+                          </mat-chip-list>
+                        </mat-form-field>
+                        <mat-error class="error-message"
+                          style="margin-top: 25px; margin-left: 10px ;margin-bottom:5px; display: block;"
+                          *ngIf="checkVariant && propertiesValueArray[i]?.length <=0 && submitted">
+                          Options is required
+                        </mat-error>
+                      </div>
+                    </div>
+                    <div class="btn-add-another">
+                      <button mat-raised-button (click)="removeOption(i)">Remove This Option</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="btn-add-another">
+                <button mat-raised-button (click)="addOption()">Add another option</button>
+              </div>
+            </div>
+            <p *ngIf="skuDataDisplay.length>0">SKU</p>
+            <div *ngFor="let sku of skuDataDisplay" class="sku-variant">
+              <div class="sku-name">{{sku.variant}}</div>
+              <input type="text" [ngClass]='sku.display ? "color-red" :" color-grey"' [(ngModel)]="sku.sku" [ngModelOptions]="{standalone: true}" placeholder="Please enter SKU of {{sku.variant}}">
+            </div>
+            <mat-error class="error-message"
+              style="margin-top: 25px; margin-left: 10px ;margin-bottom:5px; display: block;"
+              *ngIf="checkVariant && notEnterAllSku && submitted">
+              All sku are required
+            </mat-error>
+            <mat-error class="error-message"
+              style="margin-top: 25px; margin-left: 10px ;margin-bottom:5px; display: block;"
+              *ngIf="checkVariant && checkDuplicates && submitted">
+              Sku are duplicates
+            </mat-error>
+          </div>
+        </div>
+
+        <div class="warranty row">
+          <div class="cart">
+            <p>Warranty</p>
+            <div class="row-content">
+
+              <div class="rowdata row col-lg-12">
+                <div class="halfrow col-lg-6">
+                  <mat-checkbox [(ngModel)]="checkWarranty" [ngModelOptions]="{standalone: true}">This product has
+                    warranty.</mat-checkbox>
+
+
+                  <div *ngIf="checkWarranty">
+                    <p>Time</p>
+                    <div>
+                      <div class="ui-inputgroup">
+                        <input *ngIf="checkWarranty" type="text" pInputText placeholder="Day" formControlName="day">
+                        <input *ngIf="!checkWarranty" [disabled]="true" type="text" pInputText placeholder="Day">
+                        <span class="ui-inputgroup-addon">Day(s)</span>
+                      </div>
+                      <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                        *ngIf="productForm.controls.day.errors?.pattern && productForm.controls.day.touched">
+                        Warranty day must be number.
+                      </mat-error>
+                    </div>
+                    <!-- <div class="warranty-detail">
+                                        <input *ngIf="checkShippingWeight" type="text" pInputText placeholder="Weight" formControlName="weight">
+                                        <input *ngIf="!checkShippingWeight" [disabled]="true" type="text" pInputText placeholder="Weight">
+                                        <p-dropdown [options]="times"></p-dropdown>
+                                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-4">
+        <div class="product-available row">
+          <div class="content">
+            <p>Product Availability</p>
+            <mat-checkbox class="checkActive" [(ngModel)]="checkActive" (click)="showProduct()" [ngModelOptions]="{standalone: true}">Active on
+              Online Store</mat-checkbox>
+            <br>
+            <mat-checkbox class="checkActive" [(ngModel)]="checkDisplay" [disabled]="!checkActive" [ngModelOptions]="{standalone: true}">Display on Online Store</mat-checkbox>
+            <br>
+            <mat-checkbox class="checkActive" [(ngModel)]="checkCommission" [ngModelOptions]="{standalone: true}">Has
+              commission</mat-checkbox>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="active-for">
+            <p>Active for:</p>
+            <div style="padding-left: 20px;">
+
+              <mat-checkbox class="checkActive" [(ngModel)]="checkCustomerActive"
+              [ngModelOptions]="{standalone: true}" (change)="changeCustomerActive($event)">Customers</mat-checkbox>
+              <br>
+
+              <mat-checkbox class="checkActive" [(ngModel)]="checkAdvisorActive"
+              [ngModelOptions]="{standalone: true}" (change)="changeAdvisorActive($event)">Advisors</mat-checkbox>
+              <br>
+
+              <mat-checkbox class="checkActive" [(ngModel)]="checkTeamLeaderActive"
+              [ngModelOptions]="{standalone: true}" (change)="changeTeamLeaderActive($event)">Team Leaders</mat-checkbox>
+              <br>
+
+              <mat-checkbox class="checkActive" [(ngModel)]="checkBranchManagerActive"
+              [ngModelOptions]="{standalone: true}" (change)="changeBranchManagerActive($event)">Branch Managers</mat-checkbox>
+
+              <mat-error class="error-message" style="margin-left: -20px; display: block;"
+              *ngIf="isShowSelectActiveFor">
+                Please choose the beneficiary.
+              </mat-error>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-available row">
+          <div class="content">
+            <p>Cart combination:</p>
+            <mat-checkbox class="checkActive" [(ngModel)]="cart_combination" [ngModelOptions]="{standalone: true}">Allow to combine with other products in cart.
+            </mat-checkbox>
+            <br>
+          </div>
+        </div>
+
+        <div class="product-available row">
+          <div class="content">
+            <p>Payment Promotion</p>
+            <div class="full-payment-gift">
+              <div class="payment-promotion-gift-toggle">
+                <mat-checkbox class="checkActive" (change)="togglePaymentPromotionGiftForm($event)">
+                  Full Payment Option Gift</mat-checkbox>
+              </div>
+              <div class='gift-dropdown'>
+                <div formArrayName="fullPaymentOptionGifts"
+                  *ngFor="let fullPaymentOptionGift of productForm['controls'].fullPaymentOptionGifts['controls']; let i = index">
+                  <div class='gift-dropdown'>
+                    <p-dropdown [formControl]="fullPaymentOptionGift" placeholder="Select a gift"
+                      [options]="paymentPromotionGifts" optionLabel="label" [filter]="true" filterBy="label"
+                      [virtualScroll]="true">
+                    </p-dropdown>
+                    <button mat-icon-button (click)="addOrRemoveSinglePaymentGiftOption('remove', i)"
+                      [ngClass]="{'add-gift-btn-pointer': checkPaymentPromotion}" [disabled]="!checkPaymentPromotion">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <mat-error class="error-message"
+                  style="margin-top: 5px; margin-left: 5px ;margin-bottom:5px; display: block;"
+                  *ngIf="f.fullPaymentOptionGifts.invalid && submitted">
+                  All selections are required
+                </mat-error>
+              </div>
+              <button class="add-gift-btn" [ngClass]="{'add-gift-btn-pointer': checkPaymentPromotion}" type="button"
+                (click)="addOrRemoveSinglePaymentGiftOption('add', 0)" [disabled]="!checkPaymentPromotion">
+                <span>Add Gift</span>
+              </button>
+            </div>
+            <!-- <mat-divider></mat-divider>
+            <div class="online-banking-payment-gift">
+              <p>Bank Transfer Single Payment Gift(s)</p>
+              <p class="checkbox-font-size">* Select product(s) for customer to choose:</p>
+              <div>
+                <div formArrayName="onlineBankingGifts"
+                  *ngFor="let onlineBankingGift of productForm['controls'].onlineBankingGifts['controls']; let i = index">
+                  <div class='gift-dropdown'>
+                    <p-dropdown [formControl]="onlineBankingGift" placeholder="Select a gift"
+                      [options]="paymentPromotionGifts" optionLabel="label" [filter]="true" filterBy="label"
+                      [virtualScroll]="true">
+                    </p-dropdown>
+                    <button mat-icon-button (click)="addOrRemoveOnlineBankingGiftOption('remove', i)"
+                      [ngClass]="{'add-gift-btn-pointer': checkPaymentPromotion}" [disabled]="!checkPaymentPromotion">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <mat-error class="error-message"
+                  style="margin-top: 5px; margin-left: 5px ;margin-bottom:5px; display: block;"
+                  *ngIf="f.onlineBankingGifts.invalid && submitted">
+                  All selections are required
+                </mat-error>
+              </div>
+              <button class="add-gift-btn" [ngClass]="{'add-gift-btn-pointer': checkPaymentPromotion}" type="button"
+                (click)="addOrRemoveOnlineBankingGiftOption('add', 0)" [disabled]="!checkPaymentPromotion">
+                <span>Add Gift</span>
+              </button>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="product-available row">
+          <div class="content">
+            <p>Special Services</p>
+            <mat-checkbox class="checkActive" [(ngModel)]="checkUnbox" [ngModelOptions]="{standalone: true}">Unbox
+            </mat-checkbox>
+            <br>
+            <mat-checkbox class="checkActive" [(ngModel)]="checkHost" [ngModelOptions]="{standalone: true}">Host
+            </mat-checkbox>
+            <mat-error class="error-message" style="margin-left: 5px ;margin-top:8px; display: block;"
+            *ngIf="isHasAdvisor">
+            Only apply for "Has advisor" product. Please try again
+          </mat-error>
+          </div>
+        </div>
+
+        <div class="product-classification row">
+          <div class="content">
+            <p class="main-text">Classification</p>
+
+            <div class="sub-text">
+              <p>Category</p>
+            </div>
+            <p-multiSelect [(ngModel)]="selectedCategory" [virtualScroll]="true" [ngModelOptions]="{standalone: true}"
+              [options]="categories" [filter]="true" filterBy="label"></p-multiSelect>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="terms">
+            <p>Terms And Condition Link</p>
+            <input type="text" placeholder="Enter link" formControlName="termsAndConditionsLink"> <br>
+            <mat-checkbox [(ngModel)]="hasAvisor" [ngModelOptions]="{standalone: true}">Has Advisor </mat-checkbox>
+            <mat-checkbox [(ngModel)]="hasSpecialPayment" [ngModelOptions]="{standalone: true}"
+              (click)="clickSpecialPayment()">Has special payment method </mat-checkbox>
+            <mat-checkbox *ngIf="hasSpecialPayment" [(ngModel)]="allowEPP" [ngModelOptions]="{standalone: true}">
+              Allow EPP/IPP </mat-checkbox>
+            <mat-checkbox *ngIf="hasSpecialPayment && entity==2" [(ngModel)]="allowRecurringPayment"
+              [ngModelOptions]="{standalone: true}" (click)="checkRecurring()">Allow Recurring Payment </mat-checkbox>
+            <mat-error class="error-message" style="margin-left: 5px ;margin-top:8px; display: block;"
+              *ngIf="hasSpecialPayment && entity==2 && (!allowRecurringPayment) && (!allowEPP) && submitted ">
+              Allow EPP/IPP or Allow Recurring Payment is required
+            </mat-error>
+            <mat-error class="error-message" style="margin-left: 5px ;margin-top:8px; display: block;"
+              *ngIf="hasSpecialPayment && entity!=2 && (!allowRecurringPayment) && (!allowEPP) && submitted ">
+              Allow EPP/IPP is required
+            </mat-error>
+            <br>
+            <input *ngIf="allowRecurringPayment" type="text" placeholder="Enter Fixed Deposit"
+              formControlName="fixedDeposit"> <br>
+            <mat-error class="error-message" style="margin-left: 5px ;margin-top:8px; display: block;"
+              *ngIf="allowRecurringPayment  &&f.fixedDeposit.hasError('required') && submitted ">
+              Fixed deposit is required
+            </mat-error>
+            <mat-error class="error-message" style="margin-left: 5px;margin-top:8px; display: block;"
+              *ngIf="allowRecurringPayment && f.fixedDeposit.errors?.pattern && f.fixedDeposit.touched">
+              Fixed deposit must be number
+            </mat-error>
+            <mat-error class="error-message" style="margin-left: 5px;margin-top:8px; display: block;"
+              *ngIf="allowRecurringPayment && isCheckPriceDeposit && !(f.fixedDeposit.hasError('required')) ">
+              Fixed deposit must be less than promotion price and listed price
+            </mat-error>
+            <!-- <mat-error class="error-message" style="margin-left: 5px;margin-top:8px; display: block;"
+              *ngIf="allowRecurringPayment && isCheckPriceDeposit2 && f.fixedDeposit.pristine ">
+              Fixed deposit must be less than Promotion Price and Listed Price
+            </mat-error> -->
+          </div>
+          <mat-divider></mat-divider>
+          <div class="order" style="display: block;">
+            <p>Maximum Order Number</p>
+            <input type="text" placeholder="Enter number" formControlName="orderNumber">
+
+            <mat-error class="error-message" style="margin-left: 5px ;margin-bottom:5px; display: block;"
+              *ngIf="f.orderNumber.hasError('required') && submitted">
+              Maximum order number is required
+            </mat-error>
+            <mat-error class="error-message" style="margin-left: 5px;margin-bottom:5px; display: block;"
+              *ngIf="f.orderNumber.errors?.pattern && f.orderNumber.touched">
+              Maximum order number must be number
+            </mat-error>
+
+
+            <p *ngIf="!checkVariant">SKU</p>
+            <input *ngIf="!checkVariant" type="text" placeholder="Enter SKU"  formControlName="sku">
+            <mat-error class="error-message" style="margin-left: 5px ;margin-bottom:5px; display: block;"
+            *ngIf="f.sku.hasError('required') && submitted">
+            SKU is required
+            </mat-error>
+          </div>
+
+
+                <!-- Special delivery -->
+                <mat-divider></mat-divider>
+                <div class="specific-time" style="display: block;">
+                  <p>Special delivery </p>
+
+                  <mat-checkbox [(ngModel)]="isSpecificDay" [ngModelOptions]="{standalone: true}">Specific date only</mat-checkbox>
+                  <mat-checkbox  [(ngModel)]="isSpecificTimeBefore" [ngModelOptions]="{standalone: true}">Specific date and time (Before 7 p.m)</mat-checkbox>
+                  <mat-checkbox  [(ngModel)]="isSpecificTimeAfter" [ngModelOptions]="{standalone: true}">Specific date and time (After 7 p.m)</mat-checkbox>
+                  <br>
+                  <div *ngIf="isSpecificTimeBefore || isSpecificTimeAfter">
+                    <p>Additional charge:</p>
+                    <input  formControlName="delivery_charge"  placeholder="SGD 0.00" value="0" [(ngModel)]="special_delivery_charge">
+                  </div>
+                  <mat-error class="error-message" style="margin-left: 5px ;margin-bottom:5px; display: block;"
+                  *ngIf="(isSpecificTimeBefore || isSpecificTimeAfter) && checkInvalidValue(special_delivery_charge) && submitted">
+                  Additional charge is required
+                  </mat-error>
+                  <mat-error class="error-message" style="margin-left: 5px ;margin-bottom:5px; display: block;"
+                  *ngIf="f.delivery_charge.errors?.pattern && submitted">
+                  Additional charge must be a number
+                  </mat-error>
+                </div>
+
+        </div>
+
+      </div>
+    </div>
+  </form>
+  <div class="btn-button-product">
+    <div class="left" fxFlex="1 0 auto" fxLayout="row">
+      <button class="btn-back" mat-raised-button (click)="notCreateProduct()">BACK</button>
+    </div>
+    <div class="right" fxFlex="0 1 auto" fxLayout="row">
+      <button class="btn-save" mat-raised-button (click)="createProduct()">SAVE</button>
+    </div>
+  </div>
+</div>

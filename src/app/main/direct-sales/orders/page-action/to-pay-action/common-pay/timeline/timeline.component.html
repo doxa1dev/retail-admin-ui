@@ -1,0 +1,33 @@
+<div class="container" *ngIf="newhistories">
+  <!-- <div id="day"></div> -->
+  <div id="time" *ngFor="let time of newhistories" >
+    <div id="day">{{time.date}}</div>
+    <div *ngFor="let val of time.value">
+      <div class="col1"></div>
+      <div class="cycle"></div>
+      <div class="col2"></div>
+      <div class="content">
+        <div class="text" [style.margin-top]="(val.comment != undefined && val.comment != null && !val.checkChangePayment) ? '-85px' : val.comment_receive != undefined && val.comment_receive != null ? '-100px' : val.shipping_methood != undefined && val.shipping_methood != null ? '-100px' : (val.comment != undefined && val.comment != null && val.checkChangePayment) ? '-121px' : '-61px'">
+          <div class="text-timeline">
+            <div id="left">{{val.action}}</div>
+            <div id="right">{{val.time}}</div>
+          </div>
+          <div style="display: block;" *ngIf="val.checkChangePayment && val.type != undefined && val.type  != null &&  val.type.length > 0">Type: {{val.type}}</div>
+          <div style="display: block;" *ngIf="val.checkChangePayment && val.method != undefined && val.method  != null &&  val.method.length > 0">Method: {{val.method}}</div>
+          <div style="display: block;" *ngIf="val.checkChangePayment && val.paymentRef != undefined && val.paymentRef  != null &&  val.paymentRef.length > 0">Payment Ref: {{val.paymentRef}}</div>
+          <p style="margin: 3px 0px; color: var(--primary-color); width: 80%;" *ngIf="val.comment != undefined && val.comment != null && val.comment.length > 0"><b>Comment :</b>" {{val.comment}} "</p>
+          <p style="margin: 3px 0px; color: var(--primary-color); width: 80%;" *ngIf="val.comment_receive != undefined && val.comment_receive != null"><b>Comment :</b>" {{val.comment_receive}} "</p>
+          <p style="margin: 3px 0px; color: var(--primary-color); width: 80%;" *ngIf="val.shipping_methood != undefined && val.shipping_methood != null"><b>Method :</b>" {{val.shipping_methood}} "</p>
+          <p style="margin: 3px 0px; color: var(--primary-color); width: 80%;" *ngIf="val.shippng_note != undefined && val.shippng_note != null"><b>Notes :</b>" {{val.shippng_note}} "</p>
+          <p style="margin: 3px 0px; color: var(--primary-color); width: 80%;" *ngIf="val.image != undefined && val.image != null"><b>Photo evidence :</b> <a style="color: blue;" target="_blank" href="{{val.hrefImage}}"> Link photo</a></p>
+          <p style="margin: 0px; color: #A0A1A2" *ngIf='val.appUser == undefined || val.appUser == null'>By {{customerName}}</p>
+          <p style="margin: 0px; color: #A0A1A2;" *ngIf='val.appUser != undefined && val.appUser != null'>By {{val.appUser}}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

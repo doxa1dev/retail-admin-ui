@@ -1,0 +1,222 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+  ::ng-deep .btn-check {
+    width: 120px;
+    height: 40px;
+    background-color: #269a3e !important;
+    color: #fff !important;
+
+    &:focus {
+      outline: unset !important;
+      border: unset !important;
+    }
+
+    &:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+  }
+
+  ::ng-deep p-calendar {
+    .ui-calendar {
+      display: flex !important;
+      padding: 6px;
+      border: solid 1px #707070;
+      border-radius: 3px;
+      height: 40px;
+      width: 80%;
+
+      &:focus,
+      &:active,
+      &:hover {
+        outline: 0 none;
+        outline-offset: 0;
+        box-shadow: 0 0 0 0.2em #8dcdff;
+        border-color: #007ad9;
+      }
+
+      input {
+        width: 90%;
+        border: none !important;
+        border-right: none !important;
+        flex-grow: 1 !important;
+        transition: none;
+        box-shadow: none;
+        border-radius: 6px !important;
+
+        &:enabled:focus:not(.ui-state-error) {
+          box-shadow: none;
+          border-color: var(--border-color);
+        }
+      }
+
+      .ui-button:enabled:hover {
+        background-color: unset;
+        color: #ffffff;
+      }
+
+      button {
+        background-color: #fff;
+        border: none !important;
+
+        .ui-button-icon-left {
+          color: #269a3e;
+          height: 1.2rem;
+        }
+
+        .ui-button-text {
+          margin-right: 2.5px;
+          margin-bottom: 0.5px;
+
+          &:enabled:active,
+          &:enabled:hover {
+            color: #ffffff;
+          }
+        }
+
+        &:enabled:focus:not(.ui-state-error) {
+          box-shadow: none;
+          border-color: var(--border-color);
+        }
+      }
+
+      .ui-datepicker {
+        .ui-state-active {
+          background-color: #269a3e;
+          border: 0.5px solid var(--border-color);
+          border-radius: 6px;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .ag-theme-balham {
+    font-size: var(--ag-grid-text);
+    width: 100%;
+
+    .ag-cell-focus {
+      border: none !important;
+      outline: none !important;
+    }
+  }
+
+  ::ng-deep .table-all {
+    padding-top: 20px;
+    height: 400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  ::ng-deep .ui-dropdown {
+    width: 80%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border: solid 1px #707070;
+
+    &:focus,
+    &:active,
+    &:hover {
+      outline: 0 none;
+      outline-offset: 0;
+      box-shadow: 0 0 0 0.2em #8dcdff;
+      border-color: #007ad9;
+    }
+
+    .ui-dropdown-label-container {
+      width: 90%;
+
+      .ui-dropdown-label {
+        min-width: 70%;
+        width: 90%;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+
+.data-transfer-check {
+  width: 100%;
+  height: 100%;
+  color: var(--text-color) !important;
+  background-color: #f5f5f5;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 80px;
+    width: 100%;
+    margin: 20px 10px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .data-transfer-check-container {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+
+    hr {
+      margin: 40px 0;
+      border-top-width: 2px;
+      border-bottom: 0;
+    }
+
+    .content {
+      height: 100%;
+      background-color: #fff;
+      margin: 0 10px;
+      box-shadow: 0px 2px 8px #00000029;
+      padding: 20px;
+
+      .container-row {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        padding: 20px;
+        box-shadow: 0px 2px 8px #00000029;
+
+        &:hover {
+          box-shadow: 0px 2px 8px rgb(180 180 180);
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .row-title {
+          font-weight: 550;
+          font-size: 15px;
+          color: rgba($color: #000000, $alpha: 0.7);
+          margin-bottom: 1em;
+        }
+
+        .row-form {
+          display: flex;
+          justify-content: flex-start;
+
+          .row-content {
+            min-width: 25%;
+            display: flex;
+
+            .row-content-title {
+              margin-right: 15px;
+              height: 40px;
+              display: flex;
+              align-items: center;
+            }
+
+            .invalid-feedback {
+              width: 100%;
+              margin-top: 0.5rem;
+              color: #dc3545;
+              font-size: 1em;
+            }
+          }
+        }
+      }
+    }
+  }
+}

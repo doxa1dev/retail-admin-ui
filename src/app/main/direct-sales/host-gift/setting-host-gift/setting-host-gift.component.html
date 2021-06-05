@@ -1,0 +1,89 @@
+<div class="host-gift-container">
+    <div class="host-gift-title">
+        Setting
+    </div>
+    <div class="host-gift-content">
+        <div class="setting-container">
+            <div class="setting-content" [formGroup]="settingForm">
+                <button mat-raised-button class="button-add" (click)="addHostGift()">Add Host Gift</button>
+                <div class="setting-status">
+                    <!-- <div class="setting-status-label">Rewarding Host Gift</div> -->
+                    <!-- <mat-slide-toggle [checked]="settingForm.value.isActive"
+                        [ngClass]="settingForm.value.isActive ? 'status-active' : 'status-inactive'" formControlName="isActive">
+                        {{settingForm.value.isActive ? 'Active' : 'Inactive'}}
+                    </mat-slide-toggle> -->
+                </div>
+                <ng-container *ngFor="let hostGiftPackage of settingForm.get('hostGifts')['controls'];let i = index"
+                    [formGroup]="hostGiftPackage">
+                    <div class="host-gift-row">
+                        <!-- <div class="host-gift-status">
+                            <mat-slide-toggle [checked]="hostGiftPackage.value.isActive"
+                                [ngClass]="hostGiftPackage.value.isActive ? 'status-active' : 'status-inactive'"
+                                formControlName="isActive">
+                                {{hostGiftPackage.value.isActive ? 'Active' : 'Inactive'}}
+                            </mat-slide-toggle>
+                        </div> -->
+                        <div class="content-row">
+                            <div class="label">
+                                Host Gift
+                            </div>
+                            <div class="value">
+                                <p-dropdown filter="true" [options]="hostGifts" placeholder="Select Host Gift"
+                                    optionLabel="label" [filter]="true" filterBy="label" [showClear]="true"
+                                    formControlName="hostGift">
+                                </p-dropdown>
+                                <ng-container *ngIf="hostGiftPackage.controls.hostGift.invalid && showError">
+                                    <div class="invalid-feedback">
+                                        Host Gift is required.
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="hostGiftPackage.value.hostGift">
+                                    <div class="result">
+                                        {{hostGiftPackage.value.hostGift.label}}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="content-row">
+                            <div class="label">
+                                Host Gift Component
+                            </div>
+                            <div class="value">
+                                <p-multiSelect [virtualScroll]="true" [defaultLabel]="'Select Host Gift Component'"
+                                    [options]="hostGiftComponents" filterBy="label" formControlName="hostGiftComponent">
+                                </p-multiSelect>
+                                <ng-container *ngIf="hostGiftPackage.controls.hostGiftComponent.invalid && showError">
+                                    <div class="invalid-feedback">
+                                        Host Gift Component is required.
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="hostGiftPackage.value.hostGiftComponent.length > 0">
+                                    <div *ngFor="let item of hostGiftPackage.value.hostGiftComponent">
+                                        <div class="result">
+                                            {{item.label}}
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="settingForm.get('hostGifts').length > 1">
+                            <button mat-raised-button class="button-remove" (click)="deleteGift(i)">Remove Host
+                                Gift</button>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="history-container">
+            <div class="history-content">
+                <div>Update History</div>
+                <hr />
+                <app-timeline [histories]="histories"></app-timeline>
+            </div>
+        </div>
+    </div>
+    <div class="host-gift-footer">
+        <button mat-raised-button class="button-cancel" (click)="ngOnInit()">CANCEL</button>
+        <mat-bar-button [options]="barButtonOptions" (btnClick)="save()"></mat-bar-button>
+    </div>
+</div>

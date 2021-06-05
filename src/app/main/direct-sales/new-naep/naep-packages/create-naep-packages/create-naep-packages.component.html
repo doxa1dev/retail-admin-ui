@@ -1,0 +1,317 @@
+<div class="create-naep-packages-container" style="height: 100%;">
+  <div class="title">
+    <div>
+      <button mat-icon-button (click)="back()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <span>NAEP Package</span>
+    </div>
+    <p *ngIf="mode === 'UPDATE'">{{packagesName}}</p>
+  </div>
+  <div class="row ml-2" style="margin-bottom: 50px;">
+    <div class="col-lg-8" [formGroup]="formNaepPackagesProduct">
+      <div class="title-description row">
+
+        <div class="cart" style="text-align: right">
+          <mat-slide-toggle [labelPosition]="'before'"
+            [checked]="checked" [(ngModel)]="is_active"
+            [ngModelOptions]="{standalone: true}" (change)="checkActive($event)"
+            color="warn">{{activeTitle}}
+          </mat-slide-toggle>
+        </div>
+        <div class="cart">
+            <div class="title-input">
+              <p>Package Name</p>
+              <input type="text" placeholder="Enter Package Name"
+                  formControlName="packageName">
+            </div>
+            <mat-error class="error-message"
+              *ngIf="f.packageName.hasError('required') && submited">
+              Package name is required
+            </mat-error>
+            <div class="naep-type">
+              <p>NAEP Types</p>
+              <p-multiSelect
+                [virtualScroll]="true"
+                [defaultLabel]="'Select NAEP Type'"
+                [options]="listNaepType"
+                [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="selectedNaepType"
+                (onChange)="changeNaepType()"
+                filterBy="label">
+              </p-multiSelect>
+            </div>
+            <mat-error class="error-message"
+              *ngIf="(selectedNaepType == null || selectedNaepType.length == 0) && submited">
+              NAEP type is required
+            </mat-error>
+
+            <div *ngIf = "selectedNaepType.length > 0" style="margin-left: 23%;">
+              <div *ngFor="let itemType of selectedNaepType" style="margin-top: 10px;font-weight: 600; font-style: italic;">
+                {{itemType.name}}
+              </div>
+            </div>
+
+            <div class="grace-period">
+              <mat-checkbox style="font-size: 14px; padding-left: 22.5%;" [(ngModel)]="hasGracePeriod"
+                [ngModelOptions]="{standalone: true}">Has grace period
+              </mat-checkbox>
+              <div class="select-period-day" *ngIf="hasGracePeriod">
+                <div style="width: 22% !important;"></div>
+                <div class="period-days">
+                  <p>Grace period</p>
+                  <p-inputNumber [(ngModel)]="number_grace_period" mode="decimal"
+                    [ngModelOptions]="{standalone: true}"
+                    [showButtons]="true" [min]="1" [max]="100">
+                  </p-inputNumber>
+                </div>
+                <p style="margin-left: 20px; margin-top: 20px;">Days</p>
+              </div>
+            </div>
+
+            <div class="naep-process">
+              <p>NAEP Process</p>
+                <p-dropdown  placeholder="Select NAEP Process" [(ngModel)]="selectedProcess"
+                  (onChange)="changeNaepFee($event)"
+                  [ngModelOptions]="{standalone: true}"
+                  [options]="listNaepProcess" optionLabel="label" [filter]="true" filterBy="label"
+                  [virtualScroll]="true">
+                </p-dropdown>
+              <!-- <p-multiSelect [virtualScroll]="true"
+                [defaultLabel]="'Select NAEP Process'"
+                [options]="listNaepProcess" [filter]="true"
+                [(ngModel)]="selectedProcess"
+                [ngModelOptions]="{standalone: true}"
+                filterBy="label">
+              </p-multiSelect> -->
+            </div>
+
+            <mat-error class="error-message"
+              *ngIf="(selectedProcess == null || selectedProcess == undefined) && submited">
+              NAEP process is required
+            </mat-error>
+            <div *ngIf="selectedProcess">
+              <div style="margin-left: 23%; margin-top: 10px; font-weight: 600; font-style: italic;">{{selectedProcess.label}}</div>
+            </div>
+
+            <div class="naep-fee">
+              <p>NAEP Fee</p>
+              <p-dropdown  placeholder="Select NAEP Fee" [(ngModel)]="selectedNaepFee"
+                (onChange)="changeNaepFee($event)"
+                [ngModelOptions]="{standalone: true}"
+                [options]="listProduct" optionLabel="label" [filter]="true" filterBy="label"
+                [virtualScroll]="true">
+              </p-dropdown>
+            </div>
+
+            <div *ngIf="selectedNaepFee">
+              <div style="margin-left: 23%; margin-top: 10px; font-weight: 600; font-style: italic;">{{selectedNaepFee.label}}</div>
+            </div>
+
+            <mat-error class="error-message"
+              *ngIf="(selectedNaepFee == null || selectedNaepFee == undefined) && submited">
+              NAEP fee is required
+            </mat-error>
+
+            <!-- Payback product -->
+            <div class="naep-fee">
+              <p>Payback product</p>
+              <p-dropdown placeholder="Select Payback product" [(ngModel)]="selectedPayback"
+                [ngModelOptions]="{standalone: true}"
+                [options]="listProduct" optionLabel="label" [filter]="true" filterBy="label"
+                [virtualScroll]="true">
+              </p-dropdown>
+            </div>
+
+            <div *ngIf="selectedPayback">
+              <div style="margin-left: 23%; margin-top: 10px; font-weight: 600; font-style: italic;">{{selectedPayback.label}}</div>
+            </div>
+
+            <mat-error class="error-message"
+              *ngIf="(selectedPayback == null || selectedPayback == undefined) && submited">
+              Payback product is required
+            </mat-error>
+        </div>
+        <div class="button-add">
+          <button class="add-naep-deposit-product" mat-raised-button
+            (click)="addNaepDepositProduct()">
+            Add NAEP Deposit Product
+          </button>
+          <br>
+          <div class="deposit-product" *ngIf="haveDepositProduct" >
+            <p>NAEP Deposit Product</p>
+            <p-multiSelect [virtualScroll]="true"
+              [defaultLabel]="'Select NAEP Deposit Product'"
+              [options]="listProductDeposit" [filter]="true"
+              [(ngModel)]="selectedDeposit"
+              [ngModelOptions]="{standalone: true}"
+              (onChange)="changeNaepDeposit($event)"
+              filterBy="label">
+            </p-multiSelect>
+          </div>
+
+          <div  *ngIf="haveDepositProduct && selectedDeposit.length == 0 && submited" style="margin-left: 23%;">
+            <mat-error style="margin-top: 10px">
+              Deposit products is required
+            </mat-error>
+          </div>
+
+          <div *ngIf = "selectedDeposit.length > 0" style="margin-left: 23%;">
+            <div *ngFor="let itemDeposit of selectedDeposit" style="margin-top: 10px;font-weight: 600; font-style: italic;">
+              {{itemDeposit.name}}
+            </div>
+          </div>
+
+          <!-- <mat-error class="error-message"
+                *ngIf=" && submited"
+              >
+              NAEP deposit product is required
+          </mat-error> -->
+
+          <!-- <div formArrayName="formDepositProduct"
+            *ngFor="let deposit of formNaepPackagesProduct['controls'].formDepositProduct['controls'];
+            let i = index">
+            <div class="deposit-product" [formGroupName]="i" >
+              <p>NAEP Deposit Product</p>
+              <p-multiSelect [virtualScroll]="true"
+                [defaultLabel]="'Select NAEP Deposit Product'"
+                formControlName="depositProduct"
+                [options]="listNaepFee" [filter]="true"
+                filterBy="label">
+              </p-multiSelect>
+
+              <mat-icon
+                *ngIf="formNaepPackagesProduct['controls'].formDepositProduct['controls'].length > 1"
+                (click)="addOrRemoveNaepDepositProduct('remove', i)"
+                svgIcon="delete">
+              </mat-icon>
+
+            </div>
+
+            <mat-error class="error-message"
+                  *ngIf="(this.formNaepPackagesProduct.get('formDepositProduct').value[i].depositProduct == null ||
+                  this.formNaepPackagesProduct.get('formDepositProduct').value[i].depositProduct.length == 0) && submited"
+                >
+                NAEP deposit product is required
+            </mat-error>
+
+          </div> -->
+          <!-- <button class="add-advisor-kit" mat-raised-button
+            (click)="addNaepAdvisorKit()">
+            Add Advisor Kit
+          </button> -->
+            <div class="kit-input" >
+              <p>Advisor Kit Name</p>
+              <input type="text" placeholder="Enter Name" [(ngModel)]="kitName" [ngModelOptions]="{standalone: true}">
+            </div>
+            <mat-error class="error-message"
+              *ngIf=" (kitName == undefined || kitName.length == 0) && submited">
+              Advisor Kit Name is required
+            </mat-error>
+
+            <div class="kit-input" >
+              <p>Advisor Kit SKU</p>
+              <input type="text" placeholder="Enter SKU" [(ngModel)]="kitSKU" [ngModelOptions]="{standalone: true}">
+            </div>
+            <mat-error class="error-message"
+              *ngIf=" (kitSKU == undefined || kitSKU.length == 0) && submited">
+              Advisor Kit SKU is required
+            </mat-error>
+            <!-- *ngIf="haveAdvisorFee" -->
+            <div class="kit-product" >
+              <p>Kit Item</p>
+              <p-multiSelect [virtualScroll]="true"
+                [defaultLabel]="'Select NAEP Kit Product'"
+                [options]="listProduct" [filter]="true"
+                [(ngModel)]="selectesAdvisorFee"
+                [ngModelOptions]="{standalone: true}"
+                filterBy="label">
+              </p-multiSelect>
+            </div>
+            <mat-error class="error-message"
+              *ngIf=" selectesAdvisorFee.length == 0 && submited">
+              Kit item is required
+            </mat-error>
+            <div *ngIf = "selectesAdvisorFee.length > 0" style="margin-left: 23%;">
+              <div *ngFor="let itemFee of selectesAdvisorFee" style="margin-top: 10px;font-weight: 600; font-style: italic;">
+                {{itemFee.name}}
+              </div>
+            </div>
+
+
+            <!-- <mat-error class="error-message"
+                *ngIf="(this.formNaepPackagesProduct.get('formKitProduct').value[i].kitProduct == null ||
+                this.formNaepPackagesProduct.get('formKitProduct').value[i].kitProduct.length == 0) && submited"
+              >
+              NAEP kit product is required
+            </mat-error> -->
+
+          <div class="description-input">
+            <p>Description</p>
+            <input type="text" formControlName="description" placeholder="Enter description" >
+          </div>
+          <mat-error class="error-message" style="margin-left: 24%;"
+          *ngIf="f.description.hasError('required') && submited">
+          Description is required
+        </mat-error>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="history-available row">
+
+        <div class="content content-photo">
+          <p id="header">Photo</p>
+          <mat-divider style="margin-bottom: 10px;"></mat-divider>
+
+          <div class="up-photo" appDnd (fileDropped)="onFileDropped($event)">
+            <div class="image-photo">
+                <img *ngIf="!url" src = "assets\icons\doxa-icons\Photos.svg" style="width: 72px; height: 54px;">
+                <img *ngIf="url" (change)="changeUpdate()"  src ="{{url}}" style="width: 140px; height: 100px;">
+            </div>
+            <div class="image-photo" style="color: red;" *ngIf="checkValidateFile">
+                Maximum file size is 4.00 MB per file
+            </div>
+            <div class="image-photo" style="color: red;" *ngIf="!url && !checkValidateFile && submited">
+                Photo is required
+            </div>
+            <div class="sub-text">
+                <!-- <span ><a for = "file"> Add file</a></span> -->
+                <span ><label for = "file"> Add file</label>
+                    <!-- <label style="margin-left: 10px; color: red;"><a (click) = "removeFile()" style="text-decoration: none;">Remove</a></label> -->
+                </span>
+                <input #fileDropRef id ="file" type="file" style="display: none;" accept="image/png, image/jpeg, image/jpg" (change)="onSelectFile($event)">
+                <p>or drop file to upload</p>
+            </div>
+            <div class = "image-condition">
+                <p>Support File type : JPG, PNG, PDF</p>
+                <p>Maximum File size 4.00 MB per file</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content">
+          <p id="header">Update History</p>
+          <mat-divider style="margin-bottom: 10px;"></mat-divider>
+          <app-timeline [histories]="updateHistory"></app-timeline>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn-button-create-naep-packages-container" style="padding-top: 10px; margin-top: 20px;">
+    <div class="btn-back" fxFlex="1 0 auto" fxLayout="row">
+      <button mat-raised-button (click)="back()">BACK</button>
+    </div>
+    <div class="btn-save" fxFlex="0 1 auto" fxLayout="row" *ngIf="mode === 'CREATE'">
+      <button (click)="createNAEPPackages()" mat-raised-button>SAVE</button>
+    </div>
+    <div class="btn-save" fxFlex="0 1 auto" fxLayout="row" *ngIf="mode === 'UPDATE'">
+      <!-- <button class="btn-delete" (click)="deleteNAEP()" mat-raised-button>DELETE</button> -->
+      <button (click)="updateNAEP()" mat-raised-button>UPDATE</button>
+    </div>
+  </div>
+</div>
+
+
+
+

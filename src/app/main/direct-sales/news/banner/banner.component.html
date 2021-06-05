@@ -1,0 +1,90 @@
+<div class="container-product">
+    <form action="" >
+      <div class="title">
+          <div></div>
+          <p>Upload Banners</p>
+      </div>
+      <div class="row ml-2">
+          <div class="col-lg-12">
+              <div class="image row">
+                  <div class="cart">
+                      <div style="border: dashed #0A73EB;" appDnd (fileDropped)="onFileDropped($event)" >
+                        <!-- <div *ngIf="imageArray.length > 0"> -->
+                            <div class="container" >
+                                <img *ngIf="imageArray.length == 0" src="assets\icons\doxa-icons\Photos.svg" alt=""
+                                    style="width: 130px; height: auto;">
+                                <button type="button" (click)="fileDropRef.click()">
+                                    <span>Add file</span>
+                                    <input #fileDropRef type="file" id="file" accept='image/*' (change)="fileBrowseHandler($event.target.files); changeFile($event)"
+                                        style="display:none;" />
+                                </button>
+                                <p>or drop file to upload</p>
+    
+                                <p>Supported File type: JPG, PNG, SVG, GIFT</p>
+    
+                                <p>Maximum File Size 4.00 MB per file</p>
+                            </div>
+
+                        <div>
+                            <div class="row" cdkDropList (cdkDropListDropped)="drop($event)">
+                                <div class="col-12">
+                                    <div class="row picturesmall">
+                                        <ng-container *ngFor="let item of imageArray, let x = index">
+                                            <div class="col-6 photocol">
+                                                <div class="photo">
+                                                    <img [src]="item" alt="" cdkDrag>
+                                                    <button class="deleteButtonSmall" mat-icon-button (click)="deleteFile(x)">
+                                                        <mat-icon>delete</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                      </div>
+
+                      <mat-error class="error-message" style="margin-left: 5px; display: block;" *ngIf="imageArray.length == 0 && submitted">
+                          Image is required
+                      </mat-error>
+                      <div class="files-list">
+                          <div class="single-file" *ngFor="let file of files; let i = index">
+                              <ng-container *ngIf="file.progress !== 100">
+                                  <img src="assets/dnd/ic-file.svg" width="45px" alt="file">
+                                  <div class="info">
+                                      <h4 class="name">
+                                          {{ file?.name }}
+                                      </h4>
+                                      <p class="size">
+                                          {{ formatBytes(file?.size) }}
+                                      </p>
+                                      <app-progress  [progress]="file?.progress"></app-progress>
+                                  </div>
+                                  <img src="assets/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
+                              </ng-container>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+    </form>
+    <div class="btn-button-product">
+      <div class="left" fxFlex="1 0 auto" fxLayout="row" >
+      </div>
+      <div *ngIf="imageArrayTest.length == 0"  class="right"  fxFlex="0 1 auto" fxLayout="row">
+          <button class="btn-save" mat-raised-button (click)="uploadBanner()" >SAVE</button>
+      </div>
+      <div *ngIf="imageArrayTest.length > 0 "  class="right"  fxFlex="0 1 auto" fxLayout="row">
+        <button class="btn-save" mat-raised-button (click)="updateBanner()" >UPDATE</button>
+      </div>
+    </div>
+  </div>
+
+
+
+

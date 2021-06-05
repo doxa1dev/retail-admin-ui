@@ -1,0 +1,70 @@
+<div class="container-create-translation" [formGroup]="formTranslation">
+    <div class="title-create-translation">
+        <div>
+            <button mat-icon-button  (click) = "back()"><mat-icon>chevron_left</mat-icon></button>
+            <span>Create new translation</span>
+        </div>
+        <p>New translation title</p>
+    </div>
+    <div class="row ml-2">
+        <div class="col-lg-8">
+            <div class="create-translation-description row">
+                <div class="cart">
+                    <p>Title</p>
+                    <input disabled=true type="text" value="{{title}}">
+                    <input formControlName = "translationTitle"  type="text" placeholder="Thermomix TM6" [(ngModel)]="translated_title">
+                    <mat-error class="error-message"
+                        *ngIf="formTranslation.get('translationTitle').hasError('required')">
+                        Title is required
+                    </mat-error>
+                    <p>Description</p>
+                    <textarea class = "text-area" disabled=true value="{{description}}"></textarea>
+                    <textarea class = "text-area" formControlName="translationDescription" [(ngModel)]="translated_description"></textarea>
+                    <mat-error class="error-message"
+                        *ngIf="formTranslation.get('translationDescription').hasError('required')">
+                        Description is required
+                    </mat-error>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="translation-selected row">
+                <div class="content">
+                    <p style="font-weight: 600;">Language</p>
+                    <p>Select language to translate</p>
+
+                    <p-dropdown [options]="listLanguage" 
+                            [(ngModel)]="selectedLanguage" 
+                            filter="true" 
+                            [ngModelOptions]="{standalone: true}" 
+                            (onChange)="SelectedTypeLanguage($event)"
+                            placeholder="English (Default)">
+                        <ng-template let-item pTemplate="selectedItem">
+                            <span style="vertical-align:middle">{{item.label}}</span>
+                        </ng-template>
+                        <ng-template let-car pTemplate="item">
+                            <div class="ui-helper-clearfix" style="position: relative;height:25px;">
+                            <div style="font-size:14px;margin-top:4px">{{car.label}}</div> </div>
+                        </ng-template>
+                    </p-dropdown>
+                    <mat-error class="error-message" *ngIf="isExist">
+                        Translation language ​​already exist.
+                    </mat-error>
+                    <mat-error class="error-message" *ngIf="isErr&&isShow">
+                        Language is required.
+                    </mat-error>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn-button-category">
+        <div class="btn-back" fxFlex="1 0 auto" fxLayout="row">
+            <button mat-raised-button (click) = "back()">BACK</button>
+        </div>
+        <div class="btn-save" fxFlex="0 1 auto" fxLayout="row">
+            <button mat-raised-button (click) ="saveTranslation()">CREATE</button>
+            <!-- <button *ngIf="modeEdit" mat-raised-button style="background-color: #DE3535;" (click) ="deleteCategory()">DELETE</button>
+            <button *ngIf="modeEdit"  [ngClass]="modeChange ? '' : 'btn-disabled'"mat-raised-button style="margin-left: 5px;" (click) ="SaveOrUpdateCategory()">UPDATE</button> -->
+        </div>
+    </div>
+</div>

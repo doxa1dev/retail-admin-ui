@@ -1,0 +1,271 @@
+
+ <div class="order-history">
+  <div class="link">
+      <span class = "text">Orders</span>
+      <div class="input-search">
+        <span class="p-input-icon-left" style="z-index: 2; position: relative;">
+          <i class="pi pi-search"></i>
+          <input type="text" (keydown.enter)="searchOrderInAllData()" (keydown)="clearMgs()" pInputText [(ngModel)]="orderSearch" placeholder="Search">
+        </span>
+        <button (click)="searchOrderInAllData()" (keydown.enter)="searchOrderInAllData()" mat-raised-button>Search</button>
+        <div *ngIf="errorMgs" class="error-mgs">Order {{inputSearch}} not found. Please retry.</div>
+      </div>
+  </div>
+  <div class="table-order">
+    <mat-tab-group id="tab-group" md-stretch-tabs class="tabs" [(selectedIndex)]="selectedIndex" (selectedIndexChange)="test()">
+      <mat-tab>
+          <ng-template mat-tab-label>
+              <span *ngIf="toPay" class="number-item ng-star-inserted">{{toPay}}</span>
+              To Pay
+          </ng-template>
+          <ng-template matTabContent>
+          <div class = "order-tab-body">
+              <div id="list">
+                <p>List of orders pending for customer to make payment.</p>
+              </div>
+              <div class="table-orders">
+                <ag-grid-angular style="width: 100%; height: 625px;"
+                  class="ag-theme-balham orders"
+                  [rowData]="toPayArray"
+                  [columnDefs]="columnDefs"
+                  floatingFilter=true
+                  rowSelection="multiple"
+                  (rowDoubleClicked)='onRowClickedChangeToPay($event)'
+                  [singleClickEdit]=true
+                  [defaultColDef]="defaultColDef"
+                  (gridReady)="onGridToPay($event)"
+                  (gridSizeChanged)="onGridSizeChanged($event)"
+                  [gridOptions]="gridOptions"
+                  [modules]="modules"
+                  [groupIncludeFooter]="true"
+                  [groupIncludeTotalFooter]="true"
+                  [overlayLoadingTemplate]="loadingTemplate"
+                  [overlayNoRowsTemplate]="emptyTemplate"
+                  >
+                </ag-grid-angular>
+              </div>
+          </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+          <ng-template mat-tab-label>
+              <span  *ngIf="toVerify" class="number-item ng-star-inserted">{{toVerify}}</span>
+              To Verify
+          </ng-template>
+          <ng-template matTabContent>
+          <div class = "order-tab-body">
+            <div id="list">
+              <p>List of orders pending for admin to make verify.</p>
+            </div>
+            <div class="table-orders">
+              <ag-grid-angular style="width: 100%; height: 625px;"
+                class="ag-theme-balham"
+                [rowData]="toVerifyArray"
+                [columnDefs]="columnDefs"
+                floatingFilter=true
+                rowSelection="multiple"
+                (rowDoubleClicked)='onRowClickedChangeToVerify($event)'
+                [singleClickEdit]=true
+                [defaultColDef]="defaultColDef"
+                (gridReady)="onGridToVerify($event)"
+                [gridOptions]="gridOptions"
+                [overlayLoadingTemplate]="loadingTemplate"
+                [overlayNoRowsTemplate]="emptyTemplate"
+                [modules]="modules">
+              </ag-grid-angular>
+            </div>
+          </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+            <span  *ngIf="toShip" class="number-item ng-star-inserted">{{toShip}}</span>
+            To Ship/Collect
+        </ng-template>
+        <ng-template matTabContent>
+        <div class = "order-tab-body">
+          <div id="list">
+            <p>List of orders pending for admin to make shipping.</p>
+          </div>
+          <div class="table-orders">
+            <ag-grid-angular style="width: 100%; height: 625px;"
+            class="ag-theme-balham"
+            [columnDefs]="columnDefsShipping"
+            floatingFilter=true
+            rowSelection="multiple"
+            (rowDoubleClicked)='onRowClickedChangeToShip($event)'
+            [singleClickEdit]=true
+            [defaultColDef]="defaultColDef"
+            (gridReady)="onGridToShipping($event)"
+            [overlayLoadingTemplate]="loadingTemplate"
+            [overlayNoRowsTemplate]="emptyTemplate"
+            [gridOptions]="gridOptions"
+            [modules]="modules">
+            </ag-grid-angular>
+          </div>
+        </div>
+      </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+            <span  *ngIf="toReceive" class="number-item ng-star-inserted">{{toReceive}}</span>
+            To Receive
+        </ng-template>
+        <ng-template matTabContent>
+        <div class = "order-tab-body">
+          <div id="list">
+            <p>List of orders pending for receive.</p>
+          </div>
+          <div class="table-orders">
+            <ag-grid-angular style="width: 100%; height: 625px;"
+              class="ag-theme-balham"
+              [rowData]="toReceiveArray"
+              [columnDefs]="columnDefs"
+              floatingFilter=true
+              rowSelection="multiple"
+              (rowDoubleClicked)='onRowClickedChangeToReceive($event)'
+              [singleClickEdit]=true
+              [defaultColDef]="defaultColDef"
+              (gridReady)="onGridToReceive($event)"
+              [overlayLoadingTemplate]="loadingTemplate"
+              [overlayNoRowsTemplate]="emptyTemplate"
+              [gridOptions]="gridOptions"
+              [modules]="modules">
+            </ag-grid-angular>
+          </div>
+        </div>
+      </ng-template>
+      </mat-tab>
+
+
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+            <span  *ngIf="toUnbox" class="number-item ng-star-inserted">{{toUnbox}}</span>
+            To Unbox
+        </ng-template>
+        <ng-template matTabContent>
+        <div class = "order-tab-body">
+          <div id="list">
+            <p>List of orders pending for customer to make unbox.</p>
+          </div>
+          <div class="table-orders">
+            <ag-grid-angular style="width: 100%; height: 625px;"
+              class="ag-theme-balham"
+              [rowData]="toUnboxArray"
+              [columnDefs]="columnDefs"
+              floatingFilter=true
+              rowSelection="multiple"
+              (rowDoubleClicked)='onRowClickedChangeToUnbox($event)'
+              [singleClickEdit]=true
+              [defaultColDef]="defaultColDef"
+              (gridReady)="onGridToUnBox($event)"
+              [overlayLoadingTemplate]="loadingTemplate"
+              [overlayNoRowsTemplate]="emptyTemplate"
+              [gridOptions]="gridOptions"
+              [modules]="modules">
+            </ag-grid-angular>
+          </div>
+        </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+          <ng-template mat-tab-label>
+              <span  *ngIf="toHost" class="number-item ng-star-inserted">{{toHost}}</span>
+              To Host
+          </ng-template>
+          <ng-template matTabContent>
+          <div class = "order-tab-body">
+            <div id="list">
+              <p>List of orders pending for adviser to make host.</p>
+            </div>
+            <div class="table-orders">
+              <ag-grid-angular style="width: 100%; height: 625px;"
+                class="ag-theme-balham"
+                [rowData]="toHostArray"
+                [columnDefs]="columnDefs"
+                floatingFilter=true rowSelection="multiple"
+                (rowDoubleClicked)='onRowClickedChangeToHost($event)'
+                [singleClickEdit]=true
+                [defaultColDef]="defaultColDef"
+                (gridReady)="onGridToHost($event)"
+                [overlayLoadingTemplate]="loadingTemplate"
+                [overlayNoRowsTemplate]="emptyTemplate"
+                [gridOptions]="gridOptions"
+                [modules]="modules">
+              </ag-grid-angular>
+            </div>
+          </div>
+          </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+          <ng-template mat-tab-label>
+              <span  *ngIf="completed" class="number-item ng-star-inserted">{{completed}}</span>
+              Completed
+          </ng-template>
+          <ng-template matTabContent>
+          <div class = "order-tab-body">
+            <div id="list">
+              <p>List of orders completed.</p>
+            </div>
+            <div class="table-orders">
+              <ag-grid-angular style="width: 100%; height: 625px;"
+                class="ag-theme-balham"
+                [rowData]="completedArray"
+                [columnDefs]="columnDefs"
+                floatingFilter=true
+                rowSelection="multiple"
+                (rowDoubleClicked)='onRowClickedChangeCompleted($event)'
+                [singleClickEdit]=true
+                [defaultColDef]="defaultColDef"
+                (gridReady)="onGridCompleted($event)"
+                [overlayLoadingTemplate]="loadingTemplate"
+                [overlayNoRowsTemplate]="emptyTemplate"
+                [gridOptions]="gridOptions"
+                [modules]="modules">
+              </ag-grid-angular>
+            </div>
+          </div>
+          </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+            <span  *ngIf="cancelled" class="number-item ng-star-inserted">{{cancelled}}</span>
+            Cancelled
+        </ng-template>
+        <ng-template matTabContent>
+        <div class = "order-tab-body">
+          <div id="list">
+            <p>List of orders cancelled.</p>
+          </div>
+          <div class="table-orders">
+            <ag-grid-angular style="width: 100%; height: 625px;"
+              class="ag-theme-balham"
+              [rowData]="cancelledArray"
+              [columnDefs]="columnDefs"
+              floatingFilter=true
+              rowSelection="multiple"
+              (rowDoubleClicked)='onRowClickedChangeToCancelled($event)'
+              [singleClickEdit]=true
+              [defaultColDef]="defaultColDef"
+              (gridReady)="onGridCancelled($event)"
+              [gridOptions]="gridOptions"
+              [overlayLoadingTemplate]="loadingTemplate"
+              [overlayNoRowsTemplate]="emptyTemplate"
+              [modules]="modules">
+            </ag-grid-angular>
+          </div>
+        </div>
+        </ng-template>
+    </mat-tab>
+
+  </mat-tab-group>
+  </div>
+
+</div>

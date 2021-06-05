@@ -1,0 +1,66 @@
+<div class="import-data-container">
+    <div class="import-data">
+        <div class="import-data-file">
+            <div class="import-data-title">
+                Import data
+            </div>
+            <mat-bar-button [options]="barButtonOptions" (btnClick)="importData(inputFile)"></mat-bar-button>
+            <div class="import-data-file-name">
+                {{ fileName }}
+            </div>
+            <input type="file" (change)="onFileChange($event)" multiple="false" #inputFile accept=".xlsx, .xls">
+        </div>
+        <div class="col-right" [formGroup]="importForm">
+            <div class="submit-id">
+                <p>Import eo_sle_sc</p>
+                <input formControlName="id" type="text" placeholder="Enter ID">
+                <mat-bar-button [options]="submitIdButtonOptions" (btnClick)="importId()"></mat-bar-button>
+            </div>
+            <mat-error class="error-message" *ngIf="f.id.errors?.pattern && f.id.touched">
+                Order id must be number
+            </mat-error>
+
+            <div class="submit-id">
+                <p>Import eo_sle_sc_det_gift</p>
+                <input formControlName="payment_gift_id" type="text" placeholder="Enter id payment gift">
+                <mat-bar-button [options]="submitPaymentGiftIdButtonOptions" (btnClick)="importPaymentGiftId()"></mat-bar-button>
+            </div>
+            <mat-error class="error-message" *ngIf="f.payment_gift_id.errors?.pattern && f.payment_gift_id.touched">
+                Payment gift id must be number
+            </mat-error>
+
+            <div class="submit-id">
+                <p>Import eo_sle_sc_det_serial_number</p>
+                <input formControlName="serial_number" type="text" placeholder="Enter serial number">
+                <mat-bar-button [options]="submitSerialNumberButtonOptions" (btnClick)="importSerialNumber()"></mat-bar-button>
+            </div>
+            <mat-error class="error-message" *ngIf="f.serial_number.errors?.pattern && f.serial_number.touched">
+                Serial number must be number
+            </mat-error>
+
+            <div class="submit-id">
+                <p>Import memmember</p>
+                <input formControlName="customer_id" type="text" placeholder="Enter customer id">
+                <mat-bar-button [options]="submitCustomerIdButtonOptions" (btnClick)="importCustomerId()"></mat-bar-button>
+            </div>
+            <mat-error class="error-message" *ngIf="f.customer_id.errors?.pattern && f.serial_number.touched">
+                Customer id must be number
+            </mat-error>
+        </div>
+        
+    </div>
+    
+    <div *ngIf="hasErrorRecord">
+        <div class="error-record-table">
+            <div class="error-record-title">
+                Error Record Detail
+            </div>
+            <ag-grid-angular style="width: 100%; height: 420px" class="ag-theme-balham error-record-all"
+                [rowData]="errorRecords" [columnDefs]="columnDefs" [gridOptions]="gridOptions" floatingFilter=true
+                rowSelection="multiple" [singleClickEdit]=true [paginationAutoPageSize]=true [defaultColDef]="defaultColDef"
+                (gridReady)="onGridReady($event)" (gridSizeChanged)="onGridSizeChanged($event)"
+                [overlayLoadingTemplate]="loadingTemplate" [overlayNoRowsTemplate]="loadingTemplate" [modules]="modules">
+            </ag-grid-angular>
+        </div>
+    </div>
+</div>

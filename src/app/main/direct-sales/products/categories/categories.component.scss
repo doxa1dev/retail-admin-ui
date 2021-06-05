@@ -1,0 +1,166 @@
+
+@import "src/@fuse/scss/fuse";
+
+.container-category{
+    height: 100%;
+    width: 100%;
+    background-color: #F5F5F5;
+    .title-category{
+        margin: 20px 20px;
+        height: 80px;
+        line-height: 80px;
+        position: relative;
+
+        p{
+            font-size: var(--header-page);
+            color: var(--text-color);
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 0px;
+            transform: translate(0%, -50%);
+        }
+
+        button{
+            padding: 2px 20px;
+            font-size: var(--button-text);
+            background-color: var(--primary-color);
+            color: white;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            right: 0px;
+            transform: translate(0%, -50%);
+            font-weight: normal !important;
+        }
+
+    }
+    .category-table{
+        margin: 10px 20px;
+        background-color: white;
+        padding: 20px !important;
+
+        .ag-theme-balham{
+            font-size: var(--ag-grid-text);
+            width: 100%;
+            .ag-has-focus{
+                border: none !important;
+                outline: none !important;
+            }
+            .ag-cell-focus{
+                border: none !important;
+                outline: none !important;
+            }
+
+        }
+        .product-all{
+            .ag-header{
+                min-height: 75px !important;
+                font-size:  var(--ag-grid-text);
+                color: black;
+                padding: 5px 0px;
+                display: flex;
+                vertical-align: middle;
+            }
+
+            .ag-row{
+                height: 50px !important;
+            }
+            
+            .ag-header-cell-text[aria-colindex="2"]{
+                width: 100%;
+                text-align: center;
+                // padding: 20px;
+            }
+
+            .ag-header-cell-label{
+                .ag-sort-order{
+                    display: none;
+                }
+            }
+            
+            .ag-cell[aria-colindex="4"]{
+                text-align: center;
+                img{
+                    height: auto;
+                    vertical-align: middle !important;
+                }
+            }
+        }
+
+        .separate {
+            margin: 30px 0;
+        }
+
+        .category-set-default {
+            width: 100%;
+            height: 100%;
+            margin: 0 0 20px;
+
+            .category-set-default-title {
+                color: #5A616F;
+                font-size: 16px;
+            }
+
+            .category-set-default-dropdown {
+                width: 100%;
+                height: auto;
+                margin: 10px 0;
+
+                .ui-dropdown {
+                    width: 300px;
+                    height: 40px;
+                    border: 1px solid #707070;
+                    border-radius: 6px;
+                }
+
+                .ui-dropdown-label {
+                    margin-top: -5px;
+                    width: 100%;
+                }
+
+                .ui-dropdown-trigger {
+                    border-right: 0;
+                    border-top: 0;
+                    border-bottom: 0;
+                    cursor: pointer;
+                    width: 1.5em;
+                    height: 90%;
+                    position: absolute;
+                    right: 2%;
+                    top: 5%;
+                }
+
+                .ui-corner-top {
+                    background-color: #707070;
+                }
+
+                .ui-inputgroup-addon {
+                    height: 48px;
+                    border-color: #707070;
+                    padding: 12px !important
+                }
+
+                .ui-inputgroup {
+                    width: 80%;
+                }
+
+                .ui-inputtext {
+                    border: none;
+                }
+
+                .ui-dropdown-label-container {
+                    padding: 8px;
+                    width: 100%;
+                }
+            }
+
+            .category-set-default-result {
+                font-weight: 600;
+                font-style: italic;
+                font-size: 14px;
+                margin: 0 10px;
+            }
+        }
+    }
+}

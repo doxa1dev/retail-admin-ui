@@ -1,0 +1,199 @@
+@import "src/@fuse/scss/fuse";
+
+.container-profile{
+  height: auto;
+  width: 100%;
+  background-color: #F5F5F5;
+  color: var(--text-color);
+
+  .title{
+      margin-bottom:20px;
+      height: 80px;
+
+      div{
+        font-weight: 600;
+        padding-top: 40px;
+        margin-left: 40px;
+        font-size: var(--header-page);
+      }
+  }
+
+  .profile-description {
+    padding: 5px;
+
+    .change-avatar {
+      padding: 20px 32px 32px 32px;
+      width: 100%;
+      height: auto;
+      background-color: white;
+
+      .title-photo {
+        font-weight: 600;
+      }
+
+      .user-profile {
+        .img-user {
+          img {
+            object-fit: cover;
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+          }
+        }
+
+        .add-img {
+          text-align: center;
+          background-color: #F5F5F5;
+          border: dashed 1px var(--border-color);
+
+          p {
+            margin-bottom: 2px;
+          }
+        }
+      }
+    }
+
+    .profile {
+      padding: 20px 32px 32px 32px;
+      width: 100%;
+      height: auto;
+      background-color: white;
+
+      .title-infor {
+        font-weight: 600;
+      }
+
+      .user-information1 {
+        display: flex;
+
+        .info-left {
+          width: 100px;
+
+          p {
+            margin-bottom: 1px;
+          }
+        }
+
+        .info-right {
+          padding-left: 50px;
+
+          p {
+            margin-bottom: 1px;
+          }
+        }
+      }
+
+      .form-name {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        width: 50%;
+        padding: 10px 20px;
+        background-color: #F5F5F5;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+
+        input {
+          width: 100%;
+          height: 35px;
+          border-radius: 6px;
+          border: 0.5px solid var(--border-color);
+        }
+
+        .btn-save-name {
+          margin-bottom: 10px;
+          margin-top: 10px;
+          border-radius: 8px;
+          background-color: var(--primary-color);
+          width: 50%;
+          color: white;
+          border: 0px;
+          height: 35px;
+          font-weight: 600;
+        }
+      }
+
+      .user-information2 {
+        display: flex;
+
+        .left {
+          width: 100px;
+
+          p {
+            margin-bottom: 1px;
+          }
+        }
+
+        .right {
+          padding-left: 50px;
+
+          p {
+            margin-bottom: 1px;
+          }
+        }
+      }
+    }
+  }
+
+  .change-pass {
+    padding: 5px 25px 5px 5px;
+
+    .password {
+      padding: 20px;
+      width: 100%;
+      background-color: white;
+      box-shadow: 0px 2px 8px #00000029;
+
+      .text-security {
+        font-size: var(--header-page);
+        font-weight: 600;
+      }
+
+      .body-pass {
+        display: flex;
+
+        .text-pass {
+          padding-left: 10px;
+        }
+
+        .text-change {
+          color: var(--link-color);
+          margin-left: auto;
+        }
+
+      }
+
+      .form-pass {
+        padding: 10px 20px;
+        background-color: #F5F5F5;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+
+        p {
+          margin: 5px 0px;
+        }
+
+        input {
+          width: 100%;
+          height: 35px;
+          border-radius: 6px;
+          border: 0.5px solid var(--border-color);
+        }
+
+        .btn-save {
+          margin-top: 25px;
+          border-radius: 8px;
+          background-color: var(--primary-color);
+          width: 50%;
+          color: white;
+          border: 0px;
+          height: 35px;
+          font-weight: 600;
+        }
+      }
+
+
+    }
+  }
+}
+
+@import '~bootstrap/dist/css/bootstrap.min.css';

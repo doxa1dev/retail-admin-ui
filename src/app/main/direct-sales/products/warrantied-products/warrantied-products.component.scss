@@ -1,0 +1,92 @@
+@import "src/@fuse/scss/fuse";
+
+
+.container-warrantied {
+  height: 100%;
+  width: 100%;
+  background-color: #F5F5F5;
+
+  .title-warrantied {
+    margin: 20px 20px;
+    height: 80px;
+    line-height: 80px;
+    position: relative;
+
+    p {
+        font-size: var(--header-page);
+        color: var(--text-color);
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 0px;
+        transform: translate(0%, -50%);
+    }
+  }
+
+  .warrantied-table {
+    margin: 21px 20px;
+    height: 100%;
+    background-color: white;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+
+    .ag-theme-balham{
+      font-size: var(--ag-grid-text);
+      width: 100%;
+      .ag-has-focus{
+          // border: none !important;
+          // outline: none !important;
+      }
+      .ag-cell-focus{
+          border: none !important;
+          outline: none !important;
+      }
+
+  }
+
+    .tabs {
+
+      .mat-tab-label {
+        width: 33%;
+      }
+
+      .mat-tab-label-active {
+        color: var(--primary-color);
+      }
+
+      .mat-ink-bar {
+        background-color: var(--primary-color) !important;
+        height: 5px;
+      }
+
+      .mat-tab-label-content {
+        font-size: var(--ag-grid-text);
+      }
+
+
+      .warrantied-tab-body{
+        padding: 10px !important;
+
+          .warrantied-all {
+
+            .ag-header{
+              height: 87px !important;
+              font-size: var(--ag-grid-text);
+              color: black;
+              padding: 5px 0px;
+              display: flex;
+              vertical-align: middle;
+              min-height: 0 !important;
+            }
+
+            .ag-icon-filter{
+              display: none;
+            }
+
+
+          }
+        }
+
+    }
+  }
+}

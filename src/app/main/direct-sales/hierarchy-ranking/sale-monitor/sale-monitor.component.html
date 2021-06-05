@@ -1,0 +1,21 @@
+<div class="sales-monitor">
+  <div class="title-sales-monitor">
+    <p>Sales Monitor</p>
+  </div>
+
+  <div class="body-sales-monitor">
+    <ag-grid-angular #agGrid style="width: 100%; height: 400px;"
+      class="ag-theme-balham sales-all" [rowData]="salesArray"
+      [components]="components"
+      [paginationAutoPageSize]=true
+      [columnDefs]="columnDefs"
+      [floatingFilter]='true' rowSelection="multiple"
+      [singleClickEdit]=true
+      [defaultColDef]="defaultColDef"
+      (gridReady)="onGridReady($event)"
+      (rowDoubleClicked)='getDetailSalesMonitor($event)'
+      [gridOptions]="gridOptions" [modules]="modules"
+      [overlayNoRowsTemplate]="emptyTemplate">
+    </ag-grid-angular>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+:host {
+    ::ng-deep .ui-dropdown{
+        min-width: 50px !important;
+        height : 40px !important;
+        border : 1px solid var(--input-border);
+        border-radius: 3px;
+    }
+    ::ng-deep .ui-dropdown-panel{
+        width: 100% !important;
+        min-width: 300px !important;
+    }
+    ::ng-deep .ui-dropdown-item	{
+        
+        vertical-align: middle !important;
+        margin: 1px 0px;
+        font-size: 14px;
+        // @include media-breakpoint("xs") {
+        //     font-size: 12px;
+        // } 
+    }
+    ::ng-deep .ui-inputtext{
+        font-size: 14px;
+        // @include media-breakpoint("xs") {
+        //     font-size: 12px;
+        // } 
+    }
+} 

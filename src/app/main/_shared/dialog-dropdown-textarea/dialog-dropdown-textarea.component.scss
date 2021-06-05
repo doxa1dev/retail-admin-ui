@@ -1,0 +1,95 @@
+.dialog__title {
+  font-size: 16px;
+  color: #5a616f;
+  font-weight: 600;
+}
+
+hr {
+  border-top: 2px solid #5a616f;
+  border-bottom: 0;
+  border-right: 0;
+  border-left: 0;
+}
+
+.dialog__content {
+  color: #5a616f !important;
+
+  &__title {
+    font-weight: 600;
+    margin-bottom: 1em;
+  }
+
+  p-dropdown {
+    .ui-dropdown {
+      width: 100%;
+      margin-bottom: 1em;
+
+      &:focus,
+      &:active,
+      &:target {
+        box-shadow: 0 0 0 0.2em #8dcdff;
+        border-color: #007ad9;
+      }
+    }
+  }
+
+  textarea {
+    width: 100%;
+    margin-bottom: 0.6em;
+    border-radius: 3px;
+    border: 1px solid #a6a6a6;
+    padding: 0.429em;
+
+    &:focus {
+      box-shadow: 0 0 0 0.2em #8dcdff;
+      border-color: #007ad9;
+    }
+  }
+
+  .ng-dirty.ng-invalid textarea {
+    border: 1px solid #a80000;
+  }
+
+  .error {
+    font-size: 0.9em;
+    font-style: oblique;
+    color: #de3535;
+    margin-top: -1em;
+    margin-bottom: 1em;
+  }
+}
+
+.dialog__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .btn {
+    height: 36px;
+    width: 100px;
+    border-radius: 6px;
+    border: 1px solid;
+    cursor: pointer;
+  }
+
+  .btn--back {
+    color: #7da863;
+    border-color: #7da863;
+    background-color: #fff;
+    margin-right: 30px;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+      0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  }
+
+  .btn--submit {
+    color: #fff;
+    border-color: #7da863;
+    background-color: #7da863;
+
+    &:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+      border: unset;
+    }
+  }
+}

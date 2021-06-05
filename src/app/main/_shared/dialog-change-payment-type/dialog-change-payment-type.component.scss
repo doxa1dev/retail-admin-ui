@@ -1,0 +1,119 @@
+@import "src/@fuse/scss/fuse";
+// @import "../../../@fuse/scss/partials/background";
+:host {
+  ::ng-deep .ui-dropdown-label-container{
+    padding: 8px;
+    width: 100%;
+  }
+  ::ng-deep .ui-dropdown .ui-dropdown-label {
+    text-overflow: ellipsis;
+  }
+
+  ::ng-deep .ui-dropdown{
+    border: 1px solid  #707070;
+    border-radius: 6px;
+    width: 100%;
+    // min-width: 0px;
+    line-height: 0.5em;
+    box-shadow: none !important;
+    height: 40px;
+  }
+
+  ::ng-deep .ui-dropdown-trigger{
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+    cursor: pointer;
+    width: 1.5em;
+    margin: -2px;
+    position: absolute;
+    right: 2%;
+    top: 5%;
+  }
+}
+.title{
+  font-weight: 600;
+    font-size: 16px;
+    // font-weight: normal;
+    margin-top: -10px;
+    color: #5A616F !important;
+    // margin-top: 10px;
+    margin-bottom: 20px;
+    // padding: 20px 0px;
+}
+hr{
+    margin-top: -20px;
+    background-color: #5A616F !important;
+}
+.message{
+    font-size: 16px;
+    font-weight: normal ;
+    color: #5A616F !important;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.item{
+  display: flex;
+  p{
+    width: 22%;
+
+  }
+  p-dropdown{
+    width: 30%;
+    margin-bottom: 20px;
+  }
+  input {
+    border: 1px solid #707070;
+    height: 40px;
+    width: 32%;
+    border-radius: 6px;
+    // margin-bottom: 20px;
+  }
+}
+
+.error{
+  color: #DE3535 ;
+  margin-top: -2px;
+}
+
+.pt-approved {
+    padding-bottom: 10px;
+    @media screen and (min-width : 750px){
+        width: 70% !important;
+        margin: 0 auto;
+    }
+    width: 100%;
+    .ok-button{
+        // background-color: var(--primary-color) !important;
+        color: white !important;
+        padding-left: 43px !important;
+        padding-right: 43px !important;
+        // border: 1px solid var(--primary-color);
+        @media only screen and (max-width : 350px) {
+            padding-left: 35px !important;
+            padding-right: 35px !important;
+            color: white !important;
+        }
+        height: 40px;
+        width: 50%;
+        margin: 0px;
+        margin-left: 4%;
+    }
+    .cancel-button-1{
+        background-color: #fffff0 !important;
+
+        color: var(--primary-color) !important;
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+        border: 1px solid var(--primary-color);
+        @media only screen and (max-width : 350px) {
+            padding-left: 25px !important;
+            padding-right: 25px !important;
+        }
+        height: 40px;
+        width: 40%;
+        margin: 0px;
+        margin-right: 4%;
+    }
+}

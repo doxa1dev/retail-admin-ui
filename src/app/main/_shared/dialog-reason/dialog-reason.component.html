@@ -1,0 +1,27 @@
+<h1 matDialogTitle class="title">CONFIRM</h1>
+<hr>
+<div mat-dialog-content class="message">{{confirmMessage}}</div>
+<div class="dialog-radio-button">
+	<div mat-dialog-actions>
+    <div mat-radio-group aria-label="Select an option" (change)="onChange($event)">
+      <div *ngFor="let e of reasonList">
+        <input type="radio" id="reason_{{e.value}}" name="radioGroup" value="{{e.value}}">
+        <label style="margin-left: 10px; margin-bottom: 10px;" for="reason_{{e.value}}">{{e.label}}</label><br>
+      </div>
+      <input type="radio" id="reason_m" name="radioGroup" value="100">
+      <label style="margin-left: 10px; margin-bottom: 10px;" for="reason_m">Other reasons (please specify).</label>
+      <!-- <div mat-radio-button value="100">Other reasons (please specify).</div> -->
+    </div>
+		<input [disabled]="disableInput" matInput style="margin-top: 10px;" id="input" placeholder="Enter reason">
+  </div>
+</div>
+<div mat-dialog-actions class="pt-24">
+    <button [disabled]="disableButton" class="ok-button1"   [style.background-color]= "disableButton ? buttonGrey : buttonGreen "
+    mat-raised-button (click)="updateReason()">
+    Confirm
+    </button>
+    <button class="ok-button2"   [style.background-color]= "colorButton ? buttonRed : buttonRed "
+    mat-raised-button (click)="dialogRef.close(false)">
+    Cancel
+    </button>
+</div>

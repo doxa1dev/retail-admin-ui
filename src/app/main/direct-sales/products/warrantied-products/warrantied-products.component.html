@@ -1,0 +1,82 @@
+<div class="container-warrantied">
+  <div class="title-warrantied">
+    <p>Warranty Products</p>
+  </div>
+
+  <div class="warrantied-table">
+    <mat-tab-group md-stretch-tabs class="tabs" [(selectedIndex)]="selectedIndex">
+      <mat-tab>
+
+        <ng-template mat-tab-label>In warranty</ng-template>
+        <ng-template matTabContent>
+        <div class="warrantied-tab-body">
+            <ag-grid-angular style="width: 100%; height: 625px;"
+            class="ag-theme-balham warrantied-all"
+            [rowData]="inWarrantyArray"
+            [columnDefs]="columnWarranty"
+            floatingFilter=true
+            rowSelection="multiple"
+            (rowDoubleClicked)='onViewWarranty($event)'
+            [singleClickEdit]=true
+            [defaultColDef]="defaultColDef"
+            (gridReady)="onGridInWarranty($event)"
+            [gridOptions]="gridOptions"
+            [modules]="modules"
+            [overlayLoadingTemplate]="loadingTemplateInWarranty"
+            [overlayNoRowsTemplate]="loadingTemplateInWarranty"
+            >
+          </ag-grid-angular>
+        </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>In Shipping</ng-template>
+        <ng-template matTabContent>
+        <div class="warrantied-tab-body">
+          <ag-grid-angular style="width: 100%; height: 625px;"
+          class="ag-theme-balham warrantied-all"
+          [rowData]="inShipping"
+          [columnDefs]="columnShipping"
+          floatingFilter=true rowSelection="multiple"
+          [singleClickEdit]=true
+          [defaultColDef]="defaultColDef"
+          (gridReady)="onGridInShipping($event)"
+          [gridOptions]="gridOptions"
+          [paginationAutoPageSize]=true
+          [modules]="modules"
+          [overlayLoadingTemplate]="loadingTemplateInShipping"
+          [overlayNoRowsTemplate]="loadingTemplateInShipping"
+          >
+          </ag-grid-angular>
+        </div>
+      </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>Warranty expired</ng-template>
+        <ng-template matTabContent>
+        <div class="warrantied-tab-body">
+          <ag-grid-angular style="width: 100%; height: 625px;"
+          class="ag-theme-balham warrantied-all"
+          [rowData]="warrantyExpired"
+          [columnDefs]="columnWarranty"
+          floatingFilter=true rowSelection="multiple"
+          (rowDoubleClicked)='onViewWarrantyExpired($event)'
+          [singleClickEdit]=true
+          [defaultColDef]="defaultColDef"
+          (gridReady)="onGridWarrantyExpired($event)"
+          [gridOptions]="gridOptions"
+          [paginationAutoPageSize]=true
+          [modules]="modules"
+          [overlayLoadingTemplate]="loadingTemplateWarrantyExpired"
+          [overlayNoRowsTemplate]="loadingTemplateWarrantyExpired"
+          >
+          </ag-grid-angular>
+        </div>
+      </ng-template>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+<div class="container-product" *ngIf = "productData">
+    <form action="" [formGroup]="productForm">
+        <div class="title">
+            <div>
+                <button mat-icon-button (click)="back()">
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+                <span>News detail</span>
+            </div>
+            <!-- <p>{{ProductName}}</p> -->
+        </div>
+        <div class="row ml-2">
+            <div class="col-lg-8">
+                <div class="title-description row">
+                    <div class="cart">
+                        <p>Title</p>
+                        <input type="text" placeholder="Thermomix TM6" formControlName="productTitle" [(ngModel)]="productData.title">
+                        <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                            *ngIf="f.productTitle.hasError('required') && submitted">
+                            Title is required
+                        </mat-error>
+                        <p>Content</p>
+                        <textarea class = "text-area" formControlName="productDescription" [(ngModel)]="productData.description"></textarea>
+                    </div>
+                </div>
+
+                <div class="image row">
+                    <div class="cart">
+                        <p>Media</p>
+                        <div *ngIf="imageArray.length > 0"  >
+                            <div class="row" cdkDropList (cdkDropListDropped)="drop($event)">
+                                <div class="col-6" >
+                                    <div class="cover-photo"  >
+                                        <img [src]="imageArray[0]"  alt="" cdkDrag>
+                                    <button class="deleteButton" mat-icon-button (click)="deleteFile(0)"><mat-icon>delete</mat-icon></button>
+                                    </div>
+                                </div>
+                                <div class="col-6" >
+                                    <div class="row picturesmall">
+                                        <ng-container *ngFor="let item of imageArray, let x = index">
+                                            <div *ngIf="x !== 0 " class="col-6 photocol">
+                                                <div class="photo">
+                                                    <img [src]="item" alt="" cdkDrag>
+                                                <button class="deleteButtonSmall" mat-icon-button (click)="deleteFile(x)"> <mat-icon>delete</mat-icon></button>
+
+                                                </div>
+                                            </div>
+                                        </ng-container>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container" appDnd (fileDropped)="onFileDropped($event)">
+                            <img *ngIf="imageArray.length == 0" src="assets\icons\doxa-icons\Photos.svg" alt=""
+                                style="width: 130px; height: auto;">
+                            <button type="button" (click)="fileDropRef.click()">
+                                <span>Add file</span>
+                                <input #fileDropRef type="file" id="file" multiple accept='image/*' (change)="fileBrowseHandler($event.target.files)"
+                                    style="display:none;" />
+                            </button>
+                            <p>or drop file to upload</p>
+
+                            <p>Supported File tyep: JPG, PNG, PDF</p>
+
+                            <p>Maximum File Size 4.00 MB per file</p>
+                        </div>
+                        <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                            *ngIf="imageArray.length == 0 && submitted">
+                            Image is required
+                        </mat-error>
+                        <div class="files-list">
+                            <div class="single-file" *ngFor="let file of files; let i = index">
+                                <ng-container *ngIf="file.progress !== 100">
+                                    <img src="assets/dnd/ic-file.svg" width="45px" alt="file">
+                                    <div class="info">
+                                        <h4 class="name">
+                                            {{ file?.name }}
+                                        </h4>
+                                        <p class="size">
+                                            {{ formatBytes(file?.size) }}
+                                        </p>
+                                        <app-progress [progress]="file?.progress"></app-progress>
+                                    </div>
+                                    <img src="assets/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4">
+                <div class="product-available row">
+                    <div class="content">
+                        <p>Update history</p>
+                        <mat-divider style="padding-bottom: 10px;"> </mat-divider>
+                        <app-timeline [histories]="history"></app-timeline>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <div class="btn-button-product">
+      <div class="left" fxFlex="1 0 auto" fxLayout="row">
+          <button class="btn-back" mat-raised-button (click)="back()">BACK</button>
+      </div>
+      <div class="right"  fxFlex="0 1 auto" fxLayout="row">
+          <button mat-raised-button class="btn-delete" (click)="deleteNews()">DELETE</button>
+          <button mat-raised-button class="btn-save" (click)="updateProduct()" >SAVE</button>
+      </div>
+
+
+  </div>
+</div>
+
+<!-- View Product Detail And Update -->

@@ -1,0 +1,211 @@
+<div class="container-reports">
+  <div class="title">
+      <div>
+          <!-- <button mat-icon-button  (click) = "back()"><mat-icon>chevron_left</mat-icon></button> -->
+          Reports
+
+      </div>
+      <!-- <p>at {{time | date:"dd/MM/yyyy"}}</p> -->
+  </div>
+  <div class="row ml-2 mr-2">
+      <div class="col-lg-12">
+          <div class="reports-description row">
+              <div class="reports">
+                <div class="type" [formGroup]="reportsForm">
+                  <div class="left-title">
+                    <p style="font-weight: 600;">Report Type</p>
+                    <mat-divider id="bot-type"></mat-divider>
+                    <div style="width: 80%;">
+                      <p-dropdown
+                      filter="true"
+                      formControlName="type"
+                      [options]="listMultiSelect"
+                      placeholder="Select Type Reports"
+                      optionLabel="name"
+                      (onChange)="SelectedTypeReports($event)">
+                      </p-dropdown>
+                      <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                        *ngIf="reportsForm.controls.type.hasError('required') && isShow">
+                        Report type is required
+                        </mat-error>
+                    </div>
+                  </div>
+                  <div class="mid-title">
+                    <p style="font-weight: 600;">Order confirmation date</p>
+                    <mat-divider id="bot-date"></mat-divider>
+
+                    <div class="from-date">
+                      <div class="from">From</div>
+                      <div class="calendar">
+                        <p-calendar appendTo="body" dateFormat="DD, dd/mm/yy" placeholder='Select day' formControlName="startDay"
+                          [showIcon]="true" [maxDate]="maxDateFrom" (onSelect)="onChangeFrom($event)" >
+                        </p-calendar>
+
+                        <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                        *ngIf="reportsForm.controls.startDay.hasError('required') && isShow">
+                        Start day is required
+                        </mat-error>
+                      </div>
+                    </div>
+
+                    <div class="from-date">
+                      <div class="from">To</div>
+                      <div class="calendar">
+                        <p-calendar appendTo="body" dateFormat="DD, dd/mm/yy" placeholder='Select day' formControlName="endDay"
+                          [showIcon]="true" [minDate]="minDateEnd"  [maxDate]="maxDateFrom" (onSelect)="onChangeTo($event)" >
+                        </p-calendar>
+
+                        <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                        *ngIf="reportsForm.controls.endDay.hasError('required') && isShow">
+                        End day is required
+                        </mat-error>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="right-title">
+                    <p style="font-weight: 600;" *ngIf="typeReportValue!='stock_sold' && typeReportValue!='daily_collection' && typeReportValue!='customer_update_history'">Filters</p>
+                    <mat-divider id="bot-filters" *ngIf="typeReportValue!='stock_sold' && typeReportValue!='daily_collection' && typeReportValue!='customer_update_history'"></mat-divider>
+                    <div id="branch-select">
+                      <!-- *ngIf="typeReportValue!='stock_sold'" -->
+                      <div id="type-selected" *ngIf="typeReportValue!='stock_sold' && typeReportValue!='daily_collection' && typeReportValue!='customer_update_history' ">
+
+                        <div id="detail">
+                          <div id="name">Branch</div>
+                          <div id="choose">
+                            <!-- <p-dropdown
+                              formControlName="branch"
+                              filter="true"
+                              [options]="listBranch"
+                              placeholder="Select Branch"
+                              optionLabel="customerName"
+                              (onChange)="SelectedBranch($event)">
+                            </p-dropdown> -->
+                            <p-multiSelect
+                              formControlName="branch"
+                              [showToggleAll] = true
+                              filter="true"
+                              [options]="listBranch"
+                              [defaultLabel]="'Select Branch'"
+                              (onChange)="SelectedBranch($event)">
+                            </p-multiSelect>
+                              <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                              *ngIf="reportsForm.controls.branch.hasError('required') && isShow">
+                              Branch is required
+                              </mat-error>
+                          </div>
+                        </div>
+
+                        <div id="detail">
+                          <div id="name">Team</div>
+                          <div id="choose">
+                            <p-multiSelect
+                              formControlName="team"
+                              [showToggleAll] = true
+                              filter="true"
+                              [options]="listTeam"
+                              [defaultLabel]="'Select Team'"
+                              (onChange)="SelectedTeam($event)">
+                            </p-multiSelect>
+
+                            <!-- <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                            *ngIf="reportsForm.controls.team.hasError('required') && isShow">
+                            Team is required
+                            </mat-error> -->
+                            <!-- <p-dropdown
+                              filter="true"
+                              [options]="listTeam"
+                              placeholder="Select Team"
+                              optionLabel="name"
+                              (onChange)="SelectedTeam($event)">
+                              </p-dropdown> -->
+                          </div>
+                        </div>
+
+                        <div id="detail" *ngIf="!isShowNAEPRecruitment">
+                          <div id="name">Product</div>
+                          <div id="choose">
+                            <p-multiSelect
+                              formControlName="product"
+                              [showToggleAll] = true
+                              filter="true"
+                              [options]="listProduct"
+                              [defaultLabel]="'Select Product'"
+                              (onChange)="SelectedProduct($event)">
+                            </p-multiSelect>
+                            <!-- <p-dropdown
+                              filter="true"
+                              [options]="listProduct"
+                              placeholder="Select Product"
+                              optionLabel="name"
+                              (onChange)="SelectedProduct($event)">
+                            </p-dropdown> -->
+
+                              <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                              *ngIf="reportsForm.controls.product.hasError('required') && isShow">
+                              Product is required
+                              </mat-error>
+                          </div>
+                        </div>
+
+                        <div id="detail" *ngIf="isShowNAEPSuccess">
+                          <div id="name">NAEP Type</div>
+                          <div id="choose">
+                            <!-- <p-multiSelect
+                              optionLabel="name"
+                              [showToggleAll] = true
+                              filter="true"
+                              [options]="listSalesPeriod"
+                              [defaultLabel]="'Select Sales period'"
+                              (onChange)="SelectedProduct($event)">
+                            </p-multiSelect> -->
+                            <p-dropdown
+                              formControlName="period"
+                              filter="true"
+                              [options]="listSalesPeriod"
+                              placeholder="Select NAEP Type"
+                              optionLabel="name"
+                              (onChange)="SelectedSalesPeriod($event)">
+                            </p-dropdown>
+
+                              <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                              *ngIf="reportsForm.controls.period.hasError('required') && isShow">
+                              Sales Type is required
+                              </mat-error>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div id="button-exports">
+                        <!-- <button mat-raised-button class="btn-export" (click)="exports()" >Export</button> -->
+                        <app-button-loading [active]="active" style="cursor: pointer;" [buttonName]="buttonName" (click)="exports()"></app-button-loading>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="reports-table">
+                  <ag-grid-angular style="width: 100%; height: 200px"
+                  class="ag-theme-balham product-all"
+                  [rowData]="listReports"
+                  [columnDefs]="columnDefs"
+                  [gridOptions]="gridOptions"
+                  floatingFilter=true
+                  rowSelection="multiple"
+                  [singleClickEdit]=true
+                  [paginationAutoPageSize]=true
+                  [defaultColDef]="defaultColDef"
+                  (gridReady)="onGridReady($event)"
+                  (gridSizeChanged)="onGridSizeChanged($event)"
+                  >
+                  </ag-grid-angular>
+                </div> -->
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+</div>

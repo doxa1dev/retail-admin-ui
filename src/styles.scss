@@ -1,0 +1,62 @@
+// Import Fuse core library
+@import "@fuse/scss/core";
+
+// Import app.theme.scss
+@import "app/app.theme";
+
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/nova-light/theme.css';
+@import '~primeng/resources/primeng.min.css';
+
+// Import ag-grid scss
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+
+body,
+.ag-theme-balham
+{
+  font-family: Arial, sans-serif !important; /* 1 */
+}
+
+@import '~@angular/material/theming';
+$custom-typography: mat-typography-config(
+  $font-family: Arial
+);
+@include mat-core($custom-typography);
+
+:root {
+  --primary-color:#7DA863;
+  --form-background: #eeeeee;
+  --fuse-background:#eeeeee;
+  --text-color: #5a616f;
+  --placeholder-color: #d4d4d4;
+  --input-color: #3a3a3a;
+  --link-color: #0a73eb;
+  --red-color: #DE3535;
+  --border-color: #707070;
+  --yellow-background: #f8f6b2;
+  --descrp-background: #f3f3f3;
+  --button-disable-background:gray;
+  --form-background : #F5F5F5;
+  --input-border : #e1e1e1;
+  
+
+
+  --primary-text: 14px;
+  --small-text: 12px;
+  --button-text: 12px;
+  --input-text : 14px;
+  --checkbox : 12px;
+  --label-input : 12px;
+  --label-cart : 14px;
+  --back-label : 14px;
+  --header-page :  16px;
+  --ag-grid-text : 14px;
+}
+// .ui-widget {
+//   font-family: Arial, sans-serif !important;
+// }
+// .mat-checkbox{
+//   font-family: Arial, sans-serif !important;
+// }
+

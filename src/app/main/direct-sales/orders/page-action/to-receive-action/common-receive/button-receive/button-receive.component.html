@@ -1,0 +1,28 @@
+<div class="to-receive">
+  <div class="button-mark-as-receive">
+    <button mat-raised-button color="primary"
+    [disabled]= "(fullOrder.checkOrderLock && checkLock == 2)"
+    [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'mark-as-receive-button' "
+    (click)="navigateToUnbox()" aria-label="View">
+        Mark As Received
+    </button>
+  </div>
+  <!-- <div class="button-select-reason-of-cancel-receive">
+    <button mat-raised-button color="primary" class="reason-button" aria-label="View">
+        Select reason of cancel receive
+    </button>
+  </div> -->
+  <div class="button-cancel-receive">
+    <button mat-raised-button color="primary"
+    [disabled]= "(fullOrder.checkOrderLock && checkLock == 2)"
+    [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'receive-button' "
+    (click)="navigateToShip()" aria-label="View">
+        Cancel Receive
+    </button>
+  </div>
+  <!-- <div class="button-cancel-receive">
+    <button mat-raised-button color="primary" (click)="navigateToCancel()" class="receive-button" aria-label="View">
+        Cancel Order
+    </button>
+  </div> -->
+</div>

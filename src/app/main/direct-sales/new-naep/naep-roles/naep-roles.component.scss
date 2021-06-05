@@ -1,0 +1,109 @@
+
+@import "src/@fuse/scss/fuse";
+
+
+::ng-deep .container-naep-roles{
+    height: 100%;
+    width: 100%;
+    background-color: #F5F5F5;
+    .title-naep-roles{
+        margin: 20px 20px;
+        height: 80px;
+        line-height: 80px;
+        position: relative;
+        p{
+            font-size: var(--header-page);
+            color: var(--text-color);
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 0px;
+            transform: translate(0%, -50%);
+        }
+
+    }
+
+    .naep-role-table{
+        margin: 21px 20px;
+        // width: 100%;
+        height: 100%;
+        background-color: white;
+        padding: 20px !important;
+        .ag-theme-balham{
+            font-size: var(--ag-grid-text);
+            width: 100%;
+            .ag-has-focus{
+                // border: none !important;
+                // outline: none !important;
+            }
+            .ag-cell-focus{
+                border: none !important;
+                outline: none !important;
+            }
+
+        }
+        .naep-process-all{
+            .ag-header{
+                height: 90px !important;
+                font-size: var(--ag-grid-text);
+                color: black;
+                padding: 5px 0px;
+                display: flex;
+                vertical-align: middle;
+                min-height: 0 !important;
+            }
+            .ag-row{
+                height: 50px !important;
+            }
+
+            
+
+            input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+            }
+        }
+        
+    }
+
+    .btn-button-create-naep-packages-container{
+        background-color: white;
+        position: sticky;
+        display: flex;
+        bottom: 0;
+        width: 100%;
+        height: 64px;
+        padding: 10px 32px;
+        text-align: center;
+        border-top: solid 1px #707070;
+        button{
+            width: 130px;
+            height: 40px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .btn-back{
+            // background-color: red;
+            button{
+                border: solid 1px #7DA863;
+                color: #7DA863;
+            }
+        }
+        .btn-save{
+            // background-color: green;
+            button{
+                background-color: #7DA863;
+                color: white;
+            }
+            .btn-disabled{
+                background-color: grey;
+                pointer-events: none;
+            }
+            .btn-delete{
+              background-color: #DE3535 ;
+              margin-right: 20px;
+            }
+        }
+  
+    }
+}

@@ -1,0 +1,233 @@
+@import "src/@fuse/scss/fuse";
+
+fuse-sidebar {
+
+  &.navbar-fuse-sidebar {
+    overflow: hidden;
+
+    &.folded:not(.unfolded) {
+
+      navbar {
+        z-index: 5;
+        navbar-vertical-style-1 {
+
+          .navbar-top {
+            padding: 12px 0;
+            justify-content: center;
+
+            .buttons {
+              display: none;
+            }
+
+            .logo {
+              .logo-icon {
+                width: 32px;
+                height: 32px;
+
+              }
+
+
+            }
+          }
+
+          .navbar-scroll-container {
+
+            .navbar-content {
+              padding-top: 0;
+
+              // Material 2 specific style
+              .material2 {
+
+                .nav-item {
+
+                  .nav-link {
+                    border-radius: 20px;
+                    margin: 0 12px;
+                    padding: 0 12px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.text {
+  display: inline-block;
+  .doxa-logo{
+    justify-content: center;
+    width: 108px;
+    height: 62px;
+  }
+}
+
+
+navbar {
+
+  &.vertical-style-1 {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+
+    &.right-navbar {
+
+      .toggle-sidebar-opened {
+
+        mat-icon {
+          transform: rotate(180deg);
+
+        }
+      }
+    }
+  }
+
+  navbar-vertical-style-1 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    .navbar-top {
+      display: flex;
+      flex-direction: row;
+      flex: 1 0 auto;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 64px;
+      max-height: 64px;
+      height: 64px;
+
+      // padding: 10px 10px 10px 10px;
+
+      @include media-breakpoint('xs') {
+        min-height: 56px;
+        max-height: 56px;
+        height: 56px;
+      }
+
+      .logo {
+        display: flex;
+        // justify-content: center;
+        margin-bottom: 12px !important;
+
+        align-items: center;
+        // background-color: #9DD696;
+        width: 70px;
+        min-height: 80px;
+        max-height: 70px;
+        .icon{
+          width: 64px;
+          height: 64px;
+          margin-top: 12px;
+          // margin-left: 5px;
+        }
+        // height: 70px;
+        // button {
+        //   padding-left: 13px;
+        //   padding-top: 5px;
+
+        //   mat-icon {
+        //     font-size: 40px;
+
+        //   }
+        // }
+      }
+
+
+      // .buttons {
+      //     display: flex;
+      //     align-items: center;
+      // }
+    }
+
+    .navbar-scroll-container {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+
+      background: linear-gradient(rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 30%),
+        linear-gradient(rgba(0, 0, 0, 0.25) 0, rgba(0, 0, 0, 0) 40%);
+
+      background-repeat: no-repeat;
+      background-size: 100% 40px, 100% 10px;
+      background-attachment: local, scroll;
+
+      .expansion {
+        background-color: black;
+        color: white;
+
+        mat-icon {
+          margin-right: 15px;
+        }
+
+        a {
+          text-decoration: none !important;
+          display: inline;
+
+          :hover {
+            background-color: #788190;
+          }
+
+          p {
+            margin-left: 40px;
+            font-size: 18 !important;
+            width: 100%;
+            color: white !important;
+          }
+        }
+
+      }
+
+      .mainTast {
+        font-size: 21px;
+        padding-top: 50px;
+        padding-left: 23px;
+        padding-bottom: 30px;
+      }
+
+      .list {
+        .listitem {
+          color: white;
+          margin-left: 6px;
+        }
+
+        a {
+          text-decoration: none !important;
+
+          :hover {
+            background-color: #788190;
+          }
+        }
+      }
+
+
+      mat-list {
+        .listitem {
+          color: white;
+        }
+
+        mat-icon {
+          margin-right: 20px;
+
+        }
+      }
+
+      .navbar-content {
+        flex: 1 1 auto;
+        padding-top: 32px;
+      }
+    }
+  }
+}
+
+.navbar-scroll-container {
+  background-color: black;
+}

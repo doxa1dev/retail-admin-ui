@@ -1,0 +1,9 @@
+<div class="button-requery-payment-status">
+  <button *ngIf="rowData.paymentStatus === 'Pending'"
+      (click)="requeryPaymentStatus()" mat-raised-button color="primary"
+      [ngClass]="(this.params.context.componentParent.fullOrder.checkOrderLock &&
+          this.params.context.componentParent.checkLock == 2)? 'update-button-disable':'update-button'"
+        aria-label="View">
+    <div>Update</div>
+  </button>
+</div>

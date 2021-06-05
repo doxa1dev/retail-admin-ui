@@ -1,0 +1,15 @@
+.button-requery-payment-status {
+  .update-button {
+    background-color: #7DA863;
+    height: 25px;
+    width: 98px !important;
+    // margin-top: -5px !important;
+  }
+  .update-button-disable {
+    background-color: grey;
+    height: 25px;
+    width: 98px !important;
+    pointer-events: none;
+    // margin-top: -5px !important;
+  }
+}

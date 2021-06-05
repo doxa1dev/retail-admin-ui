@@ -1,0 +1,186 @@
+@import "src/@fuse/scss/fuse";
+:host {
+    ::ng-deep .ui-dropdown{
+      width: 100%;
+      height: 48px;
+      margin: 20px auto;
+      border: none;
+      box-shadow: 0px 3px 16px #00000029 !important;
+      border-radius: 8px;
+    }
+    ::ng-deep .ui-dropdown-label{
+      vertical-align: middle;
+      padding: 0px 10px;
+      height: 48px;
+      margin: 0px;
+      line-height: 48px;
+      color: #788190;
+    }
+    ::ng-deep .ui-dropdown-item:hover	{
+    // color:white ;
+    // background-color:gray !important; 
+  }
+}    
+#register {
+  width: 100%;
+  background: url("assets/DoxaImages/background.jpg") no-repeat;
+  background-size: cover;
+
+  #register-form-wrapper {
+    flex: 1 0 auto;
+    padding: 32px;
+    @include media-breakpoint("xs") {
+      padding: 16px;
+    }
+
+    #register-form {
+      width: 384px;
+      max-width: 384px;
+      padding: 32px;
+      text-align: center;
+      background-color: white;
+      color: #788190 ;
+      opacity: 1;
+      @include mat-elevation(16);
+
+      @include media-breakpoint("xs") {
+        padding: 24px;
+        width: 100%;
+      }
+      #FormTitle {
+        display: block;
+        position: relative;
+        padding: 0px;
+        min-height: 40px;
+        .formLogo {
+          width: 144px;
+          margin: 0px auto;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        .fromLanguage {
+          color: green;
+          display: block;
+          position: absolute;
+          top: -5px;
+          right: -10px;
+        }
+      }
+      .logo {
+        width: 128px;
+        margin: 32px auto;
+      }
+
+      .title {
+        font-size: 20px;
+        margin: 16px 0 32px 0;
+        color: #269A3E;
+        letter-spacing: 0.19px;
+        font-weight: 700;
+      }
+
+      form {
+        width: 100%;
+        text-align: left;
+        mat-form-field {
+            width: 100%;
+            border: none;
+        }
+        input,
+        mat-select{
+            width: 100%;
+            height: 48px;
+            outline: none;
+            line-height: 48px;
+            -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+            -moz-box-shadow:  0px 3px 16px #00000029 !important;
+            box-shadow: 0px 3px 16px #00000029 !important;
+            border-radius: 8px;
+            opacity: 0.8;
+            padding-left: 8px;
+            color: #788190 !important;
+        }
+        mat-select{
+          margin-top: 5px;
+        }
+        mat-option{
+          color: #788190 !important;
+        }
+        #designation {
+          margin: 20px 0px;
+        }
+        #phoneNumber{
+            // background-color: red;
+            width: 100%;
+            display: block;
+            margin-bottom: 10px;
+            #phoneCode{
+                width: 40%;
+                display: inline-block;
+                margin-right: 5%;
+                // height: 60px;
+                vertical-align: middle;
+
+            }
+            #phoneNum{
+                width: 55%;
+                input{
+                    // height: 60px;
+                    // margin-top: 5px;
+                    vertical-align: middle;
+                }
+            }
+            #alertPhoneNumber{
+              margin-top:-20px;
+            }
+        }
+        mat-checkbox {
+          margin: 0;
+          color: red !important;
+        }
+
+        .terms {
+          margin: 16px 0 32px 0;
+          font-size: 14px;
+          mat-checkbox{
+              margin-right: 10px;
+          }
+          a {
+            margin-left: 4px;
+          }
+        }
+
+        .submit-button {
+            width: 100%;
+            margin: 16px auto;
+            display: block;
+            background-color: #269a3e;
+            color: white;
+            height: 48px;
+            @include media-breakpoint('xs') {
+                width: 90%;
+            }
+        }
+      }
+      a{
+        text-decoration: none;
+        color: #0A73EB;
+      }
+      .register {
+        margin: 32px auto 24px auto;
+        font-weight: 600;
+
+        .text {
+          margin-right: 8px;
+        }
+      }
+    }
+    .FormFooter{
+      color: white;
+      font-weight: 500;
+      @include media-breakpoint('xs') {
+          font-size: 12px;
+      }
+    }
+  }
+}

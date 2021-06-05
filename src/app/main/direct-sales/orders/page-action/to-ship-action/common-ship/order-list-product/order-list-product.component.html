@@ -1,0 +1,6 @@
+<div class="order-list-product">
+  <div class="order-product" *ngFor="let product of listProduct">
+    <app-product (handleSubmit)="childEvent($event)" [product]="product">
+    </app-product>
+  </div>
+</div>

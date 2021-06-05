@@ -1,0 +1,72 @@
+
+@import "src/@fuse/scss/fuse";
+
+
+.container-period-config{
+    height: 100%;
+    width: 100%;
+    background-color: #F5F5F5;
+    .title-period-config{
+        margin: 20px 20px;
+        height: 80px;
+        line-height: 80px;
+        position: relative;
+
+        p{
+            font-size: var(--header-page);
+            color: var(--text-color);
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 0px;
+            transform: translate(0%, -50%);
+        }
+        button{
+            padding: 2px 20px;
+            font-size: var(--button-text);
+            background-color: var(--primary-color);
+            color: white;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            right: 0px;
+            transform: translate(0%, -50%);
+            font-weight: normal !important;
+        }
+
+    }
+    .period-config-table{
+        margin: 21px 20px;
+        // width: 100%;
+        height: 100%;
+        background-color: white;
+        padding: 20px !important;
+        .ag-theme-balham{
+            font-size: var(--ag-grid-text);
+            width: 100%;
+            .ag-has-focus{
+                // border: none !important;
+                // outline: none !important;
+            }
+            .ag-cell-focus{
+                border: none !important;
+                outline: none !important;
+            }
+
+        }
+        .period-config-all{
+            .ag-header{
+                height: 90px !important;
+                font-size: var(--ag-grid-text);
+                color: black;
+                padding: 5px 0px;
+                display: flex;
+                vertical-align: middle;
+                min-height: 0 !important;
+            }
+            .ag-row{
+                height: 50px !important;
+            }
+        }
+    }
+}

@@ -1,0 +1,120 @@
+<div class="container-warrantied-product" style="width: 100%;">
+
+  <div class="title">
+    <div>
+      <button mat-icon-button (click)="back()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <span>Warranty Product detail</span>
+    </div>
+    <p>{{warrantiedDetail.productName}}</p>
+  </div>
+
+  <div class="row ml-2">
+    <div class="col-lg-8">
+
+      <div class="title-description row">
+
+        <div class="cart-info-1">
+          <div class="type">
+            <div class="left-title">
+              <p style="font-weight: 600;">Order number:</p>
+              <p>{{warrantiedDetail.orderIdTmm}}</p>
+            </div>
+            <div class="right-title">
+              <p style="font-weight: 600;">Serial number:</p>
+              <p>{{warrantiedDetail.serialNumber}}</p>
+            </div>
+          </div>
+        </div>
+
+        <mat-divider *ngIf="warrantiedDetail.advisorID != null"></mat-divider>
+
+        <div class="cart-info-2" *ngIf="warrantiedDetail.advisorID != null">
+          <div class="type">
+            <div class="left-title">
+              <p style="font-weight: 600;">Advisor ID:</p>
+              <p>{{warrantiedDetail.advisorID}}</p>
+            </div>
+            <div class="right-title">
+              <p style="font-weight: 600;">Advisor Name:</p>
+              <p>{{warrantiedDetail.advisorName}}</p>
+            </div>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="cart-customer-info">
+          <div class="type">
+            <p style="font-weight: 600;">Customer Information</p>
+
+            <div class="content">
+              <div class="left">
+                <p>Name:</p>
+                <p>Email:</p>
+                <p>Phone number:</p>
+                <p *ngIf="warrantiedDetail.customerAddress != null">Address:</p>
+              </div>
+
+              <div class="right">
+                <p>{{warrantiedDetail.customerName}}</p>
+                <p>{{warrantiedDetail.customerEmail}}</p>
+                <p>{{warrantiedDetail.customerPhoneNumber}}</p>
+                <p *ngIf="warrantiedDetail.customerAddress != null">{{warrantiedDetail.customerAddress}}{{warrantiedDetail.customerCountry}}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="warrantied-history row">
+        <div class="warrantied-history-body">
+          <p class="warrantied-history-title">Warranty History</p>
+
+          <div class="warrantied-history-tab">
+
+          <ag-grid-angular style="width: 100%; height: 200px;" class="ag-theme-balham product-list"
+              [rowData]="warrantyHistoryArray" [columnDefs]="columnWarrantyHistory" floatingFilter=true
+              rowSelection="multiple" [singleClickEdit]=true [defaultColDef]="defaultColDef"
+              (gridReady)="onGridToPay($event)" [gridOptions]="gridOptions" [paginationAutoPageSize]=true
+              [modules]="modules">
+            </ag-grid-angular>
+          </div>
+
+          <div class="warrantied-comment" *ngIf='!page'>
+            <p class="comments">Comments</p>
+            <textarea  class="text-comment" placeholder="Enter comment" [(ngModel)]="comment"></textarea>
+          </div>
+
+          <button *ngIf="!page" class="add-new-record-btn" (click)="sendComment()">Add New Record</button>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+      <div class="warrantied-right row">
+
+        <div class="warrantied-content">
+          <div class="warrantied-left">
+            <p>Warranty Period:</p>
+            <p>Warranty started:</p>
+            <p>Warranty expired:</p>
+          </div>
+          <div class="warrantied-right">
+            <p class="warrantied-month">{{warrantiedDetail.warrantyPeriod}}</p>
+            <p>{{warrantiedDetail.warrantyStartDate}}</p>
+            <p>{{warrantiedDetail.warrantyExpired}}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

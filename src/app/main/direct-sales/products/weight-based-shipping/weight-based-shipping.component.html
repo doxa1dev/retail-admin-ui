@@ -1,0 +1,176 @@
+<div class="cost-weight-shipping-container">
+    <div class="cost-weight-shipping-title">
+        Weight Based Shipping
+    </div>
+    <div class="cost-weight-shipping-content">
+        <div class="setting-container">
+            <div class="setting-content">
+                <section [formGroup]="formEastMalaysia">
+                    <div class="setting-content-title">
+                        EAST MALAYSIA
+                    </div>
+                    <div class="px-3">
+                        <div class="setting-content-row">
+                            <div class="row-label-interval">
+                                Number of interval
+                            </div>
+                            <input placeholder="Enter number" type="text" 
+                                [ngClass]="{'input': true, 'input-number-interval': true, 'form-control': true, 'is-invalid': (formEastMalaysia.controls.numberInterValEast.hasError('required') || formEastMalaysia.controls.numberInterValEast.hasError('pattern')) && (formEastMalaysia.controls.numberInterValEast.dirty || formEastMalaysia.controls.numberInterValEast.touched) }" 
+                                formControlName="numberInterValEast" 
+                                (keypress)="onKeyNumber($event)" 
+                                (ngModelChange)="changeNumberOfIntervalEast($event)"
+                                />
+                        </div>
+                        <ng-container *ngIf="formEastMalaysia.get('shipmentCostEast')['controls'].length > 0" >
+                            <div class="setting-content-row d-block">
+                                <div class="shipment-cost-row">
+                                    <div class="text-center">From (kg)</div>
+                                    <div class="text-center">To (kg)</div>
+                                    <div class="text-center">Shipment cost</div>
+                                </div>
+                                <div *ngFor="let shipmentCostEast of formEastMalaysia.get('shipmentCostEast')['controls'];let i = index"
+                                    [formGroup]="shipmentCostEast">
+                                    <div class="shipment-cost-row">
+                                        <input formControlName="from" class="form-control input-cost-shipment input" type="text"
+                                            placeholder="0.00" />
+                                        <input formControlName="to"
+                                            [ngClass]="{'form-control': true, 
+                                                        'input-cost-shipment': true, 
+                                                        'input': true, 
+                                                        'is-invalid': (shipmentCostEast.controls.to.hasError('validToWeight') || shipmentCostEast.controls.to.hasError('required') || shipmentCostEast.controls.to.hasError('pattern')) && (((shipmentCostEast.controls.to.touched || shipmentCostEast.controls.to.dirty) && !isUpdate) || isUpdate) }"
+                                            type="text" (keypress)="onKeyCost($event)" placeholder="0.00"
+                                            (ngModelChange)="changeToWeightEast($event, i)" />
+                                        <input formControlName="cost"
+                                            [ngClass]="{'form-control': true, 'input-cost-shipment': true, 'input': true, 'is-invalid': (shipmentCostEast.controls.cost.hasError('required') || shipmentCostEast.controls.cost.hasError('pattern')) && (shipmentCostEast.controls.cost.touched || shipmentCostEast.controls.cost.dirty)}"
+                                            type="text" (keypress)="onKeyCost($event)" placeholder="0.00"
+                                            (ngModelChange)="changeCostShipmentEast($event, i)" />
+                                    </div>
+                                </div>
+                                <div class="shipment-cost-row justify-content-start">
+                                    <button mat-raised-button class="button-add" (click)="addShipmentCostEast()">Add row</button>
+                                    <button mat-raised-button class="button-remove" (click)="removeShipmentCostEast()">Remove row</button>
+                                </div>
+                            </div>
+                        </ng-container>
+                        
+                        <div class="setting-content-row">
+                            <ng-container *ngIf="getLastToWeightEast()" >
+                                <div class="row-label-cost">
+                                    If above {{ getLastToWeightEast() }} kg, additional cost per kg
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="!getLastToWeightEast()">
+                                <div class="row-label-cost">
+                                    If above XX kg, additional cost per kg
+                                </div>
+                            </ng-container>
+
+                            <input placeholder="Enter number" 
+                                type="text" 
+                                [ngClass]="{'input': true, 'input-cost-number': true, 'form-control': true, 'is-invalid': (formEastMalaysia.controls.additionalCostEast.hasError('required') || formEastMalaysia.controls.additionalCostEast.hasError('pattern')) && (formEastMalaysia.controls.additionalCostEast.dirty || formEastMalaysia.controls.additionalCostEast.touched) }"
+                                formControlName="additionalCostEast" 
+                                (keypress)="onKeyCost($event)" />
+                        </div>
+                        <div class="setting-content-row">
+                            <div class="row-label-cost">
+                                Free shipment cost if cart value excess
+                            </div>
+                            <input placeholder="Enter number" 
+                                type="text" 
+                                [ngClass]="{'input': true, 'input-cost-number': true, 'form-control': true, 'is-invalid': (formEastMalaysia.controls.freeShipmentCostEast.hasError('required') || formEastMalaysia.controls.freeShipmentCostEast.hasError('pattern')) && (formEastMalaysia.controls.freeShipmentCostEast.dirty || formEastMalaysia.controls.freeShipmentCostEast.touched) }"
+                                formControlName="freeShipmentCostEast" 
+                                (keypress)="onKeyCost($event)" />
+                        </div>
+                    </div>
+                </section>
+
+                <section [formGroup]="formWestMalaysia">
+                    <div class="setting-content-title">
+                        WEST MALAYSIA
+                    </div>
+                    <div class="px-3">
+                        <div class="setting-content-row">
+                            <div class="row-label-interval">
+                                Number of interval
+                            </div>
+                            <input placeholder="Enter number" type="text" 
+                                [ngClass]="{'input': true, 'input-number-interval': true, 'form-control': true, 'is-invalid': (formWestMalaysia.controls.numberInterValWest.hasError('required') || formWestMalaysia.controls.numberInterValWest.hasError('pattern')) && (formWestMalaysia.controls.numberInterValWest.dirty || formWestMalaysia.controls.numberInterValWest.touched) }"
+                                formControlName="numberInterValWest"
+                                (ngModelChange)="changeNumberOfIntervalWest($event)"
+                                (keypress)="onKeyNumber($event)" 
+                                />    
+                        </div>
+
+                        <ng-container *ngIf="formWestMalaysia.get('shipmentCostWest')['controls'].length > 0">
+                            <div class="setting-content-row d-block">
+                                <div class="shipment-cost-row">
+                                    <div class="text-center">From (kg)</div>
+                                    <div class="text-center">To (kg)</div>
+                                    <div class="text-center">Shipment cost</div>
+                                </div>
+                                <div *ngFor="let shipmentCostWest of formWestMalaysia.get('shipmentCostWest')['controls'];let i = index"
+                                    [formGroup]="shipmentCostWest">
+                                    <div class="shipment-cost-row">
+                                        <input formControlName="from" class="form-control input-cost-shipment input" type="text"
+                                            placeholder="0.00" />
+                                        <input formControlName="to"
+                                            [ngClass]="{'form-control': true, 
+                                                        'input-cost-shipment': true, 
+                                                        'input': true, 
+                                                        'is-invalid': (shipmentCostWest.controls.to.hasError('validToWeight') || shipmentCostWest.controls.to.hasError('required') || shipmentCostWest.controls.to.hasError('pattern')) && (((shipmentCostWest.controls.to.touched || shipmentCostWest.controls.to.dirty) && !isUpdate) || isUpdate) }"
+                                            type="text" (keypress)="onKeyCost($event)" placeholder="0.00" (ngModelChange)="changeToWeightWest($event, i)" />
+                                        <input formControlName="cost"
+                                            [ngClass]="{'form-control': true, 'input-cost-shipment': true, 'input': true, 'is-invalid': (shipmentCostWest.controls.cost.hasError('required') || shipmentCostWest.controls.cost.hasError('pattern')) && (shipmentCostWest.controls.cost.touched || shipmentCostWest.controls.cost.dirty)}"
+                                            type="text" (keypress)="onKeyCost($event)" placeholder="0.00" (ngModelChange)="changeCostShipmentWest($event, i)" />
+                                    </div>
+                                </div>
+                                <div class="shipment-cost-row justify-content-start">
+                                    <button mat-raised-button class="button-add" (click)="addShipmentCostWest()">Add row</button>
+                                    <button mat-raised-button class="button-remove" (click)="removeShipmentCostWest()">Remove row</button>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div class="setting-content-row">
+                            <ng-container *ngIf="getLastToWeightWest()">
+                                <div class="row-label-cost">
+                                    If above {{ getLastToWeightWest() }} kg, additional cost per kg
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="!getLastToWeightWest()">
+                                <div class="row-label-cost">
+                                    If above XX kg, additional cost per kg
+                                </div>
+                            </ng-container>
+
+                            <input placeholder="Enter number" type="text" 
+                                [ngClass]="{'input': true, 'input-cost-number': true, 'form-control': true, 'is-invalid': (formWestMalaysia.controls.additionalCostWest.hasError('required') || formWestMalaysia.controls.additionalCostWest.hasError('pattern')) && (formWestMalaysia.controls.additionalCostWest.dirty || formWestMalaysia.controls.additionalCostWest.touched) }"
+                                formControlName="additionalCostWest"
+                                (keypress)="onKeyCost($event)"
+                                />
+                        </div>
+                        <div class="setting-content-row">
+                            <div class="row-label-cost">
+                                Free shipment cost if cart value excess
+                            </div>
+                            <input placeholder="Enter number" type="text" 
+                                [ngClass]="{'input': true, 'input-cost-number': true, 'form-control': true, 'is-invalid': (formWestMalaysia.controls.freeShipmentCostWest.hasError('required') || formWestMalaysia.controls.freeShipmentCostWest.hasError('pattern')) && (formWestMalaysia.controls.freeShipmentCostWest.dirty || formWestMalaysia.controls.freeShipmentCostWest.touched) }"
+                                formControlName="freeShipmentCostWest"
+                                (keypress)="onKeyCost($event)"
+                                />
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="timeline-container">
+            <div class="timeline-content">
+                <p>Update History</p>
+                <hr/>
+                <app-timeline [histories]="histories"></app-timeline>
+            </div>
+        </div>
+    </div>
+    <div class="cost-weight-shipping-button">
+        <mat-bar-button [options]="barButtonOptions" (btnClick)="save()"></mat-bar-button>
+    </div>
+</div>

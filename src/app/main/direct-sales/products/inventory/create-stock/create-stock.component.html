@@ -1,0 +1,167 @@
+<div class="container-product" [formGroup]="formCreateStockCard">
+  <div class="title">
+      <div>
+          <button mat-icon-button  (click) = "back()"><mat-icon>chevron_left</mat-icon></button>
+          <span>New stock card</span>
+      </div>
+      <p>IN/ OUT stock card</p>
+  </div>
+  <div class="row ml-2">
+      <div class="col-lg-8">
+          <div class="title-description row">
+              <div class="cart">
+                  <div class="type">
+                    <div class="left">
+                        <p>Type</p>
+                        <p-dropdown
+                          placeholder="  --- Select IN/OUT ---  "
+                          formControlName = "stockCardType"
+                          [(ngModel)]="selectedStockCard"
+                          [options]="typeStockCard">
+                        </p-dropdown>
+                        <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                          *ngIf="formCreateStockCard.get('stockCardType').hasError('required')  && submitted">
+                            Stock Card type is required
+                        </mat-error>
+                    </div>
+                    <div class="right">
+                        <p>IN/OUT date</p>
+                        <p-calendar dateFormat="dd/mm/yy"
+                            [showIcon]="true" [minDate]="minDate" placeholder="{{dateSelected|date :'dd/MM/yyyy'}}" (onSelect)="onChangeDate($event)"
+                            [(ngModel)]="dateSelected" formControlName = "stockCardDate">
+                        </p-calendar>
+                        <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                          *ngIf="formCreateStockCard.get('stockCardDate').hasError('required') && submitted">
+                            Stock Card type is required
+                        </mat-error>
+                    </div>
+                  </div>
+
+                  <mat-divider ></mat-divider>
+
+                  <div class="product">
+                    <div class="singleProduct" *ngFor="let item of arrayProduct ;index as i">
+                      <div class="left-product">
+                        <p>Product {{i + 1}}</p>
+                        <div class="select">
+                          <p-dropdown
+                           (onChange) = "changeData($event, i)"
+                           [options]="listtypeMultiSelect"
+                           filter="true"
+                           placeholder="--  Select Product --" >
+                          </p-dropdown>
+                          <div class="stock" *ngIf="arrayProductCopy.length === arrayProduct.length">
+                            <div class="current">Current stock: {{arrayProductCopy[i].currentStock}}</div>
+                            <div class="min">Min. stock: {{arrayProductCopy[i].minStock}}</div>
+                          </div>
+                          <div class="stock"  *ngIf="arrayProductCopy.length !== arrayProduct.length">
+                            <div class="current">Current stock: 0</div>
+                            <div class="min">Min. stock: 0</div>
+                          </div>
+                          <div class="stock" style="margin-top: 70px !important;">
+                            <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                            *ngIf="this.arrayProductCopy[i].checkProduct == true">
+                              Product has been selected
+                            </mat-error>
+                            <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                            *ngIf="this.arrayProductCopy[i].checkProduct == false && this.arrayProductCopy[i].id === undefined && submitted">
+                              Product is required
+                            </mat-error>
+                            <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                            *ngIf="checkCurrentStock && submitted">
+                              Product is not enough
+                            </mat-error>
+                          </div>
+                          <mat-divider ></mat-divider>
+                        </div>
+
+                      </div>
+
+                      <div class="right-product">
+                        <p>Quantity</p>
+                        <div class="quantity">
+                          <input type="text" (change)="changeQuantity(i, $event.target.value)"
+                           placeholder="Please Enter"
+                           [(ngModel)]="this.arrayProductCopy[i].quantity"
+                           [ngModelOptions]="{standalone: true}">
+                          <mat-icon (click) = "deleteProduct(item, i)" svgIcon="delete"></mat-icon>
+                        </div>
+                        <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                          *ngIf="this.arrayProductCopy[i].quantity === undefined && submitted">
+                            Quantity is required
+                        </mat-error>
+                        <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                          *ngIf="this.arrayProductCopy[i].checkValidateQuantity == true && submitted">
+                          Quantity must be a number and less than current stock.
+                        </mat-error>
+                        <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                          *ngIf="this.arrayProductCopy[i].checkGowingUp === true">
+                          Your stock is going low
+                        </mat-error>
+                      </div>
+                    </div>
+                    <div class="btn-add-another">
+                      <button mat-raised-button (click)="addOption()">Add more product</button>
+                    </div>
+
+                  </div>
+
+                  <mat-divider ></mat-divider>
+
+                  <div class="comment">
+                    <p>Comment</p>
+                    <textarea  class="text-area" placeholder="Enter comment"
+                      [(ngModel)]="commentStockCard"
+                      formControlName = "stockCardComment">
+                    </textarea>
+                    <div style="display: block">
+                      <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                        *ngIf="formCreateStockCard.get('stockCardComment').hasError('required') && submitted">
+                          Comment is required
+                      </mat-error>
+                    </div>
+                  </div>
+
+              </div>
+          </div>
+
+      </div>
+      <div class="col-lg-4">
+          <div class="product-available row">
+              <div class="content">
+                  <p id="header">Document</p>
+                  <p id="text">Maximum file size is 4MB and maximum number of files is 6.</p>
+                  <div class="file" *ngFor="let item of arrayDocument; index as i">
+
+                    <div class="input-group input-group-lg mb-3 ">
+                      <div class="custom-file custom-file-lg">
+                        <input style="cursor: pointer;" type="file" class="custom-file-input" id="inputGroupFile{{item}}" (change) = "onSelectFile($event, item)">
+                        <label id="image{{item}}" class="custom-file-label" for="inputGroupFile02">Choose file to upload</label>
+                      </div>
+                      <div class="input-group-append" style="margin-left: 25px; margin-top: 8px;">
+                        <mat-icon (click) = "deleteDocument(item, i)" svgIcon="delete"></mat-icon>
+                      </div>
+                    </div>
+                    <!-- <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                      *ngIf="this.arrayStorageKey[i] === undefined && submitted">
+                        File is required
+                    </mat-error> -->
+                  </div>
+
+                  <div class="btn-add-another">
+                    <button mat-raised-button [disabled] = "checkDisable()"  (click)="addMoreFile()" >Upload more file</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="btn-button-create-inventory">
+      <div class="btn-back" fxFlex="1 0 auto" fxLayout="row">
+          <button mat-raised-button (click) = "back()">BACK</button>
+      </div>
+      <div class="btn-save" fxFlex="0 1 auto" fxLayout="row">
+          <button  mat-raised-button (click)="createStockCard()">SUBMIT</button>
+      </div>
+  </div>
+</div>
+

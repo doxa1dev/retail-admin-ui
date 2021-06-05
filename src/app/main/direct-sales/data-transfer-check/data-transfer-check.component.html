@@ -1,0 +1,206 @@
+<div class="data-transfer-check">
+    <div class="header">
+        Data Transfer Check
+    </div>
+    <div class="data-transfer-check-container">
+        <div class="content">
+            <div class="container-row">
+                <div class="row-title">
+                    Check eo_sle_sc
+                </div>
+                <div class="row-form" [formGroup]="form_eo_sle_sc">
+                    <div class="row-content">
+                        <div class="row-content-title">From</div>
+                        <div>
+                            <p-calendar appendTo="body" dateFormat="dd/mm/yy" placeholder='Select day' [showIcon]="true"
+                                [readonlyInput]="true" showButtonBar="true" formControlName="start">
+                            </p-calendar>
+                            <ng-container *ngIf="form_eo_sle_sc.controls.start.hasError('required') && showError1">
+                                <div class="invalid-feedback">This value is required</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="row-content">
+                        <div class="row-content-title">To</div>
+                        <div>
+                            <p-calendar appendTo="body" dateFormat="dd/mm/yy" placeholder='Select day' [showIcon]="true"
+                                [readonlyInput]="true" showButtonBar="true" formControlName="end">
+                            </p-calendar>
+                            <ng-container *ngIf="form_eo_sle_sc.controls.end.hasError('required') && showError1">
+                                <div class="invalid-feedback">This value is required</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="row-content">
+                        <div class="row-content-title">Status</div>
+                        <div>
+                            <p-dropdown filter="true" [options]="listStatus1" placeholder="Select Status"
+                                optionLabel="label" [filter]="true" filterBy="label" [showClear]="true"
+                                formControlName="status">
+                            </p-dropdown>
+                            <ng-container *ngIf="form_eo_sle_sc.controls.status.hasError('required') && showError1">
+                                <div class="invalid-feedback">This value is required</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <mat-bar-button [options]="check_eo_sle_sc_button" (btnClick)="check_eo_sle_sc_func()">
+                    </mat-bar-button>
+                </div>
+
+                <ag-grid-angular class="ag-theme-balham table-all" [rowData]="check_eo_sle_sc_array"
+                    [columnDefs]="columnDefs" floatingFilter=true [defaultColDef]="defaultColDef"
+                    (gridReady)="onGridReady1($event)" [overlayLoadingTemplate]="loadingTemplate"
+                    [overlayNoRowsTemplate]="emptyTemplate" [gridOptions]="gridOptions" [modules]="modules"
+                    (gridSizeChanged)="onGridSizeChanged1($event)">
+                </ag-grid-angular>
+            </div>
+
+            <div class="container-row">
+                <div class="row-title">
+                    Check eo_sle_sc_det_gift
+                </div>
+                <div class="row-form" [formGroup]="form_eo_sle_sc_det_gift">
+                    <div class="row-content">
+                        <div class="row-content-title">From</div>
+                        <div>
+                            <p-calendar appendTo="body" dateFormat="dd/mm/yy" placeholder='Select day' [showIcon]="true"
+                                [readonlyInput]="true" showButtonBar="true" formControlName="start">
+                            </p-calendar>
+                            <ng-container
+                                *ngIf="form_eo_sle_sc_det_gift.controls.start.hasError('required') && showError2">
+                                <div class="invalid-feedback">This value is required</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="row-content">
+                        <div class="row-content-title">To</div>
+                        <div>
+                            <p-calendar appendTo="body" dateFormat="dd/mm/yy" placeholder='Select day' [showIcon]="true"
+                                [readonlyInput]="true" showButtonBar="true" formControlName="end">
+                            </p-calendar>
+                            <ng-container
+                                *ngIf="form_eo_sle_sc_det_gift.controls.end.hasError('required') && showError2">
+                                <div class="invalid-feedback">This value is required</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="row-content">
+                        <div class="row-content-title">Status</div>
+                        <div>
+                            <p-dropdown filter="true" [options]="listStatus1" placeholder="Select Status"
+                                optionLabel="label" [filter]="true" filterBy="label" [showClear]="true"
+                                formControlName="status">
+                            </p-dropdown>
+                            <ng-container
+                                *ngIf="form_eo_sle_sc_det_gift.controls.status.hasError('required') && showError2">
+                                <div class="invalid-feedback">This value is required</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <mat-bar-button [options]="check_eo_sle_sc_det_gift_button"
+                        (btnClick)="check_eo_sle_sc_det_gift_func()"></mat-bar-button>
+                </div>
+
+                <ag-grid-angular class="ag-theme-balham table-all" [rowData]="check_eo_sle_sc_det_gift_array"
+                    [columnDefs]="columnDefs" floatingFilter=true [defaultColDef]="defaultColDef"
+                    (gridReady)="onGridReady2($event)" [overlayLoadingTemplate]="loadingTemplate"
+                    [overlayNoRowsTemplate]="emptyTemplate" [gridOptions]="gridOptions" [modules]="modules"
+                    (gridSizeChanged)="onGridSizeChanged2($event)">
+                </ag-grid-angular>
+            </div>
+
+            <div class="container-row">
+                <div class="row-title">
+                    Check eo_sle_sc_det_serial_number
+                </div>
+                <div class="row-form" [formGroup]="form_eo_sle_sc_det_serial_number">
+                    <div class="row-content">
+                        <div class="row-content-title">From</div>
+                        <div>
+                            <p-calendar appendTo="body" dateFormat="dd/mm/yy" placeholder='Select day' [showIcon]="true"
+                                [readonlyInput]="true" showButtonBar="true" formControlName="start">
+                            </p-calendar>
+                            <ng-container
+                                *ngIf="form_eo_sle_sc_det_serial_number.controls.start.hasError('required') && showError3">
+                                <div class="invalid-feedback">This value is required</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="row-content">
+                        <div class="row-content-title">To</div>
+                        <div>
+                            <p-calendar appendTo="body" dateFormat="dd/mm/yy" placeholder='Select day' [showIcon]="true"
+                                [readonlyInput]="true" showButtonBar="true" formControlName="end">
+                            </p-calendar>
+                            <ng-container
+                                *ngIf="form_eo_sle_sc_det_serial_number.controls.end.hasError('required') && showError3">
+                                <div class="invalid-feedback">This value is required</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="row-content">
+                        <div class="row-content-title">Status</div>
+                        <div>
+                            <p-dropdown filter="true" [options]="listStatus2" placeholder="Select Status"
+                                optionLabel="label" [filter]="true" filterBy="label" [showClear]="true"
+                                formControlName="status">
+                            </p-dropdown>
+                            <ng-container
+                                *ngIf="form_eo_sle_sc_det_serial_number.controls.status.hasError('required') && showError3">
+                                <div class="invalid-feedback">This value is required</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <mat-bar-button [options]="check_eo_sle_sc_det_serial_number_button"
+                        (btnClick)="check_eo_sle_sc_det_serial_number_func()"></mat-bar-button>
+                </div>
+
+                <ag-grid-angular class="ag-theme-balham table-all" [rowData]="check_eo_sle_sc_det_serial_number_array"
+                    [columnDefs]="columnDefs" floatingFilter=true [defaultColDef]="defaultColDef"
+                    (gridReady)="onGridReady3($event)" [overlayLoadingTemplate]="loadingTemplate"
+                    [overlayNoRowsTemplate]="emptyTemplate" [gridOptions]="gridOptions" [modules]="modules"
+                    (gridSizeChanged)="onGridSizeChanged3($event)">
+                </ag-grid-angular>
+            </div>
+
+            <div class="container-row">
+                <div class="row-title">
+                    Check memmember
+                </div>
+                <div class="row-form" [formGroup]="form_memmember">
+                    <div class="row-content">
+                        <div class="row-content-title">From</div>
+                        <div>
+                            <p-calendar appendTo="body" dateFormat="dd/mm/yy" placeholder='Select day' [showIcon]="true"
+                                [readonlyInput]="true" showButtonBar="true" formControlName="start">
+                            </p-calendar>
+                            <ng-container *ngIf="form_memmember.controls.start.hasError('required') && showError4">
+                                <div class="invalid-feedback">This value is required</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="row-content">
+                        <div class="row-content-title">To</div>
+                        <div>
+                            <p-calendar appendTo="body" dateFormat="dd/mm/yy" placeholder='Select day' [showIcon]="true"
+                                [readonlyInput]="true" showButtonBar="true" formControlName="end">
+                            </p-calendar>
+                            <ng-container *ngIf="form_memmember.controls.end.hasError('required') && showError4">
+                                <div class="invalid-feedback">This value is required</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <mat-bar-button [options]="check_memmember_button" (btnClick)="check_memmember_func()">
+                    </mat-bar-button>
+                </div>
+
+                <ag-grid-angular class="ag-theme-balham table-all" [rowData]="check_memmember_array"
+                    [columnDefs]="columnDefsCheckMemmember" floatingFilter=true [defaultColDef]="defaultColDef"
+                    (gridReady)="onGridReady4($event)" [overlayLoadingTemplate]="loadingTemplate"
+                    [overlayNoRowsTemplate]="emptyTemplate" [gridOptions]="gridOptions" [modules]="modules"
+                    (gridSizeChanged)="onGridSizeChanged4($event)">
+                </ag-grid-angular>
+            </div>
+        </div>
+    </div>
+</div>

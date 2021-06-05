@@ -1,0 +1,23 @@
+<div class="container-stock-history">
+  <div class="title-stock-history">
+      <p>Stock History</p>
+      <button mat-raised-button (click)="gotoCreate()">Create Stock Card</button>
+  </div>
+  <div class="stock-history-table">
+      <ag-grid-angular style="width: 100%; height: 599px" class="ag-theme-balham history-all"
+          [rowData]="stockCards"
+          [columnDefs]="columnDefs"
+          [gridOptions]="gridOptions"
+          floatingFilter=true rowSelection="multiple"
+          (rowDoubleClicked)='onViewProduct($event)'
+          [singleClickEdit]=true [paginationAutoPageSize]=true
+          [defaultColDef]="defaultColDef"
+          (gridReady)="onGridReady($event)"
+          (gridSizeChanged)="onGridSizeChanged($event)"
+          [paginationAutoPageSize]=true
+          [overlayLoadingTemplate]="loadingTemplate"
+          [overlayNoRowsTemplate]="loadingTemplate"
+          [modules]="modules">
+      </ag-grid-angular>
+  </div>
+</div>

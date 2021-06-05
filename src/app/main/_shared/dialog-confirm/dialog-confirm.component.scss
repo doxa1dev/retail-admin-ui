@@ -1,0 +1,67 @@
+@import "src/@fuse/scss/fuse";
+
+.title{
+    font-weight: 600;
+    font-size: 16px;
+    // font-weight: normal;
+    margin-top: -10px;
+    color: #5A616F !important;
+    // margin-top: 10px;
+    margin-bottom: 20px;
+    // padding: 20px 0px;
+}
+hr{
+    margin-top: -20px;
+    background-color: #5A616F !important;
+}
+.message{
+    font-size: 16px;
+    font-weight: normal ;
+    color: #5A616F !important;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.option {
+    padding-bottom: 30px;
+    @media screen and (min-width : 750px){
+        width: 60% !important;
+        margin: 0 auto;
+    }
+    width: 100%;
+    .ok-button{
+      cursor: pointer;
+        border-radius: 8px;
+        background-color: #7DA863 !important;
+        color: white !important;
+        padding-left: 43px !important;
+        padding-right: 43px !important;
+        border: 1px solid #7DA863;
+        @media only screen and (max-width : 350px) {
+            padding-left: 35px !important;
+            padding-right: 35px !important;
+            color: white !important;
+        }
+        height: 40px;
+        width: 40%;
+        margin: 0px;
+        margin-left: 7%;
+    }
+    .cancel-button-1{
+      cursor: pointer;
+        background-color: #fffff0 !important;
+        border-radius: 8px;
+        color: #7DA863 !important;
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+        border: 1px solid #7DA863;
+        @media only screen and (max-width : 350px) {
+            padding-left: 25px !important;
+            padding-right: 25px !important;
+        }
+        height: 40px;
+        width: 40%;
+        margin: 0px;
+        margin-right: 10%;
+    }
+}

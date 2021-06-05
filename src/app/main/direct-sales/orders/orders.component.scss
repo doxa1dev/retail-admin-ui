@@ -1,0 +1,178 @@
+
+@import "src/@fuse/scss/fuse";
+
+:host ::ng-deep .mat-tab-header {
+  position: sticky !important;
+  display: flex;
+  width: 100%;
+  z-index:100000;
+}
+// ::ng-deep .mat-tab-body-wrapper {
+//   position: sticky !important;
+// }
+
+
+.order-history {
+    font-size: 14px;
+    width: 100%;
+    height: 100%;
+    .link{
+      height: 80px;
+      line-height: 80px;
+      position: relative;
+      margin: 20px 20px;
+        .text {
+            font-size: var(--header-page);
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 0px;
+            transform: translate(0%, -50%);
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .input-search{
+            padding: 2px 20px;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            right: 0px;
+            transform: translate(0%, -50%);
+            button{
+              padding: 0px 20px;
+              font-size: var(--button-text);
+              background-color: var(--primary-color);
+              color: white;
+              font-weight: normal !important;
+              margin-left: 10px;
+            }
+            .error-mgs{
+              margin-top: -18%;
+              margin-left: 9%;
+              color: #DE3535;
+              font-style: italic;
+              z-index: 1;
+              position: relative;
+            }
+        }
+    }
+    .table-order{
+      width: 98% !important;
+      margin: 0 auto;
+      .ag-header-cell-label{
+        .ag-sort-order{
+          display: none;
+        }
+      }
+      .tabs{
+        position: relative;
+        // padding-left: 10px;
+        background-color: white !important;
+        width: 100% !important;
+
+        .mat-tab-label {
+            font-size: var(--small-text);
+            color: #5A616F;
+            width: 12.5% !important;
+            min-width: auto !important;
+        }
+        .mat-tab-label-content {
+          // width: 80px !important;
+          margin: 0 auto;
+          // width: 60px;
+            .number-item {
+                height: 15px;
+                position: absolute;
+                top: 8px;
+                right: 0px;
+                background: #DE3535;
+                border-radius: 12px;
+                padding: 1px;
+                font-size: 9px;
+                color: white;
+                width: 22px;
+            }
+        }
+        .mat-tab-label-container {
+          display: flex;
+          flex-grow: 1;
+          overflow: hidden;
+          z-index: 1;
+          overflow-x: inherit !important;
+      }
+
+        /* Styles for the active tab label */
+        .mat-tab-label.mat-tab-label-active {
+            color: #5A616F !important;
+            // width: 50px !important;
+        }
+
+        .mat-ink-bar {
+            // width: 100px !important;
+            background-color: #7DA863 !important;
+            height: 5px;
+
+        }
+        .order-tab-body{
+            // width: 96vw;
+            padding: 10px;
+            p{
+                color: #5A616F;
+                opacity: 1;
+            }
+            #list{
+              p{
+                margin: 20px 0px 20px 12px ;
+              }
+            }
+            .table-orders{
+              margin-left: 12px;
+              .ag-theme-balham{
+                .ag-cell-focus{
+                    border: none !important;
+                    outline: none !important;
+                }
+
+                  .ag-header{
+                      height: 90px !important;
+                      font-size: var(--ag-grid-text);
+                      color: black;
+                      padding: 5px 0px;
+                      display: flex;
+                      vertical-align: middle;
+                      min-height: 0 !important;
+                  }
+                  .ag-row{
+                      height: 40px !important;
+                      font-size: var(--ag-grid-text) !important;
+                  }
+                  .ag-header-row[aria-rowindex="2"]{
+                    text-align: right;
+                  }
+
+                  .ag-header-cell-label{
+                    .ag-sort-order{
+                      display: none;
+                    }
+                  }
+
+            }
+            }
+        }
+        .order-box {
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            box-shadow: 0px 2px 5px #00000029;
+            border-radius: 8px;
+            opacity: 1;
+        }
+        .order-delivery{
+            margin-top: 30px;
+            height: 230px;
+        }
+
+
+
+    }
+    }
+
+}

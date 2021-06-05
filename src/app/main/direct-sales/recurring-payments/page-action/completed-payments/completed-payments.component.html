@@ -1,0 +1,112 @@
+
+<div class="container">
+    <div class="order">
+      <div class="text">
+        <div class="link-icons">
+          <mat-icon (click)="back()">chevron_left</mat-icon>
+          <a href="javascript:void(0);">Order {{order}}</a>
+          <div class="orderAt">
+            <p>Ordered at {{orderAt| date :'dd/MM/yyyy HH:mm'}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="name-page">
+        <mat-card class="name">
+          <p>{{namePage}}</p>
+        </mat-card>
+      </div>
+    </div>
+    <div class="detail">
+      <!-- left -->
+      <div class="left" *ngIf="orderWithRecurringPayment !== undefined">
+        <div class="product">
+
+          <div class="AA">
+            <div class="BB">
+              <p class="BB-p">Advisor ID</p>
+              <p>{{advisorId}}</p>
+            </div>
+            <div class="BB">
+              <p class="BB-p">Advisor Name</p>
+              <p>{{advisorName}}</p>
+            </div>
+          </div>
+
+            <div class="FF">
+            <div class="header">Customer Information </div>
+              <!-- <div class="DD"> -->
+              <div class="GG">
+              <span class="p-left">Name: </span>
+              <span class="p-right">{{customerName}}</span>
+            </div>
+
+            <div class="GG">
+              <span class="p-left">Email: </span>
+              <span class="p-right">{{customerEmail}}</span>
+            </div>
+
+            <div class="GG">
+              <span class="p-left">Phone Number:  </span>
+              <span class="p-right">{{customerPhoneNumber}}</span>
+            </div>
+
+            <div class="GG">
+              <span class="p-left">Address: </span>
+              <span class="p-right">XXX</span>
+            </div>
+            <!-- </div> -->
+
+          </div>
+ 
+        
+        </div>
+  
+        <div class=" amount-payment">
+          <div id="table">
+            <div>Recurring Payment &nbsp; {{displayInstallmentRatio}}</div>
+            <br>
+            <ag-grid-angular style="width: 97%; height: 180px;" class="ag-theme-balham" [rowData]="orderWithRecurringPayment.recurringPayments"
+              [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" (gridSizeChanged)="onGridSizeChanged($event)"
+              [gridOptions]="gridOptions" [modules]="modules">
+            </ag-grid-angular>
+          </div>
+
+        
+        </div>
+
+      </div>
+
+
+
+      <!-- right -->
+      <div class="right" >
+        <div class="payment-info">
+          <div class="header">Installment information</div>
+          <div class="full-payment-detail">
+            <div class="AAA">
+              <p id="left">Number Of Payments:</p>
+              <p id="right">{{number_of_payments}}</p>
+            </div>
+            <div class="BBB">
+              <p id="left">Frequency:</p>
+              <p id="right">{{frequency}}</p>
+            </div>
+            <div class="BBB">
+              <p id="left">First Payment Date:</p>
+              <p id="right">{{first_payment_date}} </p>
+            </div>
+            <div class="BBB">
+              <p id="left">Installment Amount: </p>
+              <p id="right">{{displayInstallmentAmount}} </p>
+            </div>
+            <div class="CCC">
+              <p id="left">Status:</p>
+              <p id="right">{{installment_status}}</p>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  

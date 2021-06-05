@@ -1,0 +1,114 @@
+<div class="redemption-tracker-detail">
+    <div class="redemption-tracker-detail__title">
+        <button mat-icon-button (click)="back()">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+        <div>Request Detail</div>
+    </div>
+    <div class="redemption-tracker-detail__content">
+        <div class="detail-container">
+            <div class="detail-container__content">
+                <div class="detail-container__content__body">
+                    <div class="request-info">
+                        <div class="request-info__row--title">
+                            <div class="detail-container__content__title">
+                                Request #{{requestDetail.requestId}}
+                            </div>
+                        </div>
+                        <div class="request-info__row">
+                            <div class="request-info__row__title">
+                                Advisor Name:
+                            </div>
+                            <div>
+                                {{requestDetail.advisorName}}
+                            </div>
+                        </div>
+                        <div class="request-info__row">
+                            <div class="request-info__row__title">
+                                Advisor ID:
+                            </div>
+                            <div>
+                                {{requestDetail.advisorId}}
+                            </div>
+                        </div>
+                        <div class="request-info__row">
+                            <div class="request-info__row__title">
+                                Host Name:
+                            </div>
+                            <div>
+                                {{requestDetail.hostName}}
+                            </div>
+                        </div>
+                        <div class="request-info__row">
+                            <div class="request-info__row__title">
+                                Host Phone Number:
+                            </div>
+                            <div>
+                                {{requestDetail.hostPhoneNumber}}
+                            </div>
+                        </div>
+                        <div class="request-info__row">
+                            <div class="request-info__row__title">
+                                Demo Date:
+                            </div>
+                            <div>
+                                {{requestDetail.demoDate}}
+                            </div>
+                        </div>
+                        <div class="request-info__row">
+                            <div class="request-info__row__title">
+                                Demo Location:
+                            </div>
+                            <div>
+                                {{requestDetail.demoLocation}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="request-image">
+                        <img src="{{requestDetail.requestImage}}" alt="Request Image" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-container__content">
+                <div class="detail-container__content__title">
+                    Guest Information
+                </div>
+                <div class="detail-container__content__body">
+                    <ag-grid-angular class="ag-theme-balham guest-information-all"
+                        [rowData]="requestDetail.guestInfoArray" [columnDefs]="columnDefs" floatingFilter=false
+                        [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+                        (gridSizeChanged)="onGridSizeChanged($event)" [overlayLoadingTemplate]="loadingTemplate"
+                        [overlayNoRowsTemplate]="emptyTemplate" [gridOptions]="gridOptions" [modules]="modules">
+                    </ag-grid-angular>
+                </div>
+            </div>
+
+            <ng-container *ngIf="requestDetail.comment">
+                <div class="detail-container__content">
+                    <div class="detail-container__content__title">
+                        Comment
+                    </div>
+                    <div class="detail-container__content__body">
+                        <textarea name="comment" id="comment" rows="5"
+                            disabled="true">{{requestDetail.comment}}</textarea>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="history-container">
+            <div class="history-content">
+                <div class="history-content__header">Update History</div>
+                <hr />
+                <app-timeline [histories]="histories"></app-timeline>
+            </div>
+        </div>
+    </div>
+    <div class="redemption-tracker-detail__footer">
+        <button mat-raised-button class="button-cancel" (click)="getDetail()">CANCEL</button>
+        <div>
+            <mat-bar-button [options]="barButtonRejectOptions" (btnClick)="reject()"></mat-bar-button>
+            <mat-bar-button [options]="barButtonApproveOptions" (btnClick)="approve()"></mat-bar-button>
+        </div>
+    </div>
+</div>

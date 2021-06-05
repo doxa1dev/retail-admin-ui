@@ -1,0 +1,128 @@
+@import "src/@fuse/scss/fuse";
+#verify
+{
+    width: 100%;
+    background: url('assets/DoxaImages/background.jpg') no-repeat;
+    background-size: cover;
+    
+    #verify-form-wrapper{
+        flex: 1 0 auto;
+        padding: 32px;
+        @include media-breakpoint('xs') {
+            padding: 16px;
+        }
+        #verify-form {
+            background-color: white;
+            opacity: 1;
+            width: 384px;
+            max-width: 384px;
+            padding: 24px;
+            text-align: center;
+            @include mat-elevation(16);
+
+            @include media-breakpoint('xs') {
+                padding: 24px;
+                width: 100%;
+            }
+            #FormTitle{
+                display: block;
+                position: relative;
+                padding: 0px;
+                min-height: 40px;
+                .formLogo {
+                width: 144px;
+                margin: 0px auto;
+                display: inline-block;
+                vertical-align: middle;
+                }
+                .fromLanguage{
+                    color: green;
+                    display: block;
+                    position: absolute;
+                    top: -5px;
+                    right:-10px;
+                }
+                margin-bottom: 20px;
+            }
+            #VerifyTitle{
+                padding: 0px;
+                display: inline;
+                justify-content: center;
+                button{
+                    margin-right: auto;
+                    margin-left: -32px;
+                }
+                .verifyText{
+                    display: inline-block;
+                    width: 70%;
+                    line-height: 1.2rem;
+                    text-align: center;
+                    font-size: 16px;
+                    @include media-breakpoint('xs') {
+                        font-size: 12px;
+                    }
+                    color: #269A3E;
+                    font-weight: 700;
+                    letter-spacing: 0.08px;
+                    opacity: 1;
+                }
+                
+               
+            }
+            p{
+                width: 100%;
+                text-align: left;
+                // background-color: red;
+            }
+            .CODE{
+                text-align: center;
+                form{
+                    input{
+                        padding: 15px;
+                        font-size: 32px;
+                        font-weight: 600;
+                        width: 50px;
+                        margin: 5px;
+                        color: #5A616F;
+                        border-bottom: solid 2px black;
+                    }
+                }
+            }
+            p{
+            margin-top: 40px;
+            padding: 0px 24px;
+            font-size: 12px;
+            color: #707070;
+        }
+        .btnVerify{
+            display:block;
+            margin: 0px auto;
+            width: 90%;
+            height: 48px;
+            background-color: #269A3E ;
+            color: white;
+            margin-top: 50px;
+            text-align: center;
+            letter-spacing: 0.17px;
+            border-radius: 12px;
+        }
+        .imgVerify{
+            display: block;
+            width: 240px;
+            height: 150px;
+            margin: 75px auto;
+            padding-bottom: 20px;
+        }
+        }
+            
+            
+            
+        .FormFooter{
+            color: white;
+            font-weight: 500;
+            @include media-breakpoint('xs') {
+                font-size: 12px;
+            }
+        }
+    }
+}

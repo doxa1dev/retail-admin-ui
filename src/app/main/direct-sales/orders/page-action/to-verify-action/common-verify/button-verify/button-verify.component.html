@@ -1,0 +1,33 @@
+<div class="to-verify">
+  <div class="button-mark-as-verified">
+
+    <!-- <button [disabled]="fullOrder.checkOrderLock && checkLock == 2"
+        [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'verified-button' "
+        mat-raised-button color="primary"
+        (click)="dialogNavigateToShip()" aria-label="View">
+        Mark As Verified
+    </button> -->
+    <app-button-loading
+      [disabledBtn]="(fullOrder.checkOrderLock && checkLock == 2)"
+      [active]="active"
+      [buttonName]="buttonName" (click)="dialogNavigateToShip()">
+    </app-button-loading>
+
+    <mat-error class="error-message"
+    style="float: right; margin-bottom: 10px; display: block; margin-top: -15px;"
+    *ngIf="isShow">
+      Please assign an advisor for this order.
+    </mat-error>
+
+  </div>
+
+
+  <div class="button-cancel">
+    <button  mat-raised-button color="primary"
+        [ngClass]= "(fullOrder.checkOrderLock && checkLock == 2) ? 'disable' : 'cancel-button'  "
+        [disabled]="fullOrder.checkOrderLock && checkLock == 2"
+        (click)="navigateToCancel()" aria-label="View">
+        Cancel Order
+    </button>
+  </div>
+</div>

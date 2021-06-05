@@ -1,0 +1,28 @@
+<h1 matDialogTitle class="title">CONFIRM</h1>
+<hr>
+<div mat-dialog-content class="message">{{confirmMessage}}</div>
+<div mat-dialog-content class="warning" *ngIf="warningMessage != undefined">{{warningMessage}}</div>
+
+<div *ngIf="type ==='REJECTED' " mat-dialog-actions class="pt-rejected">
+    <button class="ok-button" mat-raised-button (click)="dialogRef.close(true)">OK</button>
+    <button class="cancel-button" mat-button
+        (click)="dialogRef.close(false)">CANCEL</button>
+</div>
+
+<div *ngIf="type ==='CANCEL' " mat-dialog-actions class="pt-rejected">
+    <button class="ok-button" mat-raised-button (click)="dialogRef.close(true)">YES</button>
+    <button class="cancel-button" mat-button
+        (click)="dialogRef.close(false)">NO</button>
+</div>
+
+<div *ngIf="type === 'APPROVED'" mat-dialog-actions class="pt-approved">
+    <button class="cancel-button-1" mat-button (click)="dialogRef.close(false)">CANCEL</button>
+    <button class="ok-button" mat-raised-button (click)="dialogRef.close(true)">OK</button>
+</div>
+
+<div *ngIf="type === 'ACCEPTED'" mat-dialog-actions class="pt-accepted center">
+    <button class="ok-button" mat-raised-button (click)="dialogRef.close(true)">OK</button>
+</div>
+
+
+

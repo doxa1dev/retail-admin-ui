@@ -1,0 +1,10 @@
+<h1 matDialogTitle class="title">{{title}}</h1>
+<hr>
+<div mat-dialog-content class="message">{{confirmMessage}}</div>
+<div mat-dialog-actions class="pt-24">
+    <button class="ok-button1 ok-button2"   [style.background-color]= "colorButton ? buttonRed : buttonGreen "
+    mat-raised-button (click)="dialogRef.close(true)">
+    {{buttonName}}
+    </button>
+</div>
+

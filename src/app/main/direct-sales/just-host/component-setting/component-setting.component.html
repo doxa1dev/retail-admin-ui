@@ -1,0 +1,84 @@
+<div class="just-host-container">
+    <div class="just-host-title">
+        Setting
+    </div>
+    <div class="just-host-content">
+        <div class="setting-container">
+            <div class="setting-content" [formGroup]="settingForm">
+                <button mat-raised-button class="button-add" (click)="addJustHost()">Add Just Host</button>
+                <div class="setting-status">
+                </div>
+                <ng-container *ngFor="let justHostPackage of settingForm.get('justHosts')['controls']; let i = index"
+                    [formGroup]="justHostPackage">
+                    <div class="just-host-row">
+                        <div class="just-host-status">
+                            <mat-slide-toggle [checked]="justHostPackage.value.isActive"
+                                [ngClass]="justHostPackage.value.isActive ? 'status-active' : 'status-inactive'"
+                                formControlName="isActive">
+                                {{justHostPackage.value.isActive ? 'Active' : 'Inactive'}}
+                            </mat-slide-toggle>
+                        </div>
+                        <div class="content-row">
+                            <div class="label">
+                                Host Gift
+                            </div>
+                            <div class="value">
+                                <p-dropdown filter="true" [options]="justHosts" placeholder="Select Just Host"
+                                    optionLabel="label" [filter]="true" filterBy="label" [showClear]="true"
+                                    formControlName="justHost">
+                                </p-dropdown>
+                                <ng-container *ngIf="justHostPackage.controls.justHost.invalid && showError">
+                                    <div class="invalid-feedback">
+                                        Just Host is required.
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="justHostPackage.value.justHost">
+                                    <div class="result">
+                                        {{justHostPackage.value.justHost.label}}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="content-row">
+                            <div class="label">
+                                Just Host Component
+                            </div>
+                            <div class="value">
+                                <p-multiSelect [virtualScroll]="true" [defaultLabel]="'Select Just Host Component'"
+                                    [options]="justHostComponents" filterBy="label" formControlName="justHostComponent">
+                                </p-multiSelect>
+                                <ng-container *ngIf="justHostPackage.controls.justHostComponent.invalid && showError">
+                                    <div class="invalid-feedback">
+                                        Just Host Component is required.
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="justHostPackage.value.justHostComponent.length > 0">
+                                    <div *ngFor="let item of justHostPackage.value.justHostComponent">
+                                        <div class="result">
+                                            {{item.label}}
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="settingForm.get('justHosts').length > 1">
+                            <button mat-raised-button class="button-remove" (click)="deleteJustHost(i)">Remove Just
+                                Host</button>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="history-container">
+            <div class="history-content">
+                <div class="history-content__header">Update History</div>
+                <hr />
+                <app-timeline [histories]="histories"></app-timeline>
+            </div>
+        </div>
+    </div>
+    <div class="just-host-footer">
+        <button mat-raised-button class="button-cancel" (click)="ngOnInit()">CANCEL</button>
+        <mat-bar-button [options]="barButtonOptions" (btnClick)="save()"></mat-bar-button>
+    </div>
+</div>

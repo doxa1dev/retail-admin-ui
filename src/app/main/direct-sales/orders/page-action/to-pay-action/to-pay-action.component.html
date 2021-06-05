@@ -1,0 +1,488 @@
+<div class="container">
+  <div class="order">
+    <div class="text">
+      <div class="link-icons" *ngIf="fullOrder !== undefined">
+        <mat-icon (click)="back()">chevron_left</mat-icon>
+        <a href="javascript:void(0);">Order #{{fullOrder.orderIdTmm}}</a>
+        <div class="orderAt">
+          <p>Ordered at {{orderAt| date :'dd/MM/yyyy HH:mm'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="name-page">
+      <mat-card class="name">
+        <p>{{namePage}}</p>
+      </mat-card>
+    </div>
+    <div class="lock">
+      <mat-slide-toggle [checked]="checkedLock" (change)="checkLockOrder($event)" color="warn">{{lockOrderTitle}}</mat-slide-toggle>
+      <p *ngIf="checkedLock">By {{lockBy}} - at {{lockTime | date: "hh:mm"}}</p>
+    </div>
+  </div>
+  <div class="detail">
+    <!-- left -->
+    <div class="left" *ngIf="fullOrder !== undefined">
+      <div class="product">
+        <div class="list-product">
+          <app-order-list-product [paid]="paid"
+          [listProduct]="fullOrder.listProduct"
+          (onChangePriceProduct)='onChangePrice()'
+          [checkLock] = "checkLock"
+          [checkOrderLock] = "fullOrder.checkOrderLock"
+          [orderId]="fullOrder.id"
+          >
+          </app-order-list-product>
+        </div>
+        <app-button [orderId]="order_id"
+            [pendingPayment] = "pendingPayment"
+            [fullOrder]="fullOrder"
+            [checkLock] = "checkLock"
+            ></app-button>
+      </div>
+
+      <div class=" amount-payment">
+        <div id="table">
+          <ag-grid-angular style="width: 97%; height: 180px;" class="ag-theme-balham" [rowData]="fullOrder.payment"
+            [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" (gridSizeChanged)="onGridSizeChanged($event)"
+            [gridOptions]="gridOptions" [overlayNoRowsTemplate]="noRowsTemplate" [modules]="modules">
+          </ag-grid-angular>
+          <div *ngIf="isRequeryingPaymentStatus && !isPaymentStatusRequeryError" class="form-submitting-alert">
+            <p>
+              Processing your request... Please wait a moment.
+            </p>
+          </div>
+          <div *ngIf="!isRequeryingPaymentStatus && isPaymentStatusRequeryError" class="form-submitting-alert">
+            <p class="error">
+              There was an error processing your request. Please try again later.
+            </p>
+          </div>
+        </div>
+        <div id="payment">
+          <div id="left">
+            <div id="pending">Pending Payment:</div>
+            <div id="paid">Paid:</div>
+          </div>
+          <div id="right">
+            <div id="pending">{{pendingPayment| currency: fullOrder.currency+" "}}</div>
+            <div id="paid">{{paid| currency: fullOrder.currency+" "}}</div>
+          </div>
+        </div>
+        <div id="verification">
+          <div id="left">
+            <div id="pending">Pending Verification:</div>
+            <div id="verified">Verified:</div>
+          </div>
+          <div id="right">
+            <div id="pending">{{pendingVerified| currency: fullOrder.currency+" "}}</div>
+            <div id="verified">{{verified| currency: fullOrder.currency+" "}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="header">
+          <p>Timeline</p>
+          <hr>
+        </div>
+        <app-timeline [histories]="fullOrder.history" [customerName]='this.customerName'></app-timeline>
+      </div>
+    </div>
+    <!-- right -->
+    <div class="right" *ngIf="fullOrder !== undefined">
+      <div class="payment-info">
+        <div class="header">Payment Information</div>
+        <div class="full-payment-detail">
+          <div class="AAA">
+            <p id="left">Shipping:</p>
+            <p id="right">{{fullOrder.shippingFee| currency:" "}}</p>
+          </div>
+          <div class="BBB">
+            <p id="left">Subtotal:</p>
+            <p id="right">{{fullOrder.subtotal| currency:" "}}</p>
+          </div>
+          <div class="BBB">
+            <p id="left">Tax:</p>
+            <p id="right">{{fullOrder.tax| currency:" "}} </p>
+          </div>
+          <div class="CCC">
+            <p id="left">Total:</p>
+            <p id="right">{{fullOrder.totalAmount | currency: fullOrder.currency+" "}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="payment-method">
+        <div class="inside">
+          <div id="header">Payment Method</div>
+          <div id="method" *ngIf='methodPaymentList.length === 0'>Unpaid</div>
+          <div id="method" *ngIf='methodPaymentList.length != 0'>
+            <div *ngFor="let method of methodPaymentList">
+              <p style="margin-top: 3px; margin-bottom: 0px;">{{method}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shipping-method"  [style]="style_shipping_location">
+        <div class="inside" >
+          <div id="header">Shipping Method</div>
+
+          <!-- Change Shipping MY -->
+          <div class="change-shipping-my" *ngIf="nation_code === 'MY'">
+
+            <div *ngIf="fullOrder.shipping.shippingMethod === 'SELF_COLLECT'">
+              <div id="method">By Self Collect</div>
+            </div>
+
+            <div *ngIf="fullOrder.shipping.shippingMethod === 'BY_COURRIER' && !fullOrder.shipping.isManualShipping">
+              <div id="method">By Courier</div>
+            </div>
+
+            <div *ngIf="fullOrder.shipping.shippingMethod === 'BY_COURRIER' && fullOrder.shipping.isManualShipping">
+              <div id="method">By Thermomix</div>
+            </div>
+
+            <p (click)="showChangeShippingForm()">Change</p>
+          </div>
+
+          <!-- From change Shipping MY -->
+          <div *ngIf="nation_code === 'MY'">
+            <div class="shipping-form-my" *ngIf="isShowShipping">
+              <p-dropdown [options]="shippingMethodArr" optionLabel="label"
+              [ngModel]='shippingMethod' (onChange)="onChangeShipping($event)"></p-dropdown>
+
+              <button (click)="changeShipping()">Save Change</button>
+            </div>
+          </div>
+
+           <!-- Change Shipping SG -->
+          <div class="change-shipping-sg" *ngIf="nation_code === 'SG'">
+            <div class="shipping-method">
+              <div *ngIf="fullOrder.shipping.shippingMethod === 'SELF_COLLECT'">
+                <div id="method">By Self Collect</div>
+              </div>
+
+              <div *ngIf="checkShowShipByCourier()">
+                <div id="method">By Courier</div>
+              </div>
+
+              <div *ngIf="checkShowShipByThermomix()">
+                <div id="method">By Thermomix</div>
+              </div>
+
+              <div *ngIf="specificDateTimeForm.get('deliverMethod').value.value === 3">
+                <div id="method">By Qxpress</div>
+              </div>
+
+              <p (click)="showChangeShippingForm()">Change</p>
+            </div>
+
+            <div *ngIf="!isShowShipping && shippingData.sdId != null">
+              <p class="delivery-text">Delivery Type:<span style="padding-left: 10px;">{{deliveryTypeText}}</span></p>
+
+              <div class="dedicated-form">
+                <p>Dedicated Date</p>
+                <p class="text-input">{{shippingData.specialDelivery.select_date}}</p>
+              </div>
+
+              <div class="dedicated-form" style="margin-top: -10px;" *ngIf="specificDateTimeForm.get('deliverType').value.value != 1">
+                <p>Dedicated Time</p>
+                <p class="text-input">{{shippingData.specialDelivery.select_time}}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- From change Shipping SG -->
+          <div *ngIf="nation_code === 'SG'">
+            <div class="shipping-form-sg" *ngIf="isShowShipping" [formGroup]='specificDateTimeForm'>
+              <p style="margin-top: 0px;">Delivery type:</p>
+
+              <p-dropdown [options]="deliveryTypeArr" optionLabel="label" formControlName='deliverType'
+              (onChange)="onChangeDeliveryType($event)" placeholder="Select Delivery Type"></p-dropdown>
+
+              <p>Deliver by:</p>
+              <p-dropdown [options]="deliverByFilter" optionLabel="label" formControlName='deliverMethod'
+              (onChange)="onChangeDeliveryBy()" placeholder="Select Delivery By"></p-dropdown>
+              <mat-error class="error-message" style="margin-left: 5px; display: block;"
+              *ngIf="specificDateTimeForm.controls.deliverMethod.hasError('required') && isShowShippingError">
+              Deliver By is required
+              </mat-error>
+
+              <div *ngIf="!isCheckDeliveryType">
+                <div class="dedicated-form">
+                  <p>Dedicated Date</p>
+                  <p-calendar *ngIf="specificDateTimeForm.get('deliverType').value.value === 1" dateFormat="DD, dd/mm/yy" appendTo="body"
+                  [minDate]='maxDateShip' (onSelect)="onChangeDate($event)" placeholder='Select Day' [showOtherMonths]="false"
+                  [readonlyInput]="true" [showIcon]='true' [disabledDays]='[0,1]' [disabledDates]='publicHolidayArr'
+                  formControlName='specificDate' (onMonthChange)='onYearChange($event)'></p-calendar>
+
+                  <p-calendar *ngIf="specificDateTimeForm.get('deliverType').value.value === 2
+                  && (specificDateTimeForm.get('deliverMethod').value.value === 2 || specificDateTimeForm.get('deliverMethod').value == '')" dateFormat="DD, dd/mm/yy" appendTo="body"
+                   [minDate]='maxDateShip' (onSelect)="onChangeDate($event)" placeholder='Select Day' [showOtherMonths]="false"
+                  [readonlyInput]="true" [showIcon]='true' [disabledDays]='[0]' [disabledDates]='publicHolidayArr'
+                  formControlName='specificDate' [maxDate]='maxDateShipMAX' (onMonthChange)='onYearChange($event)'></p-calendar>
+
+                  <p-calendar *ngIf="specificDateTimeForm.get('deliverType').value.value === 2
+                  && specificDateTimeForm.get('deliverMethod').value.value === 3" dateFormat="DD, dd/mm/yy" appendTo="body"
+                  [minDate]='maxDateShip' (onSelect)="onChangeDate($event)" placeholder='Select Day' [showOtherMonths]="false"
+                 [readonlyInput]="true" [showIcon]='true' [disabledDays]='[0, 6]' [disabledDates]='publicHolidayArr'
+                 formControlName='specificDate' [maxDate]='maxDateShipMAX' (onMonthChange)='onYearChange($event)'></p-calendar>
+                </div>
+                <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                *ngIf="specificDateTimeForm.controls.specificDate.hasError('required') && isShowShippingError">
+                Date is required
+                </mat-error>
+
+                <div class="dedicated-form" *ngIf="!isShowTime">
+                  <p>Dedicated Time</p>
+                  <p-dropdown [options]="timeOption" optionLabel="{{specificDateTimeForm.get('deliverMethod').value.data === 'BY_QXPRESS' ? 'DEL_TIME_SLOT' : 'time_slot'}}"
+                  formControlName='specificTime' (onChange)="onChangeShipping($event)" placeholder='Select Time'></p-dropdown>
+                </div>
+                <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                *ngIf="specificDateTimeForm.controls.specificTime.hasError('required') && isShowShippingError">
+                Time is required
+                </mat-error>
+              </div>
+
+              <button class="btn-change-ship" (click)="saveShippingSpecial()">Save Change</button>
+            </div>
+          </div>
+
+
+          <!-- <div id="method" *ngIf="!shipping_method">By Courier</div> -->
+          <div id="note" *ngIf="fullOrder.shipping.customerNotes">Note: {{fullOrder.shipping.customerNotes}}</div>
+          <div id="note"  *ngIf="fullOrder.shipping.shipping_location_name">Shipping Location: {{fullOrder.shipping.shipping_location_name}}  </div>
+
+        </div>
+      </div>
+
+      <!-- check lại css nhé -->
+      <div class="delivery-address">
+        <div class="infos">
+          <p><b>Delivery Address</b></p>
+          <p id="p">{{ fullOrder.deliveryAddress.firstName + " " + fullOrder.deliveryAddress.lastName }}</p>
+          <p id="p">{{ displayAddress }}</p>
+          <p id="p">{{ displayStateCountry }}</p>
+        </div>
+        <div class="messages">
+          <mat-icon svgIcon="messages-order" id="icons"></mat-icon>
+          <mat-card id="card">
+            <p>{{ fullOrder.deliveryAddress.email }}</p>
+          </mat-card>
+        </div>
+        <div class="phone">
+          <mat-icon svgIcon="phone-order" id="icons"></mat-icon>
+          <mat-card id="card">
+            <p>{{'(' + fullOrder.deliveryAddress.phoneDialCode+ ") " + fullOrder.deliveryAddress.phoneNumber}}</p>
+          </mat-card>
+        </div>
+
+      </div>
+
+      <div class="customer-info">
+        <div class="inside">
+          <div class="header">
+            <p id="text-customer">Customer Information</p>
+            <p id="text-view" style="cursor: pointer;" (click)="showCustomerInformation()">Change</p>
+          </div>
+          <div *ngIf="!isShowCustomerInformation" id="method">
+            <p style="margin-top: 5px;margin-bottom: 5px;">Full name: {{fullOrder.customerInformation.firstName + " " +fullOrder.customerInformation.lastName}}</p>
+
+            <div class="address-customer" style="width: 310px;">
+              <span style="word-break: break-word;">Email: {{fullOrder.customerInformation.email}}</span><br>
+            </div>
+            <div class="address-customer" style="width: 310px;margin-top: 5px;">
+              <span style="word-break: break-word;">Phone number: {{"(+" + fullOrder.customerInformation.phoneDialCode + ") " +fullOrder.customerInformation.phoneNumber}}</span>
+            </div>
+            <div class="address-customer" style="width: 310px;margin-top: 5px;">
+              <span style="word-break: break-word;">Address: {{fullOrder.customerInformation.address_line1 + " " +fullOrder.customerInformation.address_line2 + " " +fullOrder.customerInformation.address_line3 + " " + showStateCountry}}</span>
+            </div>
+          </div>
+           <!-- Customer Information Form -->
+            <div class="delivery-address">
+              <div *ngIf="isShowCustomerInformation">
+                <div class="form-edit-address">
+      
+                  <form novalidate  [formGroup]="customerInforEditForm" (ngSubmit)="updateCustomerInfor()">
+                    <div >
+                      <div class="customer-information" >
+                        <p class="title-edit-customer-info"><b>Edit Customer Information</b></p>
+                        <div class="form-group-2">
+                          <p>Full name:</p>
+                          <input class="form-control input-custom" placeholder="First Name"
+                            formControlName="fullNameInfor">
+                        </div>
+                        <p>Phone number:</p>
+                        <div class="phone">
+                          <div class="phone-dial-code">
+                            <div >
+                              <app-dialCode class="select-custom"  [SelectedDial]="deliveryDialCodeInfor">
+                              </app-dialCode>
+                            </div>
+                          </div>
+                          <input class="form-control input-custom" placeholder="Phone Number"
+                            formControlName="phoneNumberInfor" maxlength="12">
+                        </div>
+                        <div style="margin-top: -15px;">
+                        </div>
+      
+                        <div class="form-group-2">
+                          <p>Address Line 1:</p>
+                          <input class="form-control input-custom" placeholder="Address Line 1"
+                            formControlName="addressLine1Infor">
+                        </div>
+      
+                        <div class="form-group-2">
+                          <p>Address Line 2:</p>
+                          <input class="form-control input-custom" placeholder="Address Line 2"
+                            formControlName="addressLine2Infor">
+                        </div>
+      
+                        <div class="form-group-2">
+                          <p>Address Line 3:</p>
+                          <input class="form-control input-custom" placeholder="Address Line 3"
+                            formControlName="addressLine3Infor">
+                        </div>
+      
+                        <div class="form-group-2">
+                          <p>Postal code:</p>
+                          <input class="form-control input-custom" placeholder="Postal Code"
+                            formControlName="postalCodeInfor">
+                        </div>
+
+                          <div class="form-group-2">
+                            <p>State:</p>
+                            <mat-form-field appearance="none" [ngStyle]="{'background-color': nation_code =='MY' ? 'white' : 'none' }">
+                              <mat-select [disabled]="nation_code =='MY' ? false : true"
+                                [(ngModel)]="city_state_code_infor" formControlName="stateCodeInfor" placeholder="State Code">
+                                <div *ngFor="let state of stateCodeToNameFormOptions | keyvalue:keepOriginalOrder">
+                                  <mat-option value="{{state.key}}">{{state.value}}
+                                  </mat-option>
+                                </div>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        
+                          <div class="form-group-2">
+                            <p>Country:</p>
+                            <input [attr.disabled]="true" class="input-custom" [(value)]="countryName">
+                          </div>
+                        <div>
+                          <button mat-button class="btn-color-custom">Save Change</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="shipping-info">
+        <div class="inside">
+          <div id="header">Shipping Information</div>
+          <div *ngIf="fullOrder.shipping.shippingMethod === 'SELF_COLLECT'" id="self-collect">
+            <div id="method">Delivered by SELF COLLECTION</div>
+            <!-- <div id="footer">Collection Date:
+              {{fullOrder.shipping.customerSelectedShippingDate | date :'dd/MM/yyyy'}}</div> -->
+          </div>
+          <div *ngIf="fullOrder.shipping.shippingMethod === 'BY_COURRIER'" id="by-courier">
+            <p id="footer">Pending selection of shipping agent.</p>
+          </div>
+        </div>
+      </div>
+<!--
+      <div class="advisor" *ngIf="fullOrder.advisorCustomer">
+        <div class="inside">
+          <div id="header">Advisor</div>
+          <div id="method" *ngIf="fullOrder.advisorCustomer.preferredName">{{fullOrder.advisorCustomer.preferredName}}
+            (ID: {{fullOrder.advisorCustomer.advisorIdNumber}})</div>
+          <div id="method" *ngIf="!fullOrder.advisorCustomer.preferredName">{{fullOrder.advisorCustomer.firtName}} (ID:
+            {{fullOrder.advisorCustomer.advisorIdNumber}})</div>
+        </div>
+
+        <img class="img-advisor" src="{{advisorImage}}">
+      </div> -->
+
+
+      <div class="advisor" *ngIf="fullOrder.is_need_advisor">
+
+        <div *ngIf="fullOrder.advisorCustomer">
+          <div class="inside">
+            <div class="infomation">
+              <div id="header">Advisor</div>
+              <div id="method" *ngIf="fullOrder.advisorCustomer.preferredName">{{fullOrder.advisorCustomer.preferredName}}
+                (ID: {{fullOrder.advisorCustomer.advisorIdNumber}})</div>
+              <div id="method" *ngIf="!fullOrder.advisorCustomer.preferredName">{{fullOrder.advisorCustomer.firtName}} (ID:
+                {{fullOrder.advisorCustomer.advisorIdNumber}})</div>
+            </div>
+            <img class="img-advisor" src="{{advisorImage}}">
+
+          </div>
+          <div class="btn-edit">
+
+            <!-- <button class="button-edit" *ngIf="isAssign" style="width: 20%;"
+            (click)='showEditAdvisor()'>Edit</button> -->
+          </div>
+
+
+          <div class="search-advisor" *ngIf="isShowEdit">
+            <p style="margin-bottom: 6px;">Advisor ID</p>
+            <input class="search-id" [(ngModel)]="advisorId" (ngModelChange)="searchAdvisorId($event)" style="width: 80%;" required numbersOnly>
+            <p style="margin-bottom: 6px;">Advisor Name</p>
+            <input class="search-id" disabled style="background-color: #F5F5F5; width: 80%;" value="{{advisorName}}">
+
+            <button type="button" style="width: 80%;cursor: pointer;"
+             type="submit" [disabled]="advisorName.length==0" (click)="editAdvisor()" [ngClass]=" advisorName.length == 0 ? 'btn-submit-disabled':'btn-submit' " >Submit
+          </button>
+          </div>
+
+        </div>
+
+        <div *ngIf="!fullOrder.advisorCustomer && fullOrder.is_naep_order == false" >
+          <div class="inside">
+            <div class="infomation-assign">
+              <div id="header">Advisor</div>
+              <p style="color: var(--red-color)"> Not Assigned</p>
+              <div id="header">Customer's Remarks: </div>
+              <p style="margin: 8px 0px;">Advisor Full Name</p>
+              <input class="search-id" disabled style="background-color: #F5F5F5; width: 80%;" [(ngModel)]="remask_advisor_name"   numberOnly>
+
+              <p style="margin: 8px 0px;">Advisor Phone Number</p>
+              <input class="search-id" disabled style="background-color: #F5F5F5; width: 80%;" [(ngModel)]="remask_advisor_phone"   numberOnly>
+
+              <p style="margin: 8px 0px;">Advisor ID</p>
+              <input class="search-id" disabled style="background-color: #F5F5F5; width: 80%;" [(ngModel)]="remask_advisor_id"   numberOnly>
+              <button [disabled]="fullOrder.checkOrderLock && checkLock == 2"
+              [ngClass]= "'btn-assign-advisor'"
+              (click)='assignAdvisor()'
+              *ngIf="advisorName === null || advisorName === undefined || advisorName === '' ">Assign Advisor</button>
+            </div>
+
+          </div>
+
+          <div class="search-advisor" *ngIf="isShowSearch">
+            <p style="margin-bottom: 6px;">Advisor ID</p>
+            <input class="search-id" [(ngModel)]="advisorId" (ngModelChange)="searchAdvisorId($event)" style="width: 80%;" numbersOnly>
+            <p style="margin-bottom: 6px;">Advisor Name</p>
+            <input class="search-id" disabled style="background-color: #F5F5F5; width: 80%;" value="{{advisorName}}">
+            <!-- <div class="search-img">
+              <img src="{{advisorImg}}" *ngIf="advisorImg !== ''; else elseBlock">
+              <ng-template #elseBlock>
+                <img src="{{advisorImage}}">
+              </ng-template>
+            </div> -->
+            <button type="button" style="width: 80%;"
+             type="submit"   (click)="addAdvisor()" [disabled]="advisorName.length==0 " [ngClass]=" advisorName.length == 0 ? 'btn-submit-disabled':'btn-submit' ">Submit
+          </button>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div>

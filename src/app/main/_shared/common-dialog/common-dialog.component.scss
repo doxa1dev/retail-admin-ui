@@ -1,0 +1,51 @@
+.title {
+  font-size: 16px;
+  font-weight: 600 !important;
+  margin-top: -10px;
+  color: #5a616f !important;
+}
+hr {
+  margin-top: 10px;
+  background-color: #5a616f !important;
+}
+.message {
+  padding-top: 6px;
+  font-size: 16px;
+  color: #5a616f !important;
+}
+.pt-24 {
+  text-align: center;
+  padding-bottom: 0px;
+
+  .ok-button1 {
+    cursor: pointer;
+    border-radius: 8px;
+    height: 45px;
+    text-align: center;
+    width: 144px;
+    background-color: #de3535;
+    color: white !important;
+    border: 0px solid;
+
+    @media only screen and (max-width: 350px) {
+      padding-left: 35px !important;
+      padding-right: 35px !important;
+    }
+  }
+
+  .ok-button2 {
+    cursor: pointer;
+    border-radius: 8px;
+    height: 45px;
+    text-align: center;
+    width: 144px;
+    background-color: #269A3E;
+    color: white !important;
+    border: 0px solid;
+
+    @media only screen and (max-width: 350px) {
+      padding-left: 35px !important;
+      padding-right: 35px !important;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+  <!-- Nếu là thanh MAIN hay MULTISALE -->
+<div class="navbar-top" *ngIf='show' [ngClass]="fuseConfig.layout.navbar.primaryBackground">
+
+  <div class="logo" *ngIf="isShow" fxShow.gt-xs fxShow.gt-sm>
+      <mat-icon class="icon" svgIcon="menu-navbar" (click)="onclick()"></mat-icon>
+  </div>
+
+  <div class="text" *ngIf="isShow && show" >
+    <!-- <div class="doxa" >doxa</div>
+    <div class="slogan" >Let's talk business</div> -->
+    <div>
+      <img class="doxa-logo" src="assets/DoxaImages/logo_white.png">
+    </div>
+  </div>
+
+  <div>
+    <button mat-icon-button class="toggle-sidebar-folded" (click)="toggleSidebarFolded()" *ngIf="isShow" fxHide.lt-lg>
+      <mat-icon class="secondary-text">chevron_left</mat-icon>
+    </button>
+    <button mat-icon-button class="toggle-sidebar-folded" (click)="toggleSidebarFolded()" *ngIf="!isShow" fxHide.lt-lg>
+      <mat-icon class="secondary-text">chevron_right</mat-icon>
+    </button>
+  </div>
+</div>
+<!-- End  thanh MAIN hay MULTISALE -->
+
+<!-- Nếu là thanh MODULES -->
+<div class="navbar-top" *ngIf='!show' [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
+
+  <div class="logo" *ngIf="isShow">
+    <mat-icon class="icon" svgIcon="menu-navbar" (click)="onclick()"></mat-icon>
+  </div>
+
+  <div class="text" *ngIf="isShow && show" >
+    <div class="doxa" >doxa</div>
+    <div class="slogan" >Let's talk business</div>
+  </div>
+
+  <div>
+    <button mat-icon-button class="toggle-sidebar-folded" (click)="toggleSidebarFolded()" *ngIf="isShow" fxHide.lt-lg>
+      <mat-icon class="secondary-text">chevron_left</mat-icon>
+    </button>
+    <button mat-icon-button class="toggle-sidebar-folded" (click)="toggleSidebarFolded()" *ngIf="!isShow" fxHide.lt-lg>
+      <mat-icon class="secondary-text">chevron_right</mat-icon>
+    </button>
+  </div>
+</div>
+<!-- END thanh MODULES -->
+
+<!-- Nếu là thanh MAIN hay MULTISALE -->
+<div class="navbar-scroll-container" *ngIf='show' [ngClass]="fuseConfig.layout.navbar.primaryBackground" >
+
+  <div class="navbar-content">
+    <fuse-navigation class="material2" layout="vertical"></fuse-navigation>
+  </div>
+
+
+</div>
+<!-- End  thanh MAIN hay MULTISALE -->
+
+
+<!-- Nếu là thanh MODULES -->
+<div class="navbar-scroll-container" *ngIf='!show' [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
+
+  <div class="navbar-content">
+    <fuse-navigation class="material2" layout="vertical"></fuse-navigation>
+  </div>
+
+</div>
+<!-- END thanh MODULES -->
